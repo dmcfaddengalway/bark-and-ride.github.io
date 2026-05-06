@@ -7,17 +7,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #1a5c2a;
-    --navy-dark: #0d3d1a;
-    --navy-mid: #226b33;
-    --gold: #F5A800;
-    --gold-light: #FFD060;
-    --gold-dark: #C88500;
+    --green-dark: #006233;
+    --green-mid: #008542;
+    --green-light: #78BE20;
+    --green-lime: #9DD629;
+    --gold: #78BE20;
+    --gold-light: #9DD629;
+    --gold-dark: #5a9418;
     --white: #ffffff;
-    --off-white: #f2f7f3;
-    --light-grey: #e6f0e9;
-    --text-dark: #0a1f0e;
-    --text-muted: #3d6147;
+    --off-white: #f3f8f0;
+    --light-grey: #e8f3e0;
+    --text-dark: #032b16;
+    --text-muted: #2d5c3a;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -36,9 +37,10 @@
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 100;
-    background: rgba(13, 61, 26, 0.97);
+    background: rgba(0, 98, 51, 0.97);
     backdrop-filter: blur(8px);
-    border-bottom: 2px solid var(--gold);
+    border-bottom: 3px solid transparent;
+    border-image: linear-gradient(to right, #006233, #78BE20) 1;
     padding: 0 40px;
     display: flex;
     align-items: center;
@@ -65,7 +67,7 @@
     margin: 0 12px;
   }
 
-  .nav-logo span { color: var(--gold); }
+  .nav-logo span { color: var(--green-lime); }
 
   .nav-links {
     display: flex;
@@ -89,21 +91,21 @@
   .nav-links a:hover { color: var(--gold); }
 
   .nav-cta {
-    background: var(--gold) !important;
-    color: var(--navy-dark) !important;
+    background: linear-gradient(135deg, #78BE20, #9DD629) !important;
+    color: var(--green-dark) !important;
     padding: 8px 20px !important;
     font-weight: 700 !important;
-    transition: background 0.2s, transform 0.1s !important;
+    transition: opacity 0.2s, transform 0.1s !important;
   }
 
-  .nav-cta:hover { background: var(--gold-light) !important; transform: translateY(-1px); }
+  .nav-cta:hover { opacity: 0.88 !important; transform: translateY(-1px); }
 
   /* ── HERO ── */
   .hero {
     height: 100vh;
     min-height: 680px;
     background:
-      linear-gradient(160deg, rgba(13,61,26,0.88) 0%, rgba(26,92,42,0.70) 50%, rgba(13,61,26,0.92) 100%),
+      linear-gradient(150deg, rgba(0,98,51,0.90) 0%, rgba(0,133,66,0.75) 40%, rgba(120,190,32,0.65) 100%),
       url('https://www.tourdeburren.com/wp-content/uploads/2024/12/IMG_3441-2-1.jpg') center/cover no-repeat;
     display: flex;
     flex-direction: column;
@@ -128,7 +130,7 @@
     font-weight: 600;
     letter-spacing: 5px;
     text-transform: uppercase;
-    color: var(--gold);
+    color: var(--green-lime);
     margin-bottom: 20px;
     animation: fadeUp 0.8s ease both;
   }
