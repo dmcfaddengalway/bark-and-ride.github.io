@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bark & Ride 2026 – Irish Guide Dogs Charity Cycle</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1a5c2a;
+    --navy-dark: #0d3d1a;
+    --navy-mid: #226b33;
+    --gold: #F5A800;
+    --gold-light: #FFD060;
+    --gold-dark: #C88500;
+    --white: #ffffff;
+    --off-white: #f2f7f3;
+    --light-grey: #e6f0e9;
+    --text-dark: #0a1f0e;
+    --text-muted: #3d6147;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--white);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(13, 61, 26, 0.97);
+    backdrop-filter: blur(8px);
+    border-bottom: 2px solid var(--gold);
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: var(--white);
+    letter-spacing: 3px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .nav-logo-divider {
+    display: inline-block;
+    width: 1px;
+    height: 28px;
+    background: rgba(255,255,255,0.25);
+    margin: 0 12px;
+  }
+
+  .nav-logo span { color: var(--gold); }
+
+  .nav-links {
+    display: flex;
+    gap: 8px;
+    list-style: none;
+    align-items: center;
+  }
+
+  .nav-links a {
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 10px;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  .nav-cta {
+    background: var(--gold) !important;
+    color: var(--navy-dark) !important;
+    padding: 8px 20px !important;
+    font-weight: 700 !important;
+    transition: background 0.2s, transform 0.1s !important;
+  }
+
+  .nav-cta:hover { background: var(--gold-light) !important; transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    height: 100vh;
+    min-height: 680px;
+    background:
+      linear-gradient(160deg, rgba(13,61,26,0.88) 0%, rgba(26,92,42,0.70) 50%, rgba(13,61,26,0.92) 100%),
+      url('https://www.tourdeburren.com/wp-content/uploads/2024/12/IMG_3441-2-1.jpg') center/cover no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 120px;
+    background: linear-gradient(to top, var(--white), transparent);
+  }
+
+  .hero-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 10vw, 9rem);
+    line-height: 0.92;
+    color: var(--white);
+    letter-spacing: 4px;
+    animation: fadeUp 0.9s 0.1s ease both;
+    max-width: 900px;
+  }
+
+  .hero h1 em {
+    font-style: normal;
+    color: var(--gold);
+    display: block;
+  }
+
+  .hero-sub {
+    margin-top: 24px;
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.85);
+    letter-spacing: 0.5px;
+    animation: fadeUp 1s 0.2s ease both;
+  }
+
+  .hero-sub strong {
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  .hero-actions {
+    margin-top: 36px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    animation: fadeUp 1s 0.3s ease both;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--navy-dark);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 14px 36px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 100%, 12px 100%);
+  }
+
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 13px 34px;
+    text-decoration: none;
+    border: 2px solid rgba(255,255,255,0.5);
+    transition: border-color 0.2s, color 0.2s;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 100%, 12px 100%);
+  }
+
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── TICKER BAND ── */
+  .ticker-band {
+    background: var(--gold);
+    overflow: hidden;
+    height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  .ticker-inner {
+    display: flex;
+    gap: 0;
+    white-space: nowrap;
+    animation: ticker 28s linear infinite;
+  }
+
+  .ticker-item {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--navy-dark);
+    padding: 0 48px;
+  }
+
+  .ticker-sep {
+    color: var(--navy-mid);
+    font-size: 1.2rem;
+    line-height: 44px;
+  }
+
+  @keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ── COUNTDOWN ── */
+  .countdown-section {
+    background: var(--navy-dark);
+    padding: 60px 40px;
+    text-align: center;
+    position: relative;
+  }
+
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+
+  .countdown-section h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem;
+    color: var(--white);
+    letter-spacing: 4px;
+    margin-bottom: 40px;
+  }
+
+  .countdown-grid {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .countdown-unit {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(245,168,0,0.3);
+    padding: 24px 32px;
+    min-width: 120px;
+    position: relative;
+  }
+
+  .countdown-unit::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--gold);
+  }
+
+  .count-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    color: var(--gold);
+    line-height: 1;
+    display: block;
+  }
+
+  .count-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-top: 6px;
+  }
+
+  /* ── INTRO ── */
+  .intro-section {
+    padding: 100px 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .intro-text .section-label { color: var(--navy); }
+
+  .intro-text h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    line-height: 0.95;
+    color: var(--navy-dark);
+    letter-spacing: 2px;
+    margin-bottom: 24px;
+  }
+
+  .intro-text p {
+    color: var(--text-muted);
+    line-height: 1.75;
+    font-size: 1rem;
+    font-weight: 300;
+    margin-bottom: 16px;
+  }
+
+  .intro-text em { color: var(--navy); font-style: italic; font-weight: 400; }
+
+  .intro-text a.btn-navy {
+    display: inline-block;
+    margin-top: 20px;
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    padding: 12px 30px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .intro-text a.btn-navy:hover { background: var(--navy-mid); }
+
+  .intro-image {
+    position: relative;
+  }
+
+  .intro-image img {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .intro-image::before {
+    content: '';
+    position: absolute;
+    top: -16px; left: -16px;
+    right: 16px; bottom: 16px;
+    border: 3px solid var(--gold);
+    z-index: -1;
+  }
+
+  /* ── ROUTES ── */
+  .routes-section {
+    background: var(--light-grey);
+    padding: 100px 40px;
+  }
+
+  .routes-section .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .routes-section h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.8rem;
+    color: var(--navy-dark);
+    letter-spacing: 3px;
+    margin-top: 8px;
+  }
+
+  .routes-section h2 span { color: var(--gold-dark); }
+
+  .routes-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .route-card {
+    background: var(--navy-dark);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    aspect-ratio: 3/4;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .route-card-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.5s ease;
+    filter: brightness(0.55) saturate(0.6);
+  }
+
+  .route-card:hover .route-card-bg { transform: scale(1.06); filter: brightness(0.45) saturate(0.5); }
+
+  .route-card-content {
+    position: relative;
+    z-index: 2;
+    padding: 24px 20px;
+    background: linear-gradient(to top, rgba(0,20,50,0.95) 0%, transparent 100%);
+  }
+
+  .route-distance {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.8rem;
+    color: var(--gold);
+    line-height: 1;
+    display: block;
+  }
+
+  .route-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .route-tag {
+    display: inline-block;
+    margin-top: 10px;
+    background: var(--gold);
+    color: var(--navy-dark);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+  }
+
+  /* ── EXPERIENCE BAND ── */
+  .experience-band {
+    background: var(--navy);
+    padding: 80px 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .experience-text {
+    padding: 40px 60px 40px 80px;
+    max-width: 600px;
+    margin-left: auto;
+  }
+
+  .experience-text .section-label { color: var(--gold); }
+
+  .experience-text h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    color: var(--white);
+    letter-spacing: 3px;
+    margin: 12px 0 24px;
+    line-height: 1;
+  }
+
+  .experience-text p {
+    color: rgba(255,255,255,0.7);
+    line-height: 1.75;
+    font-weight: 300;
+    margin-bottom: 30px;
+  }
+
+  .experience-image {
+    position: relative;
+    overflow: hidden;
+    min-height: 400px;
+  }
+
+  .experience-image img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.75) saturate(0.8);
+  }
+
+  .experience-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, var(--navy) 0%, transparent 30%);
+  }
+
+  /* ── GALLERY ── */
+  .gallery-section {
+    padding: 100px 40px;
+    background: var(--white);
+  }
+
+  .gallery-section .section-header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .gallery-section h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    color: var(--navy-dark);
+    letter-spacing: 3px;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 240px 240px;
+    gap: 12px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .gallery-item {
+    overflow: hidden;
+    position: relative;
+    background: var(--light-grey);
+  }
+
+  .gallery-item:first-child {
+    grid-row: span 2;
+  }
+
+  .gallery-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease, filter 0.3s;
+    filter: brightness(0.9) saturate(0.85);
+  }
+
+  .gallery-item:hover img { transform: scale(1.07); filter: brightness(0.8) saturate(1.1); }
+
+  .gallery-item::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 0px solid var(--gold);
+    transition: border-width 0.2s;
+    pointer-events: none;
+  }
+
+  .gallery-item:hover::after { border-width: 4px; }
+
+  .gallery-cta {
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  /* ── CHARITY ── */
+  .charity-section {
+    background: var(--off-white);
+    padding: 90px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .charity-section::before {
+    content: '★';
+    position: absolute;
+    font-size: 24rem;
+    color: rgba(0,51,102,0.04);
+    top: -60px; right: -60px;
+    font-family: 'Bebas Neue', sans-serif;
+  }
+
+  .charity-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .charity-inner .section-label { color: var(--navy); }
+
+  .charity-inner h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    color: var(--navy-dark);
+    letter-spacing: 3px;
+    margin: 10px 0 24px;
+  }
+
+  .charity-inner p {
+    color: var(--text-muted);
+    line-height: 1.8;
+    font-weight: 300;
+    font-size: 1rem;
+    margin-bottom: 16px;
+  }
+
+  .charity-partner-badge {
+    display: inline-block;
+    margin-top: 30px;
+    background: var(--navy-dark);
+    color: var(--gold);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    letter-spacing: 2px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    padding: 12px 28px;
+    text-decoration: none;
+    border: 2px solid var(--navy-dark);
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .charity-partner-badge:hover { background: transparent; color: var(--navy-dark); }
+
+  /* ── STATS ── */
+  .stats-band {
+    background: var(--gold);
+    padding: 50px 40px;
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    flex-wrap: wrap;
+  }
+
+  .stat-item { text-align: center; }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    color: var(--navy-dark);
+    line-height: 1;
+    display: block;
+  }
+
+  .stat-desc {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--navy-mid);
+  }
+
+  /* ── NEWSLETTER ── */
+  .newsletter-section {
+    background: var(--navy-dark);
+    padding: 70px 40px;
+    text-align: center;
+  }
+
+  .newsletter-section .section-label { color: var(--gold); }
+
+  .newsletter-section h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    color: var(--white);
+    letter-spacing: 3px;
+    margin: 10px 0 30px;
+  }
+
+  .newsletter-form {
+    display: flex;
+    max-width: 480px;
+    margin: 0 auto;
+    gap: 0;
+  }
+
+  .newsletter-form input {
+    flex: 1;
+    padding: 14px 20px;
+    border: 2px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.07);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .newsletter-form input::placeholder { color: rgba(255,255,255,0.4); }
+  .newsletter-form input:focus { border-color: var(--gold); }
+
+  .newsletter-form button {
+    background: var(--gold);
+    color: var(--navy-dark);
+    border: none;
+    padding: 14px 28px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .newsletter-form button:hover { background: var(--gold-light); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--text-dark);
+    padding: 60px 40px 30px;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .footer-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    gap: 50px;
+    padding-bottom: 50px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .footer-brand .logo-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--white);
+    letter-spacing: 3px;
+    margin-bottom: 16px;
+  }
+
+  .footer-brand .logo-text span { color: var(--gold); }
+
+  .footer-brand p {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    font-weight: 300;
+    max-width: 260px;
+    margin-bottom: 20px;
+  }
+
+  .social-links { display: flex; gap: 10px; }
+
+  .social-link {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(255,255,255,0.2);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .social-link:hover { border-color: var(--gold); color: var(--gold); }
+
+  .footer-col h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+
+  .footer-col ul { list-style: none; }
+
+  .footer-col li {
+    margin-bottom: 8px;
+  }
+
+  .footer-col a {
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 300;
+    transition: color 0.2s;
+  }
+
+  .footer-col a:hover { color: var(--gold); }
+
+  .footer-bottom {
+    max-width: 1100px;
+    margin: 28px auto 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.3);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .footer-bottom span { color: var(--gold); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .routes-grid { grid-template-columns: repeat(2, 1fr); }
+    .intro-section { grid-template-columns: 1fr; gap: 50px; }
+    .experience-band { grid-template-columns: 1fr; }
+    .experience-text { padding: 50px 30px; max-width: 100%; margin: 0; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; }
+    .gallery-item:first-child { grid-row: span 1; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+  }
+
+  @media (max-width: 600px) {
+    .routes-grid { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+    .stats-band { gap: 40px; }
+    .footer-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="https://www.guidedogs.ie/img/f/291065883890237/596x176/b169668a73/guidedogs-logo-50th-horizontal.png/m/596x0/smart/filters:format(webp):quality(65)" alt="Irish Guide Dogs" style="height:36px; width:auto; filter: brightness(0) invert(1);">
+    <span class="nav-logo-divider"></span>
+    Bark &amp; <span>Ride</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#routes">Routes</a></li>
+    <li><a href="#locations">Locations</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#charity">Charity</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#register" class="nav-cta">Register</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Irish Guide Dogs Charity Cycle</div>
+  <h1>Pedal for<em>a Brighter World</em></h1>
+  <p class="hero-sub">
+    In aid of Irish Guide Dogs for the Blind &nbsp;·&nbsp; <strong>Saturday 20th June 2026</strong>
+  </p>
+  <div class="hero-actions">
+    <a href="#register" class="btn-primary">Register Now</a>
+    <a href="#routes" class="btn-outline">View Routes</a>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-band">
+  <div class="ticker-inner" id="ticker">
+    <span class="ticker-item">Bark &amp; Ride 2026</span><span class="ticker-sep">◆</span>
+    <span class="ticker-item">20th June 2026</span><span class="ticker-sep">◆</span>
+    <span class="ticker-item">In Aid of Irish Guide Dogs</span><span class="ticker-sep">◆</span>
+    <span class="ticker-item">4 Routes for Every Rider</span><span class="ticker-sep">◆</span>
+    <span class="ticker-item">Register Today</span><span class="ticker-sep">◆</span>
+    <span class="ticker-item">Every Kilometre Counts</span><span class="ticker-sep">◆</span>
+    <span class="ticker-item">Bark &amp; Ride 2026</span><span class="ticker-sep">◆</span>
+    <span class="ticker-item">20th June 2026</span><span class="ticker-sep">◆</span>
+    <span class="ticker-item">In Aid of Irish Guide Dogs</span><span class="ticker-sep">◆</span>
+    <span class="ticker-item">4 Routes for Every Rider</span><span class="ticker-sep">◆</span>
+    <span class="ticker-item">Register Today</span><span class="ticker-sep">◆</span>
+    <span class="ticker-item">Every Kilometre Counts</span><span class="ticker-sep">◆</span>
+  </div>
+</div>
+
+<!-- COUNTDOWN -->
+<section class="countdown-section">
+  <div class="section-label">Mark Your Calendar</div>
+  <h2>Countdown to Bark &amp; Ride 2026</h2>
+  <div class="countdown-grid" id="countdown">
+    <div class="countdown-unit"><span class="count-num" id="days">45</span><div class="count-label">Days</div></div>
+    <div class="countdown-unit"><span class="count-num" id="hours">12</span><div class="count-label">Hours</div></div>
+    <div class="countdown-unit"><span class="count-num" id="minutes">33</span><div class="count-label">Minutes</div></div>
+    <div class="countdown-unit"><span class="count-num" id="seconds">07</span><div class="count-label">Seconds</div></div>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section class="intro-section" id="about">
+  <div class="intro-text">
+    <div class="section-label">About the Event</div>
+    <h2>Ride for Those Who Can't See the Road Ahead</h2>
+    <p>Bark & Ride is a charity cycling event held in support of Irish Guide Dogs for the Blind — an organisation that transforms the lives of people with vision impairment and families of children with autism across Ireland.</p>
+    <p>Whether you're a seasoned cyclist or taking on your first sportive, Bark & Ride offers a route for every rider. Pedal through the breathtaking landscapes of Co. Clare, knowing that every kilometre completed brings independence, confidence and freedom to someone who needs it most.</p>
+    <p><em>Clip in. Roll out. Change a life.</em></p>
+    <a href="#register" class="btn-navy">Register Today</a>
+  </div>
+  <div class="intro-image">
+    <img src="https://www.tourdeburren.com/wp-content/uploads/2024/01/Tour-de-Burren-gallery7.jpg" alt="Cyclists on the Burren">
+  </div>
+</section>
+
+<!-- ROUTES -->
+<section class="routes-section" id="routes">
+  <div class="section-header">
+    <div class="section-label">Choose Your Challenge</div>
+    <h2>Find Your <span>Route</span></h2>
+  </div>
+  <div class="routes-grid">
+    <div class="route-card">
+      <div class="route-card-bg" style="background-image: url('https://www.tourdeburren.com/wp-content/uploads/2024/01/Routes-Hero_card-Wild-Burren-768x1032.jpg')"></div>
+      <div class="route-card-content">
+        <span class="route-distance">160<small style="font-size:1.4rem">km</small></span>
+        <div class="route-name">an Boireann Mór</div>
+        <span class="route-tag">Elite Challenge</span>
+      </div>
+    </div>
+    <div class="route-card">
+      <div class="route-card-bg" style="background-image: url('https://www.tourdeburren.com/wp-content/uploads/2024/01/Routes-Hero_card-Aillwee-route-768x1032.jpg')"></div>
+      <div class="route-card-content">
+        <span class="route-distance">120<small style="font-size:1.4rem">km</small></span>
+        <div class="route-name">An Karst</div>
+        <span class="route-tag">Intermediate</span>
+      </div>
+    </div>
+    <div class="route-card">
+      <div class="route-card-bg" style="background-image: url('https://www.tourdeburren.com/wp-content/uploads/2024/01/Routes-Hero_card-giants-playground-768x1032.jpg')"></div>
+      <div class="route-card-content">
+        <span class="route-distance">80<small style="font-size:1.4rem">km</small></span>
+        <div class="route-name">An Boireann Béag</div>
+        <span class="route-tag">Sportive</span>
+      </div>
+    </div>
+    <div class="route-card">
+      <div class="route-card-bg" style="background-image: url('https://www.tourdeburren.com/wp-content/uploads/2024/01/Routes-Hero_card-family-768x1032.jpg')"></div>
+      <div class="route-card-content">
+        <span class="route-distance">22<small style="font-size:1.4rem">km</small></span>
+        <div class="route-name">Dromore Family Spin</div>
+        <span class="route-tag">Family Friendly</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE BAND -->
+<section class="experience-band" id="locations">
+  <div class="experience-text">
+    <div class="section-label">The Course</div>
+    <h2>Stunning Roads, Stunning Purpose</h2>
+    <p>Bark & Ride takes you through some of Ireland's most spectacular scenery — from the ancient limestone pavements of the Burren to the dramatic coastline of the Wild Atlantic Way. It's a ride you'll never forget, in aid of a cause that matters.</p>
+    <a href="#" class="btn-primary" style="display:inline-block">Explore the Course</a>
+  </div>
+  <div class="experience-image">
+    <img src="https://www.tourdeburren.com/wp-content/uploads/2024/12/IMG_3441-2-1.jpg" alt="Burren landscape">
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-band">
+  <div class="stat-item">
+    <span class="stat-num">4</span>
+    <div class="stat-desc">Route Options</div>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">160km</span>
+    <div class="stat-desc">Max Distance</div>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">200+</span>
+    <div class="stat-desc">Guide Dogs Trained Each Year</div>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">50+</span>
+    <div class="stat-desc">Years Changing Lives</div>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<section class="gallery-section" id="gallery">
+  <div class="section-header">
+    <div class="section-label">Race Gallery</div>
+    <h2>The Ride in Pictures</h2>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item">
+      <img src="https://www.tourdeburren.com/wp-content/uploads/2024/01/Tour-de-Burren-gallery7.jpg" alt="Gallery 1">
+    </div>
+    <div class="gallery-item">
+      <img src="https://www.tourdeburren.com/wp-content/uploads/2024/01/Tour-de-Burren-gallery6.jpg" alt="Gallery 2">
+    </div>
+    <div class="gallery-item">
+      <img src="https://www.tourdeburren.com/wp-content/uploads/2024/01/Tour-de-Burren-gallery5.jpg" alt="Gallery 3">
+    </div>
+    <div class="gallery-item">
+      <img src="https://www.tourdeburren.com/wp-content/uploads/2024/01/Tour-de-Burren-gallery3.jpg" alt="Gallery 4">
+    </div>
+    <div class="gallery-item">
+      <img src="https://www.tourdeburren.com/wp-content/uploads/2024/01/Tour-de-Burren-gallery2.jpg" alt="Gallery 5">
+    </div>
+  </div>
+  <div class="gallery-cta">
+    <a href="#" class="btn-primary" style="display:inline-block; margin-top:10px">View All Galleries</a>
+  </div>
+</section>
+
+<!-- CHARITY -->
+<section class="charity-section" id="charity">
+  <div class="charity-inner">
+    <div class="section-label">Why We Ride</div>
+    <h2>Every Pedal Stroke Makes a Difference</h2>
+    <p>Irish Guide Dogs for the Blind has been transforming lives in Ireland for over 50 years. From guide dogs that give independence to people with vision impairment, to assistance dogs that bring calm and connection to families of children with autism — the impact is life-changing.</p>
+    <p>All funds raised through Bark & Ride go directly to support the training, placement and aftercare of guide and assistance dogs across Ireland. Your entry fee, your fundraising, your effort — it all adds up to something truly meaningful.</p>
+    <a href="https://www.guidedogs.ie" class="charity-partner-badge">Visit Irish Guide Dogs</a>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter-section" id="contact">
+  <div class="section-label">Stay Connected</div>
+  <h2>Sign Up for Ride Updates</h2>
+  <div class="newsletter-form">
+    <input type="email" placeholder="Your email address">
+    <button type="submit">Subscribe</button>
+  </div>
+  <p style="margin-top:20px; font-size:0.85rem; color:rgba(255,255,255,0.4);">Get training tips, route updates, fundraising news and event info delivered straight to your inbox.</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo-text">Bark &amp; <span>Ride</span></div>
+      <p>A charity cycling event in aid of Irish Guide Dogs for the Blind — transforming lives across Ireland since 1976.</p>
+      <div class="social-links">
+        <a class="social-link" href="#" title="Facebook">f</a>
+        <a class="social-link" href="#" title="Twitter">𝕏</a>
+        <a class="social-link" href="#" title="Instagram">◎</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Links</h4>
+      <ul>
+        <li><a href="#">About</a></li>
+        <li><a href="#">FAQs</a></li>
+        <li><a href="#">Rider Zone</a></li>
+        <li><a href="#">Register</a></li>
+        <li><a href="#">Routes</a></li>
+        <li><a href="#">Galleries</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Routes</h4>
+      <ul>
+        <li><a href="#">an Boireann Mór 160km</a></li>
+        <li><a href="#">An Karst 120km</a></li>
+        <li><a href="#">An Boireann Béag 80km</a></li>
+        <li><a href="#">Dromore Family Spin 22km</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Event Details</h4>
+      <ul>
+        <li><a href="#">Saturday 20th June 2026</a></li>
+        <li><a href="#">Barefield, Co. Clare</a></li>
+        <li><a href="#">Online Entries Open</a></li>
+        <li><a href="#">Sponsors</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2026 Bark &amp; Ride. All rights reserved.</div>
+    <div>In aid of <span>Irish Guide Dogs for the Blind</span></div>
+  </div>
+</footer>
+
+<script>
+  // Countdown to June 20, 2026
+  function updateCountdown() {
+    const target = new Date('2026-06-20T08:00:00');
+    const now = new Date();
+    const diff = target - now;
+    if (diff <= 0) {
+      document.getElementById('days').textContent = '00';
+      document.getElementById('hours').textContent = '00';
+      document.getElementById('minutes').textContent = '00';
+      document.getElementById('seconds').textContent = '00';
+      return;
+    }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('days').textContent = String(d).padStart(2,'0');
+    document.getElementById('hours').textContent = String(h).padStart(2,'0');
+    document.getElementById('minutes').textContent = String(m).padStart(2,'0');
+    document.getElementById('seconds').textContent = String(s).padStart(2,'0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // Scroll-based nav highlight
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    if (window.scrollY > 80) {
+      nav.style.boxShadow = '0 4px 24px rgba(0,0,0,0.35)';
+    } else {
+      nav.style.boxShadow = 'none';
+    }
+  });
+</script>
+</body>
+</html>
