@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ – Bark & Ride 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-dark: #006233;
+    --green-mid: #008542;
+    --green-light: #78BE20;
+    --green-lime: #9DD629;
+    --white: #ffffff;
+    --off-white: #f3f8f0;
+    --light-grey: #e8f3e0;
+    --text-dark: #032b16;
+    --text-muted: #2d5c3a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--white);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(0, 98, 51, 0.97);
+    backdrop-filter: blur(8px);
+    border-bottom: 3px solid transparent;
+    border-image: linear-gradient(to right, #006233, #78BE20) 1;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: var(--white);
+    letter-spacing: 3px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .nav-logo-divider {
+    display: inline-block;
+    width: 1px;
+    height: 28px;
+    background: rgba(255,255,255,0.25);
+    margin: 0 12px;
+  }
+
+  .nav-logo span { color: var(--green-lime); }
+
+  .nav-links {
+    display: flex;
+    gap: 8px;
+    list-style: none;
+    align-items: center;
+  }
+
+  .nav-links a {
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 10px;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: #78BE20; }
+
+  .nav-dropdown { position: relative; }
+  .nav-dropdown > a { cursor: default; }
+  .nav-dropdown > a::after { content: ' ▾'; font-size: 0.7rem; opacity: 0.6; }
+
+  .nav-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    background: rgba(0, 70, 38, 0.97);
+    backdrop-filter: blur(8px);
+    min-width: 160px;
+    padding: 8px 0;
+    list-style: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(6px);
+    transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+    border-top: 2px solid #78BE20;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  }
+
+  .nav-dropdown:hover .nav-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .nav-dropdown-menu li a {
+    display: block;
+    padding: 10px 20px;
+    font-size: 0.8rem;
+    letter-spacing: 1.5px;
+    white-space: nowrap;
+  }
+
+  .nav-dropdown-menu li a:hover { background: rgba(255,255,255,0.08); }
+
+  .nav-cta {
+    background: linear-gradient(135deg, #78BE20, #9DD629) !important;
+    color: var(--green-dark) !important;
+    padding: 8px 20px !important;
+    font-weight: 700 !important;
+    transition: opacity 0.2s, transform 0.1s !important;
+  }
+
+  .nav-cta:hover { opacity: 0.88 !important; transform: translateY(-1px); }
+
+  /* ── PAGE HEADER ── */
+  .page-header {
+    padding: 140px 40px 60px;
+    background: linear-gradient(135deg, #006233 0%, #008542 50%, #78BE20 100%);
+    text-align: center;
+  }
+
+  .page-header-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 12px;
+  }
+
+  .page-header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 8vw, 5rem);
+    color: var(--white);
+    letter-spacing: 4px;
+    line-height: 1;
+  }
+
+  .page-header p {
+    margin-top: 16px;
+    color: rgba(255,255,255,0.8);
+    font-weight: 300;
+    font-size: 1.05rem;
+    max-width: 540px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ── FAQ SECTION ── */
+  .faq-section {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 70px 24px 100px;
+  }
+
+  .faq-category {
+    margin-bottom: 48px;
+  }
+
+  .faq-category-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: var(--green-dark);
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--light-grey);
+  }
+
+  /* ── ACCORDION ── */
+  .accordion-item {
+    border-bottom: 1px solid var(--light-grey);
+  }
+
+  .accordion-trigger {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 20px 40px 20px 0;
+    text-align: left;
+    cursor: pointer;
+    font-family: 'Barlow', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--text-dark);
+    line-height: 1.4;
+    position: relative;
+    transition: color 0.2s;
+  }
+
+  .accordion-trigger:hover { color: var(--green-dark); }
+
+  .accordion-trigger::after {
+    content: '+';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--green-light);
+    transition: transform 0.3s;
+  }
+
+  .accordion-item.open .accordion-trigger::after {
+    content: '−';
+  }
+
+  .accordion-item.open .accordion-trigger {
+    color: var(--green-dark);
+    font-weight: 600;
+  }
+
+  .accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.35s ease;
+    padding: 0 0;
+  }
+
+  .accordion-item.open .accordion-content {
+    max-height: 400px;
+    padding: 0 0 20px 0;
+  }
+
+  .accordion-content p {
+    color: var(--text-muted);
+    font-weight: 300;
+    font-size: 0.95rem;
+    line-height: 1.75;
+  }
+
+  .accordion-content p + p {
+    margin-top: 10px;
+  }
+
+  .accordion-content a {
+    color: var(--green-dark);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* ── CTA BAND ── */
+  .cta-band {
+    background: var(--off-white);
+    padding: 60px 40px;
+    text-align: center;
+  }
+
+  .cta-band p {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+
+  .cta-band p strong {
+    color: var(--green-dark);
+    font-weight: 700;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    background: linear-gradient(135deg, #006233 0%, #78BE20 100%);
+    color: var(--white);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 14px 36px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: filter 0.2s, transform 0.15s;
+  }
+
+  .btn-primary:hover { filter: brightness(0.85); transform: translateY(-2px); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--text-dark);
+    padding: 40px 40px 24px;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .footer-inner {
+    max-width: 780px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer-inner .logo-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    color: var(--white);
+    letter-spacing: 3px;
+  }
+
+  .footer-inner .logo-text span { color: #78BE20; }
+
+  .footer-inner p {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.35);
+  }
+
+  .footer-inner p span { color: #78BE20; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 0 16px; }
+    .nav-links { display: none; }
+    .nav-logo img { height: 28px !important; }
+    .page-header { padding: 120px 24px 50px; }
+    .faq-section { padding: 50px 20px 80px; }
+  }
+
+  @media (max-width: 600px) {
+    .page-header h1 { font-size: 2.8rem; }
+    .accordion-trigger { font-size: 0.95rem; padding: 16px 36px 16px 0; }
+    .faq-category-title { font-size: 1.5rem; }
+    .cta-band { padding: 50px 20px; }
+    footer { padding: 30px 20px 20px; }
+    .footer-inner { flex-direction: column; text-align: center; }
+  }
+
+  @media (max-width: 380px) {
+    .nav-logo { font-size: 1.4rem; }
+    .nav-logo img { height: 22px !important; }
+    .nav-logo-divider { margin: 0 6px; }
+    .page-header h1 { font-size: 2.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="tour-de-burren.html" class="nav-logo">
+    <img src="https://www.guidedogs.ie/img/f/291065883890237/596x176/b169668a73/guidedogs-logo-50th-horizontal.png/m/596x0/smart/filters:format(webp):quality(65)" alt="Irish Guide Dogs" style="height:36px; width:auto; filter: brightness(0) invert(1);">
+    <span class="nav-logo-divider"></span>
+    Bark &amp; <span>Ride</span>
+  </a>
+  <ul class="nav-links">
+    <li class="nav-dropdown">
+      <a href="#">About</a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="tour-de-burren.html#about">About Us</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+      </ul>
+    </li>
+    <li><a href="tour-de-burren.html#routes">Routes</a></li>
+    <li><a href="tour-de-burren.html#locations">Locations</a></li>
+    <li><a href="tour-de-burren.html#gallery">Gallery</a></li>
+    <li><a href="tour-de-burren.html#charity">Charity</a></li>
+    <li><a href="tour-de-burren.html#contact">Contact</a></li>
+    <li><a href="#register" class="nav-cta">Register</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+  <div class="page-header-label">Bark &amp; Ride 2026</div>
+  <h1>Frequently Asked Questions</h1>
+  <p>Everything you need to know before you clip in. Can't find what you're looking for? Drop us a message.</p>
+</section>
+
+<!-- FAQ CONTENT -->
+<div class="faq-section">
+
+  <!-- Category: Registration -->
+  <div class="faq-category">
+    <h2 class="faq-category-title">Registration &amp; Entry</h2>
+
+    <div class="accordion-item">
+      <button class="accordion-trigger">How do I register for Bark &amp; Ride?</button>
+      <div class="accordion-content">
+        <p>You can register online through the Register button on our website. Registration is open now and places are limited, so we recommend signing up early to secure your spot on your preferred route.</p>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-trigger">How much does entry cost?</button>
+      <div class="accordion-content">
+        <p>Entry fees vary by route. All entry fees include route support, food stops, mechanical support, event jersey collection, and a finisher's medal. All proceeds go directly to Irish Guide Dogs for the Blind.</p>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-trigger">Can I change my route after registering?</button>
+      <div class="accordion-content">
+        <p>Yes, you can change your route up to one week before the event by contacting us via email. Route changes on the day are not possible for safety and logistics reasons.</p>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-trigger">Is there an age limit for participants?</button>
+      <div class="accordion-content">
+        <p>Participants must be 16 or older for the 100km and 160km routes. The 50km route is open to riders aged 14 and above, provided they are accompanied by a registered adult.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Category: On the Day -->
+  <div class="faq-category">
+    <h2 class="faq-category-title">On the Day</h2>
+
+    <div class="accordion-item">
+      <button class="accordion-trigger">What time does the event start?</button>
+      <div class="accordion-content">
+        <p>Registration and sign-in opens at 6:30am. The 160km route departs at 7:30am, the 100km route at 8:00am, and the 50km route at 8:30am. We recommend arriving at least 45 minutes before your start time.</p>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-trigger">Where is the start/finish location?</button>
+      <div class="accordion-content">
+        <p>The event starts and finishes in Barefield, Co. Clare. Full directions and parking information will be sent to all registered participants one week before the event.</p>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-trigger">Are there food and water stops along the route?</button>
+      <div class="accordion-content">
+        <p>Yes. All routes have fully stocked food and water stops at regular intervals. You can expect water, energy drinks, bananas, flapjacks, and other snacks. The 160km route has four stops, the 100km has three, and the 50km has two.</p>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-trigger">Is there mechanical support on the route?</button>
+      <div class="accordion-content">
+        <p>Yes, roaming mechanical support vehicles patrol all routes throughout the event. They can assist with punctures, minor repairs, and if necessary, transport you and your bike back to the finish.</p>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-trigger">What happens if the weather is bad?</button>
+      <div class="accordion-content">
+        <p>The event runs rain or shine — this is Ireland after all! In the case of extreme weather conditions that pose a genuine safety risk, we may shorten or alter routes. Any changes will be communicated on the morning of the event.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Category: Your Bike & Gear -->
+  <div class="faq-category">
+    <h2 class="faq-category-title">Your Bike &amp; Gear</h2>
+
+    <div class="accordion-item">
+      <button class="accordion-trigger">What type of bike do I need?</button>
+      <div class="accordion-content">
+        <p>A road bike is recommended for all routes. Hybrid or gravel bikes are fine for the 50km route. E-bikes are welcome on all routes. Mountain bikes and bikes with bar-end extensions are not permitted for safety reasons.</p>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-trigger">Is a helmet mandatory?</button>
+      <div class="accordion-content">
+        <p>Yes, absolutely. A properly fitted, CE-certified cycling helmet is mandatory for all participants on all routes. You will not be permitted to start without one — no exceptions.</p>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-trigger">What should I bring on the day?</button>
+      <div class="accordion-content">
+        <p>We recommend: your bike (in good working order), helmet, spare inner tubes, tyre levers, a pump or CO2 inflator, a rain jacket, filled water bottles, and your phone with an emergency contact saved. Your event number must be visible on your bike at all times.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Category: Fundraising & Charity -->
+  <div class="faq-category">
+    <h2 class="faq-category-title">Fundraising &amp; Charity</h2>
+
+    <div class="accordion-item">
+      <button class="accordion-trigger">Is there a minimum fundraising target?</button>
+      <div class="accordion-content">
+        <p>There is no mandatory fundraising minimum — your entry fee alone makes a meaningful contribution to Irish Guide Dogs. However, if you'd like to raise additional funds, we provide every participant with a personal fundraising page and tips to help you reach your goal.</p>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-trigger">Where does the money go?</button>
+      <div class="accordion-content">
+        <p>All proceeds go directly to Irish Guide Dogs for the Blind. This funds the training and placement of guide dogs for people with vision impairment, and assistance dogs for families of children with autism. It costs approximately €50,000 to train and place a single guide dog.</p>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-trigger">Can I set up a team fundraising page?</button>
+      <div class="accordion-content">
+        <p>Yes! When you register, you can create or join a team. Each team gets a shared fundraising page alongside individual pages. It's a great way to motivate each other and track your collective impact.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- CTA BAND -->
+<section class="cta-band">
+  <p><strong>Still have questions?</strong> Get in touch at barkandride@guidedogs.ie or find us on social media.</p>
+  <a href="tour-de-burren.html#register" class="btn-primary">Register Now</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="logo-text">Bark &amp; <span>Ride</span></div>
+    <p>© 2026 Bark &amp; Ride. In aid of <span>Irish Guide Dogs for the Blind</span></p>
+  </div>
+</footer>
+
+<script>
+  // Accordion functionality
+  document.querySelectorAll('.accordion-trigger').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const item = trigger.parentElement;
+      const isOpen = item.classList.contains('open');
+
+      // Close all items in the same category
+      item.closest('.faq-category').querySelectorAll('.accordion-item').forEach(i => {
+        i.classList.remove('open');
+      });
+
+      // Toggle the clicked one
+      if (!isOpen) {
+        item.classList.add('open');
+      }
+    });
+  });
+
+  // Nav scroll shadow
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    nav.style.boxShadow = window.scrollY > 80 ? '0 4px 24px rgba(0,0,0,0.35)' : 'none';
+  });
+</script>
+</body>
+</html>
