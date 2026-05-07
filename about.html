@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About – Bark &amp; Ride 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-dark: #006233;
+    --green-mid: #008542;
+    --green-light: #78BE20;
+    --green-lime: #9DD629;
+    --white: #ffffff;
+    --off-white: #f3f8f0;
+    --light-grey: #e8f3e0;
+    --text-dark: #032b16;
+    --text-muted: #2d5c3a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Barlow', sans-serif; background: var(--white); color: var(--text-dark); overflow-x: hidden; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(0, 98, 51, 0.97); backdrop-filter: blur(8px); border-bottom: 3px solid transparent; border-image: linear-gradient(to right, #006233, #78BE20) 1; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 68px; }
+  .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--white); letter-spacing: 3px; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+  .nav-logo-divider { display: inline-block; width: 1px; height: 28px; background: rgba(255,255,255,0.25); margin: 0 12px; }
+  .nav-logo span { color: var(--green-lime); }
+  .nav-links { display: flex; gap: 8px; list-style: none; align-items: center; }
+  .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; padding: 6px 10px; transition: color 0.2s; }
+  .nav-links a:hover { color: #78BE20; }
+  .nav-dropdown { position: relative; }
+  .nav-dropdown > a { cursor: default; }
+  .nav-dropdown > a::after { content: ' ▾'; font-size: 0.7rem; opacity: 0.6; }
+  .nav-dropdown-menu { position: absolute; top: calc(100% + 10px); left: 0; background: rgba(0, 70, 38, 0.97); backdrop-filter: blur(8px); min-width: 160px; padding: 8px 0; list-style: none; opacity: 0; visibility: hidden; transform: translateY(6px); transition: opacity 0.2s, transform 0.2s, visibility 0.2s; border-top: 2px solid #78BE20; box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+  .nav-dropdown:hover .nav-dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+  .nav-dropdown-menu li a { display: block; padding: 10px 20px; font-size: 0.8rem; letter-spacing: 1.5px; white-space: nowrap; }
+  .nav-dropdown-menu li a:hover { background: rgba(255,255,255,0.08); }
+  .nav-cta { background: linear-gradient(135deg, #78BE20, #9DD629) !important; color: var(--green-dark) !important; padding: 8px 20px !important; font-weight: 700 !important; transition: opacity 0.2s, transform 0.1s !important; }
+  .nav-cta:hover { opacity: 0.88 !important; transform: translateY(-1px); }
+
+  /* PAGE HEADER */
+  .page-header {
+    padding: 140px 40px 70px;
+    background: linear-gradient(135deg, #006233 0%, #008542 50%, #78BE20 100%);
+    text-align: center;
+  }
+  .page-header-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 12px;
+  }
+  .page-header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 8vw, 5rem);
+    color: var(--white);
+    letter-spacing: 4px;
+    line-height: 1;
+  }
+  .page-header p {
+    margin-top: 16px;
+    color: rgba(255,255,255,0.8);
+    font-weight: 300;
+    font-size: 1.05rem;
+    max-width: 580px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+
+  /* INTRO BLOCK */
+  .about-intro {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 80px 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .about-intro-text h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    color: var(--green-dark);
+    letter-spacing: 2px;
+    line-height: 1;
+    margin-bottom: 20px;
+  }
+  .about-intro-text p {
+    color: var(--text-muted);
+    font-weight: 300;
+    line-height: 1.8;
+    font-size: 1rem;
+    margin-bottom: 14px;
+  }
+  .about-intro-image {
+    position: relative;
+  }
+  .about-intro-image img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    display: block;
+  }
+  .about-intro-image::before {
+    content: '';
+    position: absolute;
+    top: -12px; left: -12px;
+    right: 12px; bottom: 12px;
+    border: 3px solid #78BE20;
+    z-index: -1;
+  }
+
+  /* STATS BAND */
+  .about-stats {
+    background: linear-gradient(to right, #006233, #78BE20);
+    padding: 45px 40px;
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    flex-wrap: wrap;
+  }
+  .about-stat { text-align: center; }
+  .about-stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.2rem;
+    color: var(--white);
+    line-height: 1;
+    display: block;
+  }
+  .about-stat-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    margin-top: 4px;
+  }
+
+  /* GUIDE DOGS SECTION */
+  .guide-dogs-section {
+    background: var(--off-white);
+    padding: 80px 40px;
+  }
+  .guide-dogs-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--green-dark);
+    margin-bottom: 10px;
+  }
+  .guide-dogs-inner h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    color: var(--green-dark);
+    letter-spacing: 2px;
+    line-height: 1;
+    margin-bottom: 24px;
+  }
+  .guide-dogs-inner > p {
+    color: var(--text-muted);
+    font-weight: 300;
+    line-height: 1.8;
+    font-size: 1rem;
+    margin-bottom: 14px;
+    max-width: 700px;
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 40px;
+  }
+  .service-card {
+    background: var(--white);
+    padding: 32px 28px;
+    border-top: 4px solid var(--green-light);
+    transition: transform 0.2s;
+  }
+  .service-card:hover { transform: translateY(-4px); }
+  .service-card h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--green-dark);
+    margin-bottom: 10px;
+  }
+  .service-card p {
+    color: var(--text-muted);
+    font-weight: 300;
+    font-size: 0.92rem;
+    line-height: 1.7;
+  }
+
+  /* VALUES SECTION */
+  .values-section {
+    padding: 80px 40px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .values-section h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    color: var(--green-dark);
+    letter-spacing: 2px;
+    line-height: 1;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+  .values-section > p {
+    text-align: center;
+    color: var(--text-muted);
+    font-weight: 300;
+    line-height: 1.7;
+    max-width: 560px;
+    margin: 0 auto 48px;
+  }
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .value-item {
+    text-align: center;
+    padding: 36px 24px;
+    background: var(--off-white);
+  }
+  .value-icon {
+    width: 52px;
+    height: 52px;
+    background: linear-gradient(135deg, #006233, #78BE20);
+    color: var(--white);
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+  }
+  .value-item h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    color: var(--green-dark);
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+  .value-item p {
+    color: var(--text-muted);
+    font-weight: 300;
+    font-size: 0.92rem;
+    line-height: 1.7;
+  }
+
+  /* EVENT INFO BAND */
+  .event-info-band {
+    background: var(--green-dark);
+    padding: 80px 40px;
+  }
+  .event-info-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .event-info-text .section-label { color: var(--green-lime); }
+  .event-info-text h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    color: var(--white);
+    letter-spacing: 2px;
+    line-height: 1;
+    margin: 10px 0 20px;
+  }
+  .event-info-text p {
+    color: rgba(255,255,255,0.7);
+    font-weight: 300;
+    line-height: 1.8;
+    font-size: 1rem;
+    margin-bottom: 14px;
+  }
+  .event-details-list {
+    list-style: none;
+    margin-top: 24px;
+  }
+  .event-details-list li {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin-bottom: 16px;
+  }
+  .event-details-list .detail-icon {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    background: var(--green-light);
+    color: var(--green-dark);
+    font-weight: 700;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .event-details-list .detail-text {
+    color: rgba(255,255,255,0.85);
+    font-size: 0.95rem;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+  .event-details-list .detail-text strong {
+    color: var(--white);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .event-info-image {
+    position: relative;
+    overflow: hidden;
+    min-height: 400px;
+  }
+  .event-info-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.85);
+  }
+
+  /* INVITE SECTION */
+  .invite-section {
+    padding: 80px 40px;
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .invite-section h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    color: var(--green-dark);
+    letter-spacing: 2px;
+    line-height: 1;
+    margin-bottom: 20px;
+  }
+  .invite-section p {
+    color: var(--text-muted);
+    font-weight: 300;
+    line-height: 1.8;
+    font-size: 1rem;
+    margin-bottom: 14px;
+  }
+  .invite-section em {
+    color: var(--green-dark);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  /* CTA BAND */
+  .cta-band {
+    background: linear-gradient(135deg, #006233 0%, #008542 50%, #78BE20 100%);
+    padding: 60px 40px;
+    text-align: center;
+  }
+  .cta-band h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    color: var(--white);
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+  }
+  .cta-band p {
+    color: rgba(255,255,255,0.8);
+    font-weight: 300;
+    margin-bottom: 24px;
+  }
+  .btn-white {
+    display: inline-block;
+    background: var(--white);
+    color: var(--green-dark);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 14px 36px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .btn-white:hover { background: rgba(255,255,255,0.88); }
+  .btn-primary {
+    display: inline-block;
+    background: linear-gradient(135deg, #006233 0%, #78BE20 100%);
+    color: var(--white);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 14px 36px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: filter 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { filter: brightness(0.85); transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer { background: var(--text-dark); padding: 40px 40px 24px; color: rgba(255,255,255,0.6); }
+  .footer-inner { max-width: 800px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .footer-inner .logo-text { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--white); letter-spacing: 3px; }
+  .footer-inner .logo-text span { color: #78BE20; }
+  .footer-inner p { font-size: 0.8rem; color: rgba(255,255,255,0.35); }
+  .footer-inner p span { color: #78BE20; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 0 16px; }
+    .nav-links { display: none; }
+    .nav-logo img { height: 28px !important; }
+    .page-header { padding: 120px 24px 50px; }
+    .about-intro { grid-template-columns: 1fr; gap: 40px; padding: 60px 24px; }
+    .about-intro-image { display: none; }
+    .services-grid { grid-template-columns: 1fr; }
+    .values-grid { grid-template-columns: 1fr; }
+    .event-info-inner { grid-template-columns: 1fr; }
+    .event-info-image { min-height: 260px; }
+  }
+  @media (max-width: 600px) {
+    .page-header h1 { font-size: 2.8rem; }
+    .about-intro-text h2 { font-size: 2rem; }
+    .about-stats { gap: 24px; flex-direction: column; align-items: center; padding: 36px 20px; }
+    .about-stat-num { font-size: 2.6rem; }
+    .guide-dogs-section { padding: 60px 20px; }
+    .values-section { padding: 60px 20px; }
+    .event-info-band { padding: 60px 20px; }
+    .invite-section { padding: 60px 20px; }
+    .cta-band { padding: 50px 20px; }
+    .cta-band h2 { font-size: 2rem; }
+    footer { padding: 30px 20px 20px; }
+    .footer-inner { flex-direction: column; text-align: center; }
+  }
+  @media (max-width: 380px) {
+    .nav-logo { font-size: 1.4rem; }
+    .nav-logo img { height: 22px !important; }
+    .nav-logo-divider { margin: 0 6px; }
+    .page-header h1 { font-size: 2.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="https://www.guidedogs.ie/img/f/291065883890237/596x176/b169668a73/guidedogs-logo-50th-horizontal.png/m/596x0/smart/filters:format(webp):quality(65)" alt="Irish Guide Dogs" style="height:36px; width:auto; filter: brightness(0) invert(1);">
+    <span class="nav-logo-divider"></span>
+    Bark &amp; <span>Ride</span>
+  </a>
+  <ul class="nav-links">
+    <li class="nav-dropdown">
+      <a href="#">About</a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+      </ul>
+    </li>
+    <li class="nav-dropdown">
+      <a href="index.html#routes">Routes</a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="route-60km.html">60km — An Boireann Béag</a></li>
+        <li><a href="route-90km.html">90km — An Karst</a></li>
+        <li><a href="route-125km.html">125km — An Boireann Mór</a></li>
+      </ul>
+    </li>
+    <li><a href="index.html#locations">Locations</a></li>
+    <li><a href="index.html#gallery">Gallery</a></li>
+    <li><a href="index.html#charity">Charity</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+    <li><a href="https://eventmaster.ie/event/Y9O2HrOFjv" target="_blank" class="nav-cta">Register</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+  <div class="page-header-label">Bark &amp; Ride 2026</div>
+  <h1>About Us</h1>
+  <p>A charity cycle in aid of Irish Guide Dogs for the Blind — bringing riders together to change lives, one kilometre at a time.</p>
+</section>
+
+<!-- INTRO -->
+<section class="about-intro">
+  <div class="about-intro-text">
+    <h2>The Ride. The Cause. The Community.</h2>
+    <p>Bark &amp; Ride is a charity cycling sportive held in Galway, Ireland, in support of Irish Guide Dogs for the Blind. Whether you're a seasoned cyclist or lacing up your cleats for the first time, this event brings people together for a day of incredible riding — and an even greater cause.</p>
+    <p>With three routes to choose from (60km, 90km, and 125km), riders of all levels are welcome. Every entry fee, every fundraised euro, and every kilometre pedalled goes directly to supporting the training and placement of guide dogs and assistance dogs across Ireland.</p>
+  </div>
+  <div class="about-intro-image">
+    <img src="https://www.tourdeburren.com/wp-content/uploads/2024/01/Tour-de-Burren-gallery7.jpg" alt="Cyclists riding together">
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="about-stats">
+  <div class="about-stat">
+    <span class="about-stat-num">3</span>
+    <div class="about-stat-label">Routes</div>
+  </div>
+  <div class="about-stat">
+    <span class="about-stat-num">400+</span>
+    <div class="about-stat-label">Active Guide &amp; Assistance Dogs</div>
+  </div>
+  <div class="about-stat">
+    <span class="about-stat-num">€5m+</span>
+    <div class="about-stat-label">Annual Cost to Run Irish Guide Dogs</div>
+  </div>
+  <div class="about-stat">
+    <span class="about-stat-num">Free</span>
+    <div class="about-stat-label">All Services to Clients</div>
+  </div>
+</div>
+
+<!-- GUIDE DOGS SECTION -->
+<section class="guide-dogs-section">
+  <div class="guide-dogs-inner">
+    <div class="section-label">Our Charity Partner</div>
+    <h2>One Community, Changing Lives</h2>
+    <p>Irish Guide Dogs for the Blind is Ireland's national charity dedicated to enabling people who are vision impaired and families of children with autism to achieve improved mobility and independence.</p>
+    <p>For over 40 years, they have worked with a community of breeders, puppy raisers, home socialisers, trainers, staff, volunteers and supporters to change as many lives as possible. All of their services are provided completely free of charge.</p>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <h3>Guide Dogs</h3>
+        <p>Highly trained dogs that provide safe, independent mobility for people with vision impairment — giving freedom, confidence and companionship.</p>
+      </div>
+      <div class="service-card">
+        <h3>Assistance Dogs</h3>
+        <p>Specially trained dogs placed with families of children with autism, providing safety, calming support and helping the whole family engage with their community.</p>
+      </div>
+      <div class="service-card">
+        <h3>Community Dogs</h3>
+        <p>Visiting teams that bring the therapeutic benefits of dogs to hospitals, care homes, schools and community groups throughout Ireland.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="values-section">
+  <div class="section-label" style="text-align:center">The Spirit of Bark &amp; Ride</div>
+  <h2>What We Stand For</h2>
+  <p>Our sportive is built on principles that make the ride as meaningful as the cause behind it.</p>
+
+  <div class="values-grid">
+    <div class="value-item">
+      <div class="value-icon">★</div>
+      <h3>Quality</h3>
+      <p>From fully stocked food stops to roaming mechanical support, every detail is considered. We want your ride to be world-class.</p>
+    </div>
+    <div class="value-item">
+      <div class="value-icon">◆</div>
+      <h3>Safety</h3>
+      <p>Route marshals, mechanical support vehicles, and clearly signed roads. We work within Cycling Ireland safety standards so you can focus on the ride.</p>
+    </div>
+    <div class="value-item">
+      <div class="value-icon">●</div>
+      <h3>Inclusivity</h3>
+      <p>Whether you're racing for a time, touring for the scenery, or just here for the craic — Bark &amp; Ride welcomes every kind of cyclist.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EVENT INFO -->
+<section class="event-info-band">
+  <div class="event-info-inner">
+    <div class="event-info-text">
+      <div class="section-label">Event Details</div>
+      <h2>Everything You Need to Know</h2>
+      <p>Bark &amp; Ride 2026 takes place in Galway, starting and finishing at The Connacht Hotel. Three routes lead riders out through some of the most spectacular cycling terrain in the west of Ireland.</p>
+
+      <ul class="event-details-list">
+        <li>
+          <span class="detail-icon">📅</span>
+          <div class="detail-text"><strong>Date</strong>Saturday 26th September 2026</div>
+        </li>
+        <li>
+          <span class="detail-icon">🕘</span>
+          <div class="detail-text"><strong>Start Time</strong>09:20 — all routes depart together</div>
+        </li>
+        <li>
+          <span class="detail-icon">📍</span>
+          <div class="detail-text"><strong>Start / Finish</strong>The Connacht Hotel, Dublin Road, Galway</div>
+        </li>
+        <li>
+          <span class="detail-icon">🚴</span>
+          <div class="detail-text"><strong>Routes</strong>60km (Beginner) · 90km (Intermediate) · 125km (Elite)</div>
+        </li>
+        <li>
+          <span class="detail-icon">🅿️</span>
+          <div class="detail-text"><strong>Parking</strong>Free on-site parking at The Connacht Hotel</div>
+        </li>
+      </ul>
+    </div>
+    <div class="event-info-image">
+      <img src="https://www.tourdeburren.com/wp-content/uploads/2024/12/IMG_3441-2-1.jpg" alt="Cycling scenery">
+    </div>
+  </div>
+</section>
+
+<!-- INVITE -->
+<section class="invite-section">
+  <div class="section-label" style="text-align:center">You Are Invited</div>
+  <h2>Clip In. Roll Out. Change a Life.</h2>
+  <p>Cyclists of all levels can participate. With three routes designed for beginners through to experienced sportive riders, there's a challenge for everyone. Bring your friends, bring your club, bring your family — and ride for something that truly matters.</p>
+  <p><em>Every kilometre you ride brings independence, confidence and freedom to someone who needs it most.</em></p>
+  <div style="margin-top:28px">
+    <a href="https://eventmaster.ie/event/Y9O2HrOFjv" target="_blank" class="btn-primary">Register Now</a>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="cta-band">
+  <h2>Learn More About Irish Guide Dogs</h2>
+  <p>Discover the incredible work behind every guide dog and assistance dog placement.</p>
+  <a href="https://www.guidedogs.ie/about-us" target="_blank" class="btn-white">Visit guidedogs.ie</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="logo-text">Bark &amp; <span>Ride</span></div>
+    <p>© 2026 Bark &amp; Ride. In aid of <span>Irish Guide Dogs for the Blind</span></p>
+  </div>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    nav.style.boxShadow = window.scrollY > 80 ? '0 4px 24px rgba(0,0,0,0.35)' : 'none';
+  });
+</script>
+</body>
+</html>
