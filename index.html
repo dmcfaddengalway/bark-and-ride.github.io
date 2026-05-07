@@ -88,7 +88,57 @@
     transition: color 0.2s;
   }
 
-  .nav-links a:hover { color: var(--gold); }
+  .nav-links a:hover { color: #78BE20; }
+
+  /* Dropdown */
+  .nav-dropdown {
+    position: relative;
+  }
+
+  .nav-dropdown > a {
+    cursor: default;
+  }
+
+  .nav-dropdown > a::after {
+    content: ' ▾';
+    font-size: 0.7rem;
+    opacity: 0.6;
+  }
+
+  .nav-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    background: rgba(0, 70, 38, 0.97);
+    backdrop-filter: blur(8px);
+    min-width: 160px;
+    padding: 8px 0;
+    list-style: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(6px);
+    transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+    border-top: 2px solid #78BE20;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  }
+
+  .nav-dropdown:hover .nav-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .nav-dropdown-menu li a {
+    display: block;
+    padding: 10px 20px;
+    font-size: 0.8rem;
+    letter-spacing: 1.5px;
+    white-space: nowrap;
+  }
+
+  .nav-dropdown-menu li a:hover {
+    background: rgba(255,255,255,0.08);
+  }
 
   .nav-cta {
     background: linear-gradient(135deg, #78BE20, #9DD629) !important;
@@ -155,14 +205,7 @@
     width: 85%;
     max-width: 520px;
     height: auto;
-    animation: logoFloat 6s ease-in-out infinite;
-    /* Remove the black background — multiply blends the image */
     filter: drop-shadow(0 0 40px rgba(0,98,51,0.6)) drop-shadow(0 0 80px rgba(120,190,32,0.25));
-  }
-
-  @keyframes logoFloat {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-14px); }
   }
 
   .hero-eyebrow {
@@ -239,11 +282,10 @@
     text-decoration: none;
     border: none;
     cursor: pointer;
-    transition: opacity 0.2s, transform 0.15s;
-    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 100%, 12px 100%);
+    transition: filter 0.2s, transform 0.15s;
   }
 
-  .btn-primary:hover { opacity: 0.88; transform: translateY(-2px); }
+  .btn-primary:hover { filter: brightness(0.85); transform: translateY(-2px); }
 
   .btn-outline {
     background: transparent;
@@ -257,10 +299,9 @@
     text-decoration: none;
     border: 2px solid rgba(255,255,255,0.5);
     transition: border-color 0.2s, color 0.2s;
-    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 100%, 12px 100%);
   }
 
-  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+  .btn-outline:hover { border-color: #78BE20; color: #78BE20; }
 
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(30px); }
@@ -281,6 +322,7 @@
     gap: 0;
     white-space: nowrap;
     animation: ticker 28s linear infinite;
+    align-items: center;
   }
 
   .ticker-item {
@@ -291,11 +333,12 @@
     text-transform: uppercase;
     color: var(--white);
     padding: 0 48px;
+    line-height: 44px;
   }
 
   .ticker-sep {
     color: rgba(255,255,255,0.5);
-    font-size: 1.2rem;
+    font-size: 0.7rem;
     line-height: 44px;
   }
 
@@ -408,16 +451,16 @@
     background: linear-gradient(135deg, #006233, #78BE20);
     color: var(--white);
     font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 2px;
     font-size: 0.9rem;
     text-transform: uppercase;
-    padding: 12px 30px;
+    padding: 14px 36px;
     text-decoration: none;
-    transition: opacity 0.2s;
+    transition: filter 0.2s, transform 0.15s;
   }
 
-  .intro-text a.btn-navy:hover { opacity: 0.85; }
+  .intro-text a.btn-navy:hover { filter: brightness(0.85); transform: translateY(-2px); }
 
   .intro-image {
     position: relative;
@@ -462,7 +505,7 @@
 
   .routes-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     max-width: 1200px;
     margin: 0 auto;
@@ -562,6 +605,23 @@
     font-weight: 300;
     margin-bottom: 30px;
   }
+
+  .btn-course {
+    display: inline-block;
+    background: var(--white);
+    color: var(--green-dark);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 12px 30px;
+    text-decoration: none;
+    border: none;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .btn-course:hover { background: rgba(255,255,255,0.85); }
 
   .experience-image {
     position: relative;
@@ -691,20 +751,20 @@
   .charity-partner-badge {
     display: inline-block;
     margin-top: 30px;
-    background: var(--green-dark);
-    color: var(--green-lime);
+    background: linear-gradient(135deg, #006233, #78BE20);
+    color: var(--white);
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 700;
     letter-spacing: 2px;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     text-transform: uppercase;
-    padding: 12px 28px;
+    padding: 14px 36px;
     text-decoration: none;
-    border: 2px solid var(--green-dark);
-    transition: background 0.2s, color 0.2s;
+    border: none;
+    transition: filter 0.2s, transform 0.15s;
   }
 
-  .charity-partner-badge:hover { background: transparent; color: var(--green-dark); }
+  .charity-partner-badge:hover { filter: brightness(0.85); transform: translateY(-2px); }
 
   /* ── STATS ── */
   .stats-band {
@@ -988,13 +1048,19 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">
+  <a href="index.html" class="nav-logo">
     <img src="https://www.guidedogs.ie/img/f/291065883890237/596x176/b169668a73/guidedogs-logo-50th-horizontal.png/m/596x0/smart/filters:format(webp):quality(65)" alt="Irish Guide Dogs" style="height:36px; width:auto; filter: brightness(0) invert(1);">
     <span class="nav-logo-divider"></span>
     Bark &amp; <span>Ride</span>
   </a>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
+    <li class="nav-dropdown">
+      <a href="#">About</a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="#about">About Us</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+      </ul>
+    </li>
     <li><a href="#routes">Routes</a></li>
     <li><a href="#locations">Locations</a></li>
     <li><a href="#gallery">Gallery</a></li>
@@ -1031,15 +1097,13 @@
     <span class="ticker-item">Bark &amp; Ride 2026</span><span class="ticker-sep">◆</span>
     <span class="ticker-item">20th June 2026</span><span class="ticker-sep">◆</span>
     <span class="ticker-item">In Aid of Irish Guide Dogs</span><span class="ticker-sep">◆</span>
-    <span class="ticker-item">4 Routes for Every Rider</span><span class="ticker-sep">◆</span>
+    <span class="ticker-item">3 Routes for Every Rider</span><span class="ticker-sep">◆</span>
     <span class="ticker-item">Register Today</span><span class="ticker-sep">◆</span>
-    <span class="ticker-item">Every Kilometre Counts</span><span class="ticker-sep">◆</span>
     <span class="ticker-item">Bark &amp; Ride 2026</span><span class="ticker-sep">◆</span>
     <span class="ticker-item">20th June 2026</span><span class="ticker-sep">◆</span>
     <span class="ticker-item">In Aid of Irish Guide Dogs</span><span class="ticker-sep">◆</span>
-    <span class="ticker-item">4 Routes for Every Rider</span><span class="ticker-sep">◆</span>
+    <span class="ticker-item">3 Routes for Every Rider</span><span class="ticker-sep">◆</span>
     <span class="ticker-item">Register Today</span><span class="ticker-sep">◆</span>
-    <span class="ticker-item">Every Kilometre Counts</span><span class="ticker-sep">◆</span>
   </div>
 </div>
 
@@ -1078,35 +1142,27 @@
   </div>
   <div class="routes-grid">
     <div class="route-card">
-      <div class="route-card-bg" style="background-image: url('https://www.tourdeburren.com/wp-content/uploads/2024/01/Routes-Hero_card-Wild-Burren-768x1032.jpg')"></div>
+      <div class="route-card-bg" style="background-image: url('https://www.tourdeburren.com/wp-content/uploads/2024/01/Routes-Hero_card-giants-playground-768x1032.jpg')"></div>
       <div class="route-card-content">
-        <span class="route-distance">160<small style="font-size:1.4rem">km</small></span>
-        <div class="route-name">an Boireann Mór</div>
-        <span class="route-tag">Elite Challenge</span>
+        <span class="route-distance">50<small style="font-size:1.4rem">km</small></span>
+        <div class="route-name">An Boireann Béag</div>
+        <span class="route-tag">Beginner</span>
       </div>
     </div>
     <div class="route-card">
       <div class="route-card-bg" style="background-image: url('https://www.tourdeburren.com/wp-content/uploads/2024/01/Routes-Hero_card-Aillwee-route-768x1032.jpg')"></div>
       <div class="route-card-content">
-        <span class="route-distance">120<small style="font-size:1.4rem">km</small></span>
+        <span class="route-distance">100<small style="font-size:1.4rem">km</small></span>
         <div class="route-name">An Karst</div>
         <span class="route-tag">Intermediate</span>
       </div>
     </div>
     <div class="route-card">
-      <div class="route-card-bg" style="background-image: url('https://www.tourdeburren.com/wp-content/uploads/2024/01/Routes-Hero_card-giants-playground-768x1032.jpg')"></div>
+      <div class="route-card-bg" style="background-image: url('https://www.tourdeburren.com/wp-content/uploads/2024/01/Routes-Hero_card-Wild-Burren-768x1032.jpg')"></div>
       <div class="route-card-content">
-        <span class="route-distance">80<small style="font-size:1.4rem">km</small></span>
-        <div class="route-name">An Boireann Béag</div>
-        <span class="route-tag">Sportive</span>
-      </div>
-    </div>
-    <div class="route-card">
-      <div class="route-card-bg" style="background-image: url('https://www.tourdeburren.com/wp-content/uploads/2024/01/Routes-Hero_card-family-768x1032.jpg')"></div>
-      <div class="route-card-content">
-        <span class="route-distance">22<small style="font-size:1.4rem">km</small></span>
-        <div class="route-name">Dromore Family Spin</div>
-        <span class="route-tag">Family Friendly</span>
+        <span class="route-distance">160<small style="font-size:1.4rem">km</small></span>
+        <div class="route-name">An Boireann Mór</div>
+        <span class="route-tag">Elite Challenge</span>
       </div>
     </div>
   </div>
@@ -1118,7 +1174,7 @@
     <div class="section-label">The Course</div>
     <h2>Stunning Roads, Stunning Purpose</h2>
     <p>Bark & Ride takes you through some of Ireland's most spectacular scenery — from the ancient limestone pavements of the Burren to the dramatic coastline of the Wild Atlantic Way. It's a ride you'll never forget, in aid of a cause that matters.</p>
-    <a href="#" class="btn-primary" style="display:inline-block">Explore the Course</a>
+    <a href="#" class="btn-course">Explore the Course</a>
   </div>
   <div class="experience-image">
     <img src="https://www.tourdeburren.com/wp-content/uploads/2024/12/IMG_3441-2-1.jpg" alt="Burren landscape">
@@ -1128,7 +1184,7 @@
 <!-- STATS -->
 <div class="stats-band">
   <div class="stat-item">
-    <span class="stat-num">4</span>
+    <span class="stat-num">3</span>
     <div class="stat-desc">Route Options</div>
   </div>
   <div class="stat-item">
@@ -1221,10 +1277,9 @@
     <div class="footer-col">
       <h4>Routes</h4>
       <ul>
-        <li><a href="#">an Boireann Mór 160km</a></li>
-        <li><a href="#">An Karst 120km</a></li>
-        <li><a href="#">An Boireann Béag 80km</a></li>
-        <li><a href="#">Dromore Family Spin 22km</a></li>
+        <li><a href="#">An Boireann Béag 50km</a></li>
+        <li><a href="#">An Karst 100km</a></li>
+        <li><a href="#">An Boireann Mór 160km</a></li>
       </ul>
     </div>
     <div class="footer-col">
