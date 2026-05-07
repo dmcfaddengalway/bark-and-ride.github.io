@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>125km An Boireann Mór — Bark &amp; Ride 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-dark: #006233;
+    --green-mid: #008542;
+    --green-light: #78BE20;
+    --green-lime: #9DD629;
+    --white: #ffffff;
+    --off-white: #f3f8f0;
+    --light-grey: #e8f3e0;
+    --text-dark: #032b16;
+    --text-muted: #2d5c3a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Barlow', sans-serif; background: var(--white); color: var(--text-dark); overflow-x: hidden; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(0, 98, 51, 0.97); backdrop-filter: blur(8px); border-bottom: 3px solid transparent; border-image: linear-gradient(to right, #006233, #78BE20) 1; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 68px; }
+  .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--white); letter-spacing: 3px; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+  .nav-logo-divider { display: inline-block; width: 1px; height: 28px; background: rgba(255,255,255,0.25); margin: 0 12px; }
+  .nav-logo span { color: var(--green-lime); }
+  .nav-links { display: flex; gap: 8px; list-style: none; align-items: center; }
+  .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; padding: 6px 10px; transition: color 0.2s; }
+  .nav-links a:hover { color: #78BE20; }
+  .nav-dropdown { position: relative; }
+  .nav-dropdown > a { cursor: default; }
+  .nav-dropdown > a::after { content: ' ▾'; font-size: 0.7rem; opacity: 0.6; }
+  .nav-dropdown-menu { position: absolute; top: calc(100% + 10px); left: 0; background: rgba(0, 70, 38, 0.97); backdrop-filter: blur(8px); min-width: 160px; padding: 8px 0; list-style: none; opacity: 0; visibility: hidden; transform: translateY(6px); transition: opacity 0.2s, transform 0.2s, visibility 0.2s; border-top: 2px solid #78BE20; box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+  .nav-dropdown:hover .nav-dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+  .nav-dropdown-menu li a { display: block; padding: 10px 20px; font-size: 0.8rem; letter-spacing: 1.5px; white-space: nowrap; }
+  .nav-dropdown-menu li a:hover { background: rgba(255,255,255,0.08); }
+  .nav-cta { background: linear-gradient(135deg, #78BE20, #9DD629) !important; color: var(--green-dark) !important; padding: 8px 20px !important; font-weight: 700 !important; transition: opacity 0.2s, transform 0.1s !important; }
+  .nav-cta:hover { opacity: 0.88 !important; transform: translateY(-1px); }
+
+  /* ROUTE HERO */
+  .route-hero {
+    min-height: 480px;
+    padding: 140px 40px 60px;
+    background: linear-gradient(to right, rgba(0,50,25,0.92) 0%, rgba(0,50,25,0.6) 60%, transparent 100%), url('https://www.tourdeburren.com/wp-content/uploads/2024/01/Routes-Hero_card-Wild-Burren-768x1032.jpg') center/cover no-repeat;
+    display: flex;
+    align-items: flex-end;
+  }
+  .route-hero-content { max-width: 600px; }
+  .route-hero-tag {
+    display: inline-block;
+    background: linear-gradient(135deg, #006233, #78BE20);
+    color: var(--white);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    margin-bottom: 16px;
+  }
+  .route-hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 7vw, 5rem);
+    color: var(--white);
+    letter-spacing: 4px;
+    line-height: 1;
+  }
+  .route-hero h1 small {
+    font-size: 0.45em;
+    color: var(--green-lime);
+    letter-spacing: 2px;
+    display: block;
+    margin-top: 6px;
+  }
+  .route-hero-sub {
+    margin-top: 16px;
+    color: rgba(255,255,255,0.75);
+    font-weight: 300;
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 480px;
+  }
+
+  /* STATS ROW */
+  .route-stats {
+    background: var(--off-white);
+    padding: 0 40px;
+  }
+  .route-stats-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    padding: 30px 0;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .route-stat { text-align: center; }
+  .route-stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.4rem;
+    color: var(--green-dark);
+    line-height: 1;
+    display: block;
+  }
+  .route-stat-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  /* CONTENT */
+  .route-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 70px 24px;
+  }
+  .route-content h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--green-dark);
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--light-grey);
+  }
+  .route-content > p {
+    color: var(--text-muted);
+    font-weight: 300;
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 48px;
+  }
+
+  /* HIGHLIGHTS */
+  .route-highlights {
+    display: grid;
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+  .route-highlight {
+    padding: 24px 28px;
+    background: var(--off-white);
+    border-left: 4px solid var(--green-light);
+  }
+  .route-highlight h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--green-dark);
+    margin-bottom: 8px;
+  }
+  .route-highlight p {
+    color: var(--text-muted);
+    font-weight: 300;
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  /* ELEVATION PROFILE */
+  .elevation-section {
+    margin-bottom: 48px;
+  }
+  .elevation-desc {
+    color: var(--text-muted);
+    font-weight: 300;
+    font-size: 0.95rem;
+    line-height: 1.75;
+  }
+
+  /* TIPS */
+  .tips-section {
+    background: var(--green-dark);
+    padding: 50px 40px;
+    margin-bottom: 0;
+  }
+  .tips-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .tips-inner h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--white);
+    letter-spacing: 2px;
+    margin-bottom: 28px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(255,255,255,0.15);
+  }
+  .tip-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+  .tip-icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    background: var(--green-light);
+    color: var(--green-dark);
+    font-weight: 700;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+  .tip-item p {
+    color: rgba(255,255,255,0.8);
+    font-weight: 300;
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  /* CTA */
+  .cta-band {
+    background: linear-gradient(135deg, #006233 0%, #008542 50%, #78BE20 100%);
+    padding: 60px 40px;
+    text-align: center;
+  }
+  .cta-band h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    color: var(--white);
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+  }
+  .cta-band p {
+    color: rgba(255,255,255,0.8);
+    font-weight: 300;
+    margin-bottom: 24px;
+  }
+  .btn-white {
+    display: inline-block;
+    background: var(--white);
+    color: var(--green-dark);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 14px 36px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .btn-white:hover { background: rgba(255,255,255,0.88); }
+
+  /* FOOTER */
+  footer {
+    background: var(--text-dark);
+    padding: 40px 40px 24px;
+    color: rgba(255,255,255,0.6);
+  }
+  .footer-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .footer-inner .logo-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    color: var(--white);
+    letter-spacing: 3px;
+  }
+  .footer-inner .logo-text span { color: #78BE20; }
+  .footer-inner p { font-size: 0.8rem; color: rgba(255,255,255,0.35); }
+  .footer-inner p span { color: #78BE20; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 0 16px; }
+    .nav-links { display: none; }
+    .nav-logo img { height: 28px !important; }
+    .route-hero { min-height: 380px; padding: 120px 24px 40px; }
+    .route-content { padding: 50px 20px; }
+    .tips-section { padding: 40px 20px; }
+  }
+  @media (max-width: 600px) {
+    .route-hero h1 { font-size: 2.8rem; }
+    .route-stats-inner { flex-direction: column; align-items: center; gap: 16px; padding: 24px 0; }
+    .route-highlight { padding: 18px 20px; }
+    .cta-band h2 { font-size: 2rem; }
+    footer { padding: 30px 20px 20px; }
+    .footer-inner { flex-direction: column; text-align: center; }
+  }
+  @media (max-width: 380px) {
+    .nav-logo { font-size: 1.4rem; }
+    .nav-logo img { height: 22px !important; }
+    .nav-logo-divider { margin: 0 6px; }
+    .route-hero h1 { font-size: 2.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="https://www.guidedogs.ie/img/f/291065883890237/596x176/b169668a73/guidedogs-logo-50th-horizontal.png/m/596x0/smart/filters:format(webp):quality(65)" alt="Irish Guide Dogs" style="height:36px; width:auto; filter: brightness(0) invert(1);">
+    <span class="nav-logo-divider"></span>
+    Bark &amp; <span>Ride</span>
+  </a>
+  <ul class="nav-links">
+    <li class="nav-dropdown">
+      <a href="#">About</a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="index.html#about">About Us</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+      </ul>
+    </li>
+    <li class="nav-dropdown">
+      <a href="index.html#routes">Routes</a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="route-60km.html">60km &mdash; An Boireann B&eacute;ag</a></li>
+        <li><a href="route-90km.html">90km &mdash; An Karst</a></li>
+        <li><a href="route-125km.html">125km &mdash; An Boireann M&oacute;r</a></li>
+      </ul>
+    </li>
+    <li><a href="index.html#locations">Locations</a></li>
+    <li><a href="index.html#gallery">Gallery</a></li>
+    <li><a href="index.html#charity">Charity</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+    <li><a href="https://eventmaster.ie/event/Y9O2HrOFjv" target="_blank" class="nav-cta">Register</a></li>
+  </ul>
+</nav>
+
+<section class="route-hero">
+  <div class="route-hero-content">
+    <span class="route-hero-tag">Elite Challenge</span>
+    <h1>125km<small>An Boireann Mór</small></h1>
+    <p class="route-hero-sub">The ultimate test. An Boireann Mór — 'The Great Burren' — is a 125km epic that covers the full breadth of the Burren and...</p>
+  </div>
+</section>
+
+<div class="route-stats">
+  <div class="route-stats-inner">
+    <div class="route-stat"><span class="route-stat-num">125km</span><div class="route-stat-label">Distance</div></div>
+    <div class="route-stat"><span class="route-stat-num">2,200m</span><div class="route-stat-label">Elevation</div></div>
+    <div class="route-stat"><span class="route-stat-num">6–8 hours</span><div class="route-stat-label">Est. Duration</div></div>
+    <div class="route-stat"><span class="route-stat-num">4</span><div class="route-stat-label">Food Stops</div></div>
+  </div>
+</div>
+
+<div class="route-content">
+  <h2>Route Overview</h2>
+  <p>The ultimate test. An Boireann Mór — 'The Great Burren' — is a 125km epic that covers the full breadth of the Burren and Wild Atlantic Way. From the start in The Connacht Hotel, Galway, you'll ride north into the raw heart of the limestone plateau, west to the Cliffs of Moher, and along the full Atlantic coastline before the gruelling return inland. This is a ride that will stay with you forever.</p>
+
+  <h2>Route Highlights</h2>
+  <div class="route-highlights">
+    <div class="route-highlight">
+      <h3>The Cliffs of Moher Approach</h3>
+      <p>The route passes within sight of Ireland's most iconic landmark. The climb up from Doolin is relentless but the views are extraordinary.</p>
+    </div>
+    <div class="route-highlight">
+      <h3>Fanore to Black Head Coastal Road</h3>
+      <p>Perhaps the most beautiful stretch of road in Ireland — a narrow ribbon of tarmac between the Atlantic Ocean and the Burren's limestone terraces.</p>
+    </div>
+    <div class="route-highlight">
+      <h3>The Burren Plateau Crossing</h3>
+      <p>The centrepiece of the route: 25km across the high, exposed limestone karst where nothing grows above knee height and the silence is total.</p>
+    </div>
+    <div class="route-highlight">
+      <h3>Corkscrew Hill (from the hard side)</h3>
+      <p>Unlike the 90km route, you'll tackle Corkscrew from the steeper western approach. Category 2, 3.5km at 8%. The final major obstacle before home.</p>
+    </div>
+  </div>
+
+  <div class="elevation-section" id="elevation-125">
+    <h2>Elevation Profile</h2>
+    <p class="elevation-desc">A serious endurance challenge with sustained climbing throughout. Four categorised climbs including the Cliffs approach (Cat 3), Corkscrew Hill west (Cat 2), and two long drags across the Burren plateau. Total elevation gain approximately 2,200m. Flat sections are limited to the coastal road and the final 15km home.</p>
+    <p style="margin-top:16px"><a href="https://www.strava.com/routes/3404957000265953318" target="_blank" style="color:var(--green-dark); text-decoration:underline; text-underline-offset:3px; font-weight:500;">View full route on Strava →</a></p>
+  </div>
+</div>
+
+<section class="tips-section">
+  <div class="tips-inner">
+    <h2>Rider Tips</h2>
+      <div class="tip-item">
+        <span class="tip-icon">✓</span>
+        <p>Train specifically for this route. You need a solid base of 200+ weekly kilometres for at least 6 weeks beforehand.</p>
+    <p style="margin-top:16px"><a href="https://www.strava.com/routes/3404957000265953318" target="_blank" style="color:var(--green-dark); text-decoration:underline; text-underline-offset:3px; font-weight:500;">View full route on Strava →</a></p>
+      </div>
+      <div class="tip-item">
+        <span class="tip-icon">✓</span>
+        <p>Nutrition is everything on a 125km ride. Eat early and often — by the time you feel hungry, you're already behind.</p>
+      </div>
+      <div class="tip-item">
+        <span class="tip-icon">✓</span>
+        <p>The Burren plateau crossing (km 85–110) is the crux. It's exposed, often windy, and mentally demanding. Stay focused.</p>
+      </div>
+      <div class="tip-item">
+        <span class="tip-icon">✓</span>
+        <p>Carry two bottles and refill at every food stop. Dehydration on the plateau will end your day.</p>
+      </div>
+      <div class="tip-item">
+        <span class="tip-icon">✓</span>
+        <p>Start conservatively. The first 40km feel easy — that's the trap. The route doesn't truly begin until the Cliffs approach.</p>
+      </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <h2>Ready for the An Boireann Mór?</h2>
+  <p>Secure your place on the 125km route — every pedal stroke supports Irish Guide Dogs.</p>
+  <a href="https://eventmaster.ie/event/Y9O2HrOFjv" target="_blank" class="btn-white">Register Now</a>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="logo-text">Bark &amp; <span>Ride</span></div>
+    <p>&copy; 2026 Bark &amp; Ride. In aid of <span>Irish Guide Dogs for the Blind</span></p>
+  </div>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    nav.style.boxShadow = window.scrollY > 80 ? '0 4px 24px rgba(0,0,0,0.35)' : 'none';
+  });
+</script>
+</body>
+</html>
