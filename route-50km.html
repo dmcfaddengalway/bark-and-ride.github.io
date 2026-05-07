@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>50km An Boireann Béag — Bark &amp; Ride 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-dark: #006233;
+    --green-mid: #008542;
+    --green-light: #78BE20;
+    --green-lime: #9DD629;
+    --white: #ffffff;
+    --off-white: #f3f8f0;
+    --light-grey: #e8f3e0;
+    --text-dark: #032b16;
+    --text-muted: #2d5c3a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Barlow', sans-serif; background: var(--white); color: var(--text-dark); overflow-x: hidden; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(0, 98, 51, 0.97); backdrop-filter: blur(8px); border-bottom: 3px solid transparent; border-image: linear-gradient(to right, #006233, #78BE20) 1; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 68px; }
+  .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--white); letter-spacing: 3px; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+  .nav-logo-divider { display: inline-block; width: 1px; height: 28px; background: rgba(255,255,255,0.25); margin: 0 12px; }
+  .nav-logo span { color: var(--green-lime); }
+  .nav-links { display: flex; gap: 8px; list-style: none; align-items: center; }
+  .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; padding: 6px 10px; transition: color 0.2s; }
+  .nav-links a:hover { color: #78BE20; }
+  .nav-dropdown { position: relative; }
+  .nav-dropdown > a { cursor: default; }
+  .nav-dropdown > a::after { content: ' ▾'; font-size: 0.7rem; opacity: 0.6; }
+  .nav-dropdown-menu { position: absolute; top: calc(100% + 10px); left: 0; background: rgba(0, 70, 38, 0.97); backdrop-filter: blur(8px); min-width: 160px; padding: 8px 0; list-style: none; opacity: 0; visibility: hidden; transform: translateY(6px); transition: opacity 0.2s, transform 0.2s, visibility 0.2s; border-top: 2px solid #78BE20; box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+  .nav-dropdown:hover .nav-dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+  .nav-dropdown-menu li a { display: block; padding: 10px 20px; font-size: 0.8rem; letter-spacing: 1.5px; white-space: nowrap; }
+  .nav-dropdown-menu li a:hover { background: rgba(255,255,255,0.08); }
+  .nav-cta { background: linear-gradient(135deg, #78BE20, #9DD629) !important; color: var(--green-dark) !important; padding: 8px 20px !important; font-weight: 700 !important; transition: opacity 0.2s, transform 0.1s !important; }
+  .nav-cta:hover { opacity: 0.88 !important; transform: translateY(-1px); }
+
+  /* ROUTE HERO */
+  .route-hero {
+    min-height: 480px;
+    padding: 140px 40px 60px;
+    background: linear-gradient(to right, rgba(0,50,25,0.92) 0%, rgba(0,50,25,0.6) 60%, transparent 100%), url('https://www.tourdeburren.com/wp-content/uploads/2024/01/Routes-Hero_card-giants-playground-768x1032.jpg') center/cover no-repeat;
+    display: flex;
+    align-items: flex-end;
+  }
+  .route-hero-content { max-width: 600px; }
+  .route-hero-tag {
+    display: inline-block;
+    background: linear-gradient(135deg, #006233, #78BE20);
+    color: var(--white);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    margin-bottom: 16px;
+  }
+  .route-hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 7vw, 5rem);
+    color: var(--white);
+    letter-spacing: 4px;
+    line-height: 1;
+  }
+  .route-hero h1 small {
+    font-size: 0.45em;
+    color: var(--green-lime);
+    letter-spacing: 2px;
+    display: block;
+    margin-top: 6px;
+  }
+  .route-hero-sub {
+    margin-top: 16px;
+    color: rgba(255,255,255,0.75);
+    font-weight: 300;
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 480px;
+  }
+
+  /* STATS ROW */
+  .route-stats {
+    background: var(--off-white);
+    padding: 0 40px;
+  }
+  .route-stats-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    padding: 30px 0;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .route-stat { text-align: center; }
+  .route-stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.4rem;
+    color: var(--green-dark);
+    line-height: 1;
+    display: block;
+  }
+  .route-stat-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  /* CONTENT */
+  .route-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 70px 24px;
+  }
+  .route-content h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--green-dark);
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--light-grey);
+  }
+  .route-content > p {
+    color: var(--text-muted);
+    font-weight: 300;
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 48px;
+  }
+
+  /* HIGHLIGHTS */
+  .route-highlights {
+    display: grid;
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+  .route-highlight {
+    padding: 24px 28px;
+    background: var(--off-white);
+    border-left: 4px solid var(--green-light);
+  }
+  .route-highlight h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--green-dark);
+    margin-bottom: 8px;
+  }
+  .route-highlight p {
+    color: var(--text-muted);
+    font-weight: 300;
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  /* ELEVATION PROFILE */
+  .elevation-section {
+    margin-bottom: 48px;
+  }
+  .elevation-desc {
+    color: var(--text-muted);
+    font-weight: 300;
+    font-size: 0.95rem;
+    line-height: 1.75;
+  }
+
+  /* TIPS */
+  .tips-section {
+    background: var(--green-dark);
+    padding: 50px 40px;
+    margin-bottom: 0;
+  }
+  .tips-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .tips-inner h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--white);
+    letter-spacing: 2px;
+    margin-bottom: 28px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(255,255,255,0.15);
+  }
+  .tip-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+  .tip-icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    background: var(--green-light);
+    color: var(--green-dark);
+    font-weight: 700;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+  .tip-item p {
+    color: rgba(255,255,255,0.8);
+    font-weight: 300;
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  /* CTA */
+  .cta-band {
+    background: linear-gradient(135deg, #006233 0%, #008542 50%, #78BE20 100%);
+    padding: 60px 40px;
+    text-align: center;
+  }
+  .cta-band h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    color: var(--white);
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+  }
+  .cta-band p {
+    color: rgba(255,255,255,0.8);
+    font-weight: 300;
+    margin-bottom: 24px;
+  }
+  .btn-white {
+    display: inline-block;
+    background: var(--white);
+    color: var(--green-dark);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 14px 36px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .btn-white:hover { background: rgba(255,255,255,0.88); }
+
+  /* FOOTER */
+  footer {
+    background: var(--text-dark);
+    padding: 40px 40px 24px;
+    color: rgba(255,255,255,0.6);
+  }
+  .footer-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .footer-inner .logo-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    color: var(--white);
+    letter-spacing: 3px;
+  }
+  .footer-inner .logo-text span { color: #78BE20; }
+  .footer-inner p { font-size: 0.8rem; color: rgba(255,255,255,0.35); }
+  .footer-inner p span { color: #78BE20; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 0 16px; }
+    .nav-links { display: none; }
+    .nav-logo img { height: 28px !important; }
+    .route-hero { min-height: 380px; padding: 120px 24px 40px; }
+    .route-content { padding: 50px 20px; }
+    .tips-section { padding: 40px 20px; }
+  }
+  @media (max-width: 600px) {
+    .route-hero h1 { font-size: 2.8rem; }
+    .route-stats-inner { flex-direction: column; align-items: center; gap: 16px; padding: 24px 0; }
+    .route-highlight { padding: 18px 20px; }
+    .cta-band h2 { font-size: 2rem; }
+    footer { padding: 30px 20px 20px; }
+    .footer-inner { flex-direction: column; text-align: center; }
+  }
+  @media (max-width: 380px) {
+    .nav-logo { font-size: 1.4rem; }
+    .nav-logo img { height: 22px !important; }
+    .nav-logo-divider { margin: 0 6px; }
+    .route-hero h1 { font-size: 2.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="https://www.guidedogs.ie/img/f/291065883890237/596x176/b169668a73/guidedogs-logo-50th-horizontal.png/m/596x0/smart/filters:format(webp):quality(65)" alt="Irish Guide Dogs" style="height:36px; width:auto; filter: brightness(0) invert(1);">
+    <span class="nav-logo-divider"></span>
+    Bark &amp; <span>Ride</span>
+  </a>
+  <ul class="nav-links">
+    <li class="nav-dropdown">
+      <a href="#">About</a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="index.html#about">About Us</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+      </ul>
+    </li>
+    <li class="nav-dropdown">
+      <a href="index.html#routes">Routes</a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="route-50km.html">50km &mdash; An Boireann B&eacute;ag</a></li>
+        <li><a href="route-100km.html">100km &mdash; An Karst</a></li>
+        <li><a href="route-160km.html">160km &mdash; An Boireann M&oacute;r</a></li>
+      </ul>
+    </li>
+    <li><a href="index.html#locations">Locations</a></li>
+    <li><a href="index.html#gallery">Gallery</a></li>
+    <li><a href="index.html#charity">Charity</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+    <li><a href="#register" class="nav-cta">Register</a></li>
+  </ul>
+</nav>
+
+<section class="route-hero">
+  <div class="route-hero-content">
+    <span class="route-hero-tag">Beginner</span>
+    <h1>50km<small>An Boireann Béag</small></h1>
+    <p class="route-hero-sub">The perfect introduction to Bark & Ride. This scenic 50km loop takes in the gentle rolling terrain south of the Burren, ...</p>
+  </div>
+</section>
+
+<div class="route-stats">
+  <div class="route-stats-inner">
+    <div class="route-stat"><span class="route-stat-num">50km</span><div class="route-stat-label">Distance</div></div>
+    <div class="route-stat"><span class="route-stat-num">380m</span><div class="route-stat-label">Elevation</div></div>
+    <div class="route-stat"><span class="route-stat-num">2–3 hours</span><div class="route-stat-label">Est. Duration</div></div>
+    <div class="route-stat"><span class="route-stat-num">2</span><div class="route-stat-label">Food Stops</div></div>
+  </div>
+</div>
+
+<div class="route-content">
+  <h2>Route Overview</h2>
+  <p>The perfect introduction to Bark & Ride. This scenic 50km loop takes in the gentle rolling terrain south of the Burren, passing through quiet country roads, picturesque villages, and lush green farmland. Ideal for first-time sportive riders or anyone looking for a fun, achievable challenge.</p>
+
+  <h2>Route Highlights</h2>
+  <div class="route-highlights">
+    <div class="route-highlight">
+      <h3>Dromore Wood Nature Reserve</h3>
+      <p>Your first major landmark — a stunning oak woodland and lake system just minutes from the start.</p>
+    </div>
+    <div class="route-highlight">
+      <h3>Corofin Village</h3>
+      <p>A charming stop through one of Clare's most beloved heritage villages, rich in traditional music culture.</p>
+    </div>
+    <div class="route-highlight">
+      <h3>Inagh Valley Views</h3>
+      <p>The route opens up with panoramic views across the valley floor before looping back toward Barefield.</p>
+    </div>
+  </div>
+
+  <div class="elevation-section">
+    <h2>Elevation Profile</h2>
+    <p class="elevation-desc">Mostly flat to gently rolling terrain. No major climbs — the largest ascent is a gradual 60m rise over 3km near Corofin. Very suitable for riders of all fitness levels.</p>
+  </div>
+</div>
+
+<section class="tips-section">
+  <div class="tips-inner">
+    <h2>Rider Tips</h2>
+      <div class="tip-item">
+        <span class="tip-icon">✓</span>
+        <p>This is a great route if you're new to sportives — the pace is relaxed and the support is excellent.</p>
+      </div>
+      <div class="tip-item">
+        <span class="tip-icon">✓</span>
+        <p>Start hydrated. Even on a shorter route, Clare's exposed roads can be deceptively windy.</p>
+      </div>
+      <div class="tip-item">
+        <span class="tip-icon">✓</span>
+        <p>Bring a light rain jacket — weather can change quickly in the Burren region.</p>
+      </div>
+      <div class="tip-item">
+        <span class="tip-icon">✓</span>
+        <p>Enjoy it! Don't race — soak in the scenery and the atmosphere.</p>
+      </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <h2>Ready for the An Boireann Béag?</h2>
+  <p>Secure your place on the 50km route — every pedal stroke supports Irish Guide Dogs.</p>
+  <a href="index.html#register" class="btn-white">Register Now</a>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="logo-text">Bark &amp; <span>Ride</span></div>
+    <p>&copy; 2026 Bark &amp; Ride. In aid of <span>Irish Guide Dogs for the Blind</span></p>
+  </div>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    nav.style.boxShadow = window.scrollY > 80 ? '0 4px 24px rgba(0,0,0,0.35)' : 'none';
+  });
+</script>
+</body>
+</html>
