@@ -715,13 +715,33 @@
     overflow: hidden;
   }
 
-  .charity-section::before {
-    content: '★';
+  /* Dog silhouette pattern - left side */
+  .charity-section::before,
+  .charity-section::after {
+    content: '';
     position: absolute;
-    font-size: 24rem;
-    color: rgba(0,51,102,0.04);
-    top: -60px; right: -60px;
-    font-family: 'Bebas Neue', sans-serif;
+    top: 0;
+    bottom: 0;
+    width: 320px;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 60' fill='%23006233'%3E%3Cpath d='M15 18c-1-3 1-7 4-8 2-1 4 0 5 1l2-3c1-1 3-1 4 0l1 3c2-1 4-1 5 1 2 2 2 5 0 7l-1 1 8 2c3 1 5 4 5 7v4c0 2-1 3-3 4l-4 1v5c0 2-1 3-3 3h-2c-2 0-3-1-3-3v-3h-6v3c0 2-1 3-3 3h-2c-2 0-3-1-3-3v-6l-4-3c-2-2-3-4-3-7v-3c1-2 2-4 3-5zm38 14a2 2 0 100-4 2 2 0 000 4z'/%3E%3C/svg%3E");
+    background-size: 56px 42px;
+    background-repeat: repeat;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.04;
+  }
+
+  .charity-section::before {
+    left: 0;
+    mask-image: linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 40%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 40%, transparent 100%);
+  }
+
+  .charity-section::after {
+    right: 0;
+    mask-image: linear-gradient(to left, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 40%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 40%, transparent 100%);
   }
 
   .charity-inner {
@@ -1057,7 +1077,7 @@
     <li class="nav-dropdown">
       <a href="#">About</a>
       <ul class="nav-dropdown-menu">
-        <li><a href="#about">About Us</a></li>
+        <li><a href="about.html">About Us</a></li>
         <li><a href="faq.html">FAQ</a></li>
       </ul>
     </li>
