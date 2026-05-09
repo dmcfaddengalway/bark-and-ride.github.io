@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery – Bark &amp; Ride 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-dark: #006233;
+    --green-mid: #008542;
+    --green-light: #78BE20;
+    --green-lime: #9DD629;
+    --white: #ffffff;
+    --off-white: #f3f8f0;
+    --light-grey: #e8f3e0;
+    --text-dark: #032b16;
+    --text-muted: #2d5c3a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Barlow', sans-serif; background: var(--white); color: var(--text-dark); overflow-x: hidden; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(0, 98, 51, 0.97); backdrop-filter: blur(8px); border-bottom: 3px solid transparent; border-image: linear-gradient(to right, #006233, #78BE20) 1; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 68px; }
+  .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--white); letter-spacing: 3px; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+  .nav-links { display: flex; gap: 8px; list-style: none; align-items: center; }
+  .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; padding: 6px 10px; transition: color 0.2s; }
+  .nav-links a:hover { color: #78BE20; }
+  .nav-dropdown { position: relative; }
+  .nav-dropdown > a { cursor: default; }
+  .nav-dropdown > a::after { content: ' ▾'; font-size: 0.7rem; opacity: 0.6; }
+  .nav-dropdown-menu { position: absolute; top: calc(100% + 10px); left: 0; background: rgba(0, 70, 38, 0.97); backdrop-filter: blur(8px); min-width: 160px; padding: 8px 0; list-style: none; opacity: 0; visibility: hidden; transform: translateY(6px); transition: opacity 0.2s, transform 0.2s, visibility 0.2s; border-top: 2px solid #78BE20; box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+  .nav-dropdown:hover .nav-dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+  .nav-dropdown-menu li a { display: block; padding: 10px 20px; font-size: 0.8rem; letter-spacing: 1.5px; white-space: nowrap; }
+  .nav-dropdown-menu li a:hover { background: rgba(255,255,255,0.08); }
+  .nav-cta { background: linear-gradient(135deg, #78BE20, #9DD629) !important; color: var(--green-dark) !important; padding: 0 28px !important; font-weight: 700 !important; transition: opacity 0.2s !important; height: 68px; display: flex !important; align-items: center; margin-right: -40px; }
+  .nav-cta:hover { opacity: 0.88 !important; }
+
+  /* PAGE HEADER */
+  .page-header {
+    padding: 140px 40px 70px;
+    background: linear-gradient(135deg, #006233 0%, #008542 50%, #78BE20 100%);
+    text-align: center;
+  }
+  .page-header-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem; font-weight: 600; letter-spacing: 5px;
+    text-transform: uppercase; color: rgba(255,255,255,0.7); margin-bottom: 12px;
+  }
+  .page-header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 8vw, 5rem);
+    color: var(--white); letter-spacing: 4px; line-height: 1;
+  }
+  .page-header p {
+    margin-top: 16px; color: rgba(255,255,255,0.8);
+    font-weight: 300; font-size: 1.05rem;
+    max-width: 540px; margin-left: auto; margin-right: auto; line-height: 1.6;
+  }
+
+  /* ALBUM TABS */
+  .album-nav {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 40px 24px 10px;
+    flex-wrap: wrap;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .album-tab {
+    background: none;
+    border: 2px solid var(--light-grey);
+    color: var(--text-muted);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 10px 24px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .album-tab:hover { border-color: var(--green-light); color: var(--green-dark); }
+  .album-tab.active {
+    background: var(--green-dark);
+    border-color: var(--green-dark);
+    color: var(--white);
+  }
+
+  /* PHOTO GRID */
+  .gallery-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 30px 24px 80px;
+  }
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .photo-grid-item {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    aspect-ratio: 4/3;
+    background: var(--light-grey);
+  }
+  .photo-grid-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease, filter 0.3s;
+    filter: brightness(0.92);
+  }
+  .photo-grid-item:hover img {
+    transform: scale(1.06);
+    filter: brightness(0.8);
+  }
+  .photo-grid-item::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 0 solid var(--green-light);
+    transition: border-width 0.2s;
+    pointer-events: none;
+  }
+  .photo-grid-item:hover::after { border-width: 3px; }
+
+  /* FULLSCREEN LIGHTBOX */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.95);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .lightbox.open { display: flex; }
+
+  .lightbox-img-wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 80px;
+  }
+  .lightbox-img-wrap img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 20px; right: 24px;
+    background: none; border: none;
+    color: rgba(255,255,255,0.7);
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 1010;
+    width: 48px; height: 48px;
+    display: flex; align-items: center; justify-content: center;
+    transition: color 0.2s;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+  }
+  .lightbox-close:hover { color: var(--white); }
+
+  .lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: var(--white);
+    font-size: 1.4rem;
+    width: 52px; height: 52px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+    z-index: 1010;
+    font-family: 'Barlow', sans-serif;
+  }
+  .lightbox-nav:hover { background: rgba(255,255,255,0.2); }
+  .lightbox-prev { left: 16px; }
+  .lightbox-next { right: 16px; }
+
+  .lightbox-counter {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,0.5);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+  }
+
+  .lightbox-caption {
+    position: absolute;
+    bottom: 44px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,0.8);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    font-size: 0.95rem;
+    text-align: center;
+    max-width: 500px;
+  }
+
+  /* Touch swipe area */
+  .lightbox-img-wrap {
+    touch-action: pan-y;
+  }
+
+  /* FOOTER */
+  footer { background: var(--text-dark); padding: 40px 40px 24px; color: rgba(255,255,255,0.6); }
+  .footer-inner { max-width: 800px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .footer-inner .logo-text { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--white); letter-spacing: 3px; }
+  .footer-inner .logo-text span { color: #78BE20; }
+  .footer-inner p { font-size: 0.8rem; color: rgba(255,255,255,0.35); }
+  .footer-inner p span { color: #78BE20; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 0 16px; }
+    .nav-links { display: none; }
+    .photo-grid { grid-template-columns: repeat(2, 1fr); }
+    .lightbox-img-wrap { padding: 60px 20px; }
+    .lightbox-nav { width: 44px; height: 44px; font-size: 1.2rem; }
+    .lightbox-prev { left: 8px; }
+    .lightbox-next { right: 8px; }
+  }
+  @media (max-width: 600px) {
+    .page-header { padding: 120px 24px 50px; }
+    .page-header h1 { font-size: 2.8rem; }
+    .photo-grid { grid-template-columns: 1fr; gap: 8px; }
+    .photo-grid-item { aspect-ratio: 16/10; }
+    .album-tab { padding: 8px 16px; font-size: 0.75rem; }
+    .lightbox-img-wrap { padding: 50px 8px; }
+    .lightbox-nav { width: 40px; height: 40px; font-size: 1rem; }
+    .lightbox-prev { left: 4px; }
+    .lightbox-next { right: 4px; }
+    .lightbox-close { top: 12px; right: 12px; }
+    footer { padding: 30px 20px 20px; }
+    .footer-inner { flex-direction: column; text-align: center; }
+  }
+  @media (max-width: 380px) {
+    .page-header h1 { font-size: 2.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="https://www.guidedogs.ie/img/f/291065883890237/596x176/b169668a73/guidedogs-logo-50th-horizontal.png/m/596x0/smart/filters:format(webp):quality(65)" alt="Irish Guide Dogs" style="height:36px; width:auto; filter: brightness(0) invert(1);">
+  </a>
+  <ul class="nav-links">
+    <li class="nav-dropdown">
+      <a href="#">About</a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+      </ul>
+    </li>
+    <li class="nav-dropdown">
+      <a href="index.html#routes">Routes</a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="route-60km.html">60km — An Boireann Béag</a></li>
+        <li><a href="route-90km.html">90km — An Karst</a></li>
+        <li><a href="route-125km.html">125km — An Boireann Mór</a></li>
+      </ul>
+    </li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="index.html#charity">Charity</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+    <li><a href="https://eventmaster.ie/event/Y9O2HrOFjv" target="_blank" class="nav-cta">Register</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+  <div class="page-header-label">Bark &amp; Ride 2026</div>
+  <h1>Gallery</h1>
+  <p>Relive the energy, scenery and spirit of past rides. Click any photo to view fullscreen.</p>
+</section>
+
+<!-- ALBUM TABS -->
+<div class="album-nav">
+  <button class="album-tab active" data-album="all">All Photos</button>
+  <button class="album-tab" data-album="ride">The Ride</button>
+  <button class="album-tab" data-album="scenery">Scenery</button>
+  <button class="album-tab" data-album="community">Community</button>
+</div>
+
+<!-- PHOTO GRID -->
+<div class="gallery-container">
+  <div class="photo-grid" id="photoGrid">
+    <!-- The Ride -->
+    <div class="photo-grid-item" data-album="ride" data-caption="Riders setting off from the start line">
+      <img src="https://www.tourdeburren.com/wp-content/uploads/2024/01/Tour-de-Burren-gallery7.jpg" alt="Riders at the start" loading="lazy">
+    </div>
+    <div class="photo-grid-item" data-album="ride" data-caption="Peloton climbing through the Burren">
+      <img src="https://www.tourdeburren.com/wp-content/uploads/2024/01/Tour-de-Burren-gallery6.jpg" alt="Peloton climbing" loading="lazy">
+    </div>
+    <div class="photo-grid-item" data-album="ride" data-caption="Descending toward the coast">
+      <img src="https://www.tourdeburren.com/wp-content/uploads/2024/01/Tour-de-Burren-gallery5.jpg" alt="Coastal descent" loading="lazy">
+    </div>
+    <div class="photo-grid-item" data-album="ride" data-caption="Riders powering through the final stretch">
+      <img src="https://www.tourdeburren.com/wp-content/uploads/2024/01/Tour-de-Burren-gallery3.jpg" alt="Final stretch" loading="lazy">
+    </div>
+    <div class="photo-grid-item" data-album="ride" data-caption="A moment of focus on the climb">
+      <img src="https://www.tourdeburren.com/wp-content/uploads/2024/01/Tour-de-Burren-gallery2.jpg" alt="Climbing focus" loading="lazy">
+    </div>
+
+    <!-- Scenery -->
+    <div class="photo-grid-item" data-album="scenery" data-caption="The Burren's dramatic limestone landscape">
+      <img src="https://www.tourdeburren.com/wp-content/uploads/2024/01/Routes-Hero_card-Wild-Burren-768x1032.jpg" alt="Burren limestone" loading="lazy">
+    </div>
+    <div class="photo-grid-item" data-album="scenery" data-caption="Winding roads through the karst">
+      <img src="https://www.tourdeburren.com/wp-content/uploads/2024/01/Routes-Hero_card-Aillwee-route-768x1032.jpg" alt="Karst roads" loading="lazy">
+    </div>
+    <div class="photo-grid-item" data-album="scenery" data-caption="The rolling green countryside of the west">
+      <img src="https://www.tourdeburren.com/wp-content/uploads/2024/01/Routes-Hero_card-giants-playground-768x1032.jpg" alt="Green countryside" loading="lazy">
+    </div>
+    <div class="photo-grid-item" data-album="scenery" data-caption="Atlantic coastline near the route">
+      <img src="https://www.tourdeburren.com/wp-content/uploads/2024/12/IMG_3441-2-1.jpg" alt="Atlantic coast" loading="lazy">
+    </div>
+
+    <!-- Community -->
+    <div class="photo-grid-item" data-album="community" data-caption="Volunteers keeping everyone fuelled">
+      <img src="https://www.tourdeburren.com/wp-content/uploads/2024/01/Routes-Hero_card-family-768x1032.jpg" alt="Volunteers at food stop" loading="lazy">
+    </div>
+    <div class="photo-grid-item" data-album="community" data-caption="Riders celebrating at the finish line">
+      <img src="https://www.tourdeburren.com/wp-content/uploads/2024/01/Tour-de-Burren-gallery7.jpg" alt="Finish line celebration" loading="lazy">
+    </div>
+    <div class="photo-grid-item" data-album="community" data-caption="All smiles after a great day in the saddle">
+      <img src="https://www.tourdeburren.com/wp-content/uploads/2024/01/Tour-de-Burren-gallery6.jpg" alt="Post-ride smiles" loading="lazy">
+    </div>
+  </div>
+</div>
+
+<!-- FULLSCREEN LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" aria-label="Close">&times;</button>
+  <button class="lightbox-nav lightbox-prev" aria-label="Previous">&#8249;</button>
+  <div class="lightbox-img-wrap" id="lightboxSwipe">
+    <img id="lightboxImg" src="" alt="">
+  </div>
+  <button class="lightbox-nav lightbox-next" aria-label="Next">&#8250;</button>
+  <div class="lightbox-caption" id="lightboxCaption"></div>
+  <div class="lightbox-counter" id="lightboxCounter"></div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="logo-text">Bark &amp; <span>Ride</span></div>
+    <p>&copy; 2026 Bark &amp; Ride. In aid of <span>Irish Guide Dogs</span></p>
+  </div>
+</footer>
+
+<script>
+  // ── ALBUM FILTERING ──
+  const tabs = document.querySelectorAll('.album-tab');
+  const items = document.querySelectorAll('.photo-grid-item');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const album = tab.dataset.album;
+      items.forEach(item => {
+        item.style.display = (album === 'all' || item.dataset.album === album) ? '' : 'none';
+      });
+    });
+  });
+
+  // ── LIGHTBOX ──
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const lightboxCaption = document.getElementById('lightboxCaption');
+  const lightboxCounter = document.getElementById('lightboxCounter');
+  let currentPhotos = [];
+  let currentIndex = 0;
+
+  function getVisiblePhotos() {
+    return [...document.querySelectorAll('.photo-grid-item')].filter(
+      item => item.style.display !== 'none'
+    );
+  }
+
+  function openLightbox(index) {
+    currentPhotos = getVisiblePhotos();
+    currentIndex = index;
+    showPhoto();
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function showPhoto() {
+    const photo = currentPhotos[currentIndex];
+    const img = photo.querySelector('img');
+    lightboxImg.src = img.src;
+    lightboxImg.alt = img.alt;
+    lightboxCaption.textContent = photo.dataset.caption || '';
+    lightboxCounter.textContent = (currentIndex + 1) + ' / ' + currentPhotos.length;
+  }
+
+  function nextPhoto() {
+    currentIndex = (currentIndex + 1) % currentPhotos.length;
+    showPhoto();
+  }
+
+  function prevPhoto() {
+    currentIndex = (currentIndex - 1 + currentPhotos.length) % currentPhotos.length;
+    showPhoto();
+  }
+
+  // Click handlers
+  items.forEach(item => {
+    item.addEventListener('click', () => {
+      const visible = getVisiblePhotos();
+      const idx = visible.indexOf(item);
+      openLightbox(idx);
+    });
+  });
+
+  document.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
+  document.querySelector('.lightbox-prev').addEventListener('click', prevPhoto);
+  document.querySelector('.lightbox-next').addEventListener('click', nextPhoto);
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowRight') nextPhoto();
+    if (e.key === 'ArrowLeft') prevPhoto();
+  });
+
+  // Click backdrop to close
+  document.getElementById('lightboxSwipe').addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) closeLightbox();
+  });
+
+  // ── TOUCH SWIPE ──
+  let touchStartX = 0;
+  let touchStartY = 0;
+  const swipeArea = document.getElementById('lightboxSwipe');
+
+  swipeArea.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+  }, { passive: true });
+
+  swipeArea.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].screenX - touchStartX;
+    const dy = e.changedTouches[0].screenY - touchStartY;
+
+    // Only register horizontal swipes (ignore vertical scrolling)
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+      if (dx < 0) nextPhoto();
+      else prevPhoto();
+    }
+  }, { passive: true });
+
+  // Nav scroll shadow
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    nav.style.boxShadow = window.scrollY > 80 ? '0 4px 24px rgba(0,0,0,0.35)' : 'none';
+  });
+</script>
+</body>
+</html>
