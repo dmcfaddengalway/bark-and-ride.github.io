@@ -37,8 +37,12 @@
   .nav-dropdown:hover .nav-dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
   .nav-dropdown-menu li a { display: block; padding: 10px 20px; font-size: 0.8rem; letter-spacing: 1.5px; white-space: nowrap; }
   .nav-dropdown-menu li a:hover { background: rgba(255,255,255,0.08); }
-  .nav-cta { background: linear-gradient(135deg, #78BE20, #9DD629) !important; color: var(--green-dark) !important; padding: 8px 20px !important; font-weight: 700 !important; transition: opacity 0.2s, transform 0.1s !important; }
-  .nav-cta:hover { opacity: 0.88 !important; transform: translateY(-1px); }
+  .nav-cta { background: linear-gradient(135deg, #78BE20, #9DD629) !important; color: var(--green-dark) !important; padding: 0 28px !important;
+    height: 68px;
+    display: flex !important;
+    align-items: center;
+    margin-right: -40px; font-weight: 700 !important; transition: opacity 0.2s !important; }
+  .nav-cta:hover { opacity: 0.88 !important; }
 
   /* ROUTE HERO */
   .route-hero {
@@ -307,35 +311,7 @@
 </head>
 <body>
 
-<nav>
-  <a href="index.html" class="nav-logo">
-    <img src="https://www.guidedogs.ie/img/f/291065883890237/596x176/b169668a73/guidedogs-logo-50th-horizontal.png/m/596x0/smart/filters:format(webp):quality(65)" alt="Irish Guide Dogs" style="height:36px; width:auto; filter: brightness(0) invert(1);">
-    <span class="nav-logo-divider"></span>
-    Bark &amp; <span>Ride</span>
-  </a>
-  <ul class="nav-links">
-    <li class="nav-dropdown">
-      <a href="#">About</a>
-      <ul class="nav-dropdown-menu">
-        <li><a href="index.html#about">About Us</a></li>
-        <li><a href="faq.html">FAQ</a></li>
-      </ul>
-    </li>
-    <li class="nav-dropdown">
-      <a href="index.html#routes">Routes</a>
-      <ul class="nav-dropdown-menu">
-        <li><a href="route-60km.html">60km &mdash; An Boireann B&eacute;ag</a></li>
-        <li><a href="route-90km.html">90km &mdash; An Karst</a></li>
-        <li><a href="route-125km.html">125km &mdash; An Boireann M&oacute;r</a></li>
-      </ul>
-    </li>
-    <li><a href="index.html#locations">Locations</a></li>
-    <li><a href="index.html#gallery">Gallery</a></li>
-    <li><a href="index.html#charity">Charity</a></li>
-    <li><a href="index.html#contact">Contact</a></li>
-    <li><a href="https://eventmaster.ie/event/Y9O2HrOFjv" target="_blank" class="nav-cta">Register</a></li>
-  </ul>
-</nav>
+<nav>  <a href="index.html" class="nav-logo">    <img src="https://www.guidedogs.ie/img/f/291065883890237/596x176/b169668a73/guidedogs-logo-50th-horizontal.png/m/596x0/smart/filters:format(webp):quality(65)" alt="Irish Guide Dogs" style="height:36px; width:auto; filter: brightness(0) invert(1);">  </a>  <ul class="nav-links">    <li class="nav-dropdown">      <a href="#">About</a>      <ul class="nav-dropdown-menu">        <li><a href="about.html">About Us</a></li>        <li><a href="faq.html">FAQ</a></li>      </ul>    </li>    <li class="nav-dropdown">      <a href="index.html#routes">Routes</a>      <ul class="nav-dropdown-menu">        <li><a href="route-60km.html">60km — An Boireann Béag</a></li>        <li><a href="route-90km.html">90km — An Karst</a></li>        <li><a href="route-125km.html">125km — An Boireann Mór</a></li>      </ul>    </li>    <li><a href="index.html#gallery">Gallery</a></li>    <li><a href="index.html#charity">Charity</a></li>    <li><a href="index.html#contact">Contact</a></li>    <li><a href="https://eventmaster.ie/event/Y9O2HrOFjv" target="_blank" class="nav-cta">Register</a></li>  </ul></nav>
 
 <section class="route-hero">
   <div class="route-hero-content">
@@ -412,8 +388,7 @@
 
 <footer>
   <div class="footer-inner">
-    <div class="logo-text">Bark &amp; <span>Ride</span></div>
-    <p>&copy; 2026 Bark &amp; Ride. In aid of <span>Irish Guide Dogs for the Blind</span></p>
+    <p>&copy; 2026 Bark &amp; Ride. In aid of <span>Irish Guide Dogs</span></p>
   </div>
 </footer>
 
