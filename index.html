@@ -143,12 +143,16 @@
   .nav-cta {
     background: linear-gradient(135deg, #78BE20, #9DD629) !important;
     color: var(--green-dark) !important;
-    padding: 8px 20px !important;
+    padding: 0 28px !important;
     font-weight: 700 !important;
-    transition: opacity 0.2s, transform 0.1s !important;
+    transition: opacity 0.2s !important;
+    height: 68px;
+    display: flex !important;
+    align-items: center;
+    margin-right: -40px;
   }
 
-  .nav-cta:hover { opacity: 0.88 !important; transform: translateY(-1px); }
+  .nav-cta:hover { opacity: 0.88 !important; }
 
   /* ── HERO ── */
   .hero {
@@ -715,35 +719,6 @@
     overflow: hidden;
   }
 
-  /* Dog silhouette pattern - left side */
-  .charity-section::before,
-  .charity-section::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 320px;
-    background-image:
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 60' fill='%23006233'%3E%3Cpath d='M15 18c-1-3 1-7 4-8 2-1 4 0 5 1l2-3c1-1 3-1 4 0l1 3c2-1 4-1 5 1 2 2 2 5 0 7l-1 1 8 2c3 1 5 4 5 7v4c0 2-1 3-3 4l-4 1v5c0 2-1 3-3 3h-2c-2 0-3-1-3-3v-3h-6v3c0 2-1 3-3 3h-2c-2 0-3-1-3-3v-6l-4-3c-2-2-3-4-3-7v-3c1-2 2-4 3-5zm38 14a2 2 0 100-4 2 2 0 000 4z'/%3E%3C/svg%3E");
-    background-size: 56px 42px;
-    background-repeat: repeat;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.04;
-  }
-
-  .charity-section::before {
-    left: 0;
-    mask-image: linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 40%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 40%, transparent 100%);
-  }
-
-  .charity-section::after {
-    right: 0;
-    mask-image: linear-gradient(to left, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 40%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 40%, transparent 100%);
-  }
-
   .charity-inner {
     max-width: 760px;
     margin: 0 auto;
@@ -1070,8 +1045,6 @@
 <nav>
   <a href="index.html" class="nav-logo">
     <img src="https://www.guidedogs.ie/img/f/291065883890237/596x176/b169668a73/guidedogs-logo-50th-horizontal.png/m/596x0/smart/filters:format(webp):quality(65)" alt="Irish Guide Dogs" style="height:36px; width:auto; filter: brightness(0) invert(1);">
-    <span class="nav-logo-divider"></span>
-    Bark &amp; <span>Ride</span>
   </a>
   <ul class="nav-links">
     <li class="nav-dropdown">
@@ -1089,7 +1062,6 @@
         <li><a href="route-125km.html">125km — An Boireann Mór</a></li>
       </ul>
     </li>
-    <li><a href="#locations">Locations</a></li>
     <li><a href="#gallery">Gallery</a></li>
     <li><a href="#charity">Charity</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -1151,7 +1123,7 @@
   <div class="intro-text">
     <div class="section-label">About the Event</div>
     <h2>Ride for Those Who Can't See the Road Ahead</h2>
-    <p>Bark & Ride is a charity cycling event held in support of Irish Guide Dogs for the Blind — an organisation that transforms the lives of people with vision impairment and families of children with autism across Ireland.</p>
+    <p>Bark & Ride is a charity cycling event held in support of Irish Guide Dogs — an organisation that transforms the lives of people with vision impairment and families of children with autism across Ireland.</p>
     <p>Whether you're a seasoned cyclist or taking on your first sportive, Bark & Ride offers a route for every rider. Pedal through the breathtaking landscapes of Co. Galway, knowing that every kilometre completed brings independence, confidence and freedom to someone who needs it most.</p>
     <p><em>Clip in. Roll out. Change a life.</em></p>
     <a href="https://eventmaster.ie/event/Y9O2HrOFjv" target="_blank" class="btn-navy">Register Today</a>
@@ -1196,18 +1168,6 @@
 </section>
 
 <!-- EXPERIENCE BAND -->
-<section class="experience-band" id="locations">
-  <div class="experience-text">
-    <div class="section-label">The Course</div>
-    <h2>Stunning Roads, Stunning Purpose</h2>
-    <p>Bark & Ride takes you through some of Ireland's most spectacular scenery — from the ancient limestone pavements of the Burren to the dramatic coastline of the Wild Atlantic Way. It's a ride you'll never forget, in aid of a cause that matters.</p>
-    <a href="#" class="btn-course">Explore the Course</a>
-  </div>
-  <div class="experience-image">
-    <img src="https://www.tourdeburren.com/wp-content/uploads/2024/12/IMG_3441-2-1.jpg" alt="Burren landscape">
-  </div>
-</section>
-
 <!-- STATS -->
 <div class="stats-band">
   <div class="stat-item">
@@ -1261,7 +1221,7 @@
   <div class="charity-inner">
     <div class="section-label">Why We Ride</div>
     <h2>Every Pedal Stroke Makes a Difference</h2>
-    <p>Irish Guide Dogs for the Blind has been transforming lives in Ireland for over 50 years. From guide dogs that give independence to people with vision impairment, to assistance dogs that bring calm and connection to families of children with autism — the impact is life-changing.</p>
+    <p>Irish Guide Dogs has been transforming lives in Ireland for over 50 years. From guide dogs that give independence to people with vision impairment, to assistance dogs that bring calm and connection to families of children with autism — the impact is life-changing.</p>
     <p>All funds raised through Bark & Ride go directly to support the training, placement and aftercare of guide and assistance dogs across Ireland. Your entry fee, your fundraising, your effort — it all adds up to something truly meaningful.</p>
     <a href="https://www.guidedogs.ie" class="charity-partner-badge">Visit Irish Guide Dogs</a>
   </div>
@@ -1283,7 +1243,7 @@
   <div class="footer-grid">
     <div class="footer-brand">
       <div class="logo-text">Bark &amp; <span style="color:#78BE20">Ride</span></div>
-      <p>A charity cycling event in aid of Irish Guide Dogs for the Blind — transforming lives across Ireland since 1976.</p>
+      <p>A charity cycling event in aid of Irish Guide Dogs — transforming lives across Ireland since 1976.</p>
       <div class="social-links">
         <a class="social-link" href="#" title="Facebook">f</a>
         <a class="social-link" href="#" title="Twitter">𝕏</a>
@@ -1321,7 +1281,7 @@
   </div>
   <div class="footer-bottom">
     <div>© 2026 Bark &amp; Ride. All rights reserved.</div>
-    <div>In aid of <span>Irish Guide Dogs for the Blind</span></div>
+    <div>In aid of <span>Irish Guide Dogs</span></div>
   </div>
 </footer>
 

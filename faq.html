@@ -126,12 +126,16 @@
   .nav-cta {
     background: linear-gradient(135deg, #78BE20, #9DD629) !important;
     color: var(--green-dark) !important;
-    padding: 8px 20px !important;
+    padding: 0 28px !important;
+    height: 68px;
+    display: flex !important;
+    align-items: center;
+    margin-right: -40px;
     font-weight: 700 !important;
-    transition: opacity 0.2s, transform 0.1s !important;
+    transition: opacity 0.2s !important;
   }
 
-  .nav-cta:hover { opacity: 0.88 !important; transform: translateY(-1px); }
+  .nav-cta:hover { opacity: 0.88 !important; }
 
   /* ── PAGE HEADER ── */
   .page-header {
@@ -367,14 +371,12 @@
 <nav>
   <a href="index.html" class="nav-logo">
     <img src="https://www.guidedogs.ie/img/f/291065883890237/596x176/b169668a73/guidedogs-logo-50th-horizontal.png/m/596x0/smart/filters:format(webp):quality(65)" alt="Irish Guide Dogs" style="height:36px; width:auto; filter: brightness(0) invert(1);">
-    <span class="nav-logo-divider"></span>
-    Bark &amp; <span>Ride</span>
   </a>
   <ul class="nav-links">
     <li class="nav-dropdown">
       <a href="#">About</a>
       <ul class="nav-dropdown-menu">
-        <li><a href="index.html#about">About Us</a></li>
+        <li><a href="about.html">About Us</a></li>
         <li><a href="faq.html">FAQ</a></li>
       </ul>
     </li>
@@ -386,7 +388,6 @@
         <li><a href="route-125km.html">125km — An Boireann Mór</a></li>
       </ul>
     </li>
-    <li><a href="index.html#locations">Locations</a></li>
     <li><a href="index.html#gallery">Gallery</a></li>
     <li><a href="index.html#charity">Charity</a></li>
     <li><a href="index.html#contact">Contact</a></li>
@@ -418,7 +419,7 @@
     <div class="accordion-item">
       <button class="accordion-trigger">How much does entry cost?</button>
       <div class="accordion-content">
-        <p>Entry fees vary by route. All entry fees include route support, food stops, mechanical support, event jersey collection, and a finisher's medal. All proceeds go directly to Irish Guide Dogs for the Blind.</p>
+        <p>Entry fees vary by route. All entry fees include route support, food stops, mechanical support, event jersey collection, and a finisher's medal. All proceeds go directly to Irish Guide Dogs.</p>
       </div>
     </div>
 
@@ -517,7 +518,7 @@
     <div class="accordion-item">
       <button class="accordion-trigger">Where does the money go?</button>
       <div class="accordion-content">
-        <p>All proceeds go directly to Irish Guide Dogs for the Blind. This funds the training and placement of guide dogs for people with vision impairment, and assistance dogs for families of children with autism. It costs approximately €50,000 to train and place a single guide dog.</p>
+        <p>All proceeds go directly to Irish Guide Dogs. This funds the training and placement of guide dogs for people with vision impairment, and assistance dogs for families of children with autism. It costs approximately €50,000 to train and place a single guide dog.</p>
       </div>
     </div>
 
@@ -540,8 +541,7 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <div class="logo-text">Bark &amp; <span>Ride</span></div>
-    <p>© 2026 Bark &amp; Ride. In aid of <span>Irish Guide Dogs for the Blind</span></p>
+    <p>© 2026 Bark &amp; Ride. In aid of <span>Irish Guide Dogs</span></p>
   </div>
 </footer>
 

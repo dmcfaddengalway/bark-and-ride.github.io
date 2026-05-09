@@ -37,8 +37,12 @@
   .nav-dropdown:hover .nav-dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
   .nav-dropdown-menu li a { display: block; padding: 10px 20px; font-size: 0.8rem; letter-spacing: 1.5px; white-space: nowrap; }
   .nav-dropdown-menu li a:hover { background: rgba(255,255,255,0.08); }
-  .nav-cta { background: linear-gradient(135deg, #78BE20, #9DD629) !important; color: var(--green-dark) !important; padding: 8px 20px !important; font-weight: 700 !important; transition: opacity 0.2s, transform 0.1s !important; }
-  .nav-cta:hover { opacity: 0.88 !important; transform: translateY(-1px); }
+  .nav-cta { background: linear-gradient(135deg, #78BE20, #9DD629) !important; color: var(--green-dark) !important; padding: 0 28px !important;
+    height: 68px;
+    display: flex !important;
+    align-items: center;
+    margin-right: -40px; font-weight: 700 !important; transition: opacity 0.2s !important; }
+  .nav-cta:hover { opacity: 0.88 !important; }
 
   /* PAGE HEADER */
   .page-header {
@@ -466,8 +470,6 @@
 <nav>
   <a href="index.html" class="nav-logo">
     <img src="https://www.guidedogs.ie/img/f/291065883890237/596x176/b169668a73/guidedogs-logo-50th-horizontal.png/m/596x0/smart/filters:format(webp):quality(65)" alt="Irish Guide Dogs" style="height:36px; width:auto; filter: brightness(0) invert(1);">
-    <span class="nav-logo-divider"></span>
-    Bark &amp; <span>Ride</span>
   </a>
   <ul class="nav-links">
     <li class="nav-dropdown">
@@ -485,7 +487,6 @@
         <li><a href="route-125km.html">125km — An Boireann Mór</a></li>
       </ul>
     </li>
-    <li><a href="index.html#locations">Locations</a></li>
     <li><a href="index.html#gallery">Gallery</a></li>
     <li><a href="index.html#charity">Charity</a></li>
     <li><a href="index.html#contact">Contact</a></li>
@@ -497,14 +498,14 @@
 <section class="page-header">
   <div class="page-header-label">Bark &amp; Ride 2026</div>
   <h1>About Us</h1>
-  <p>A charity cycle in aid of Irish Guide Dogs for the Blind — bringing riders together to change lives, one kilometre at a time.</p>
+  <p>A charity cycle in aid of Irish Guide Dogs — bringing riders together to change lives, one kilometre at a time.</p>
 </section>
 
 <!-- INTRO -->
 <section class="about-intro">
   <div class="about-intro-text">
     <h2>The Ride. The Cause. The Community.</h2>
-    <p>Bark &amp; Ride is a charity cycling sportive held in Galway, Ireland, in support of Irish Guide Dogs for the Blind. Whether you're a seasoned cyclist or lacing up your cleats for the first time, this event brings people together for a day of incredible riding — and an even greater cause.</p>
+    <p>Bark &amp; Ride is a charity cycling sportive held in Galway, Ireland, in support of Irish Guide Dogs. Whether you're a seasoned cyclist or lacing up your cleats for the first time, this event brings people together for a day of incredible riding — and an even greater cause.</p>
     <p>With three routes to choose from (60km, 90km, and 125km), riders of all levels are welcome. Every entry fee, every fundraised euro, and every kilometre pedalled goes directly to supporting the training and placement of guide dogs and assistance dogs across Ireland.</p>
   </div>
   <div class="about-intro-image">
@@ -537,7 +538,7 @@
   <div class="guide-dogs-inner">
     <div class="section-label">Our Charity Partner</div>
     <h2>One Community, Changing Lives</h2>
-    <p>Irish Guide Dogs for the Blind is Ireland's national charity dedicated to enabling people who are vision impaired and families of children with autism to achieve improved mobility and independence.</p>
+    <p>Irish Guide Dogs is Ireland's national charity dedicated to enabling people who are vision impaired and families of children with autism to achieve improved mobility and independence.</p>
     <p>For over 40 years, they have worked with a community of breeders, puppy raisers, home socialisers, trainers, staff, volunteers and supporters to change as many lives as possible. All of their services are provided completely free of charge.</p>
 
     <div class="services-grid">
@@ -640,8 +641,7 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <div class="logo-text">Bark &amp; <span>Ride</span></div>
-    <p>© 2026 Bark &amp; Ride. In aid of <span>Irish Guide Dogs for the Blind</span></p>
+    <p>© 2026 Bark &amp; Ride. In aid of <span>Irish Guide Dogs</span></p>
   </div>
 </footer>
 
