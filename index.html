@@ -710,8 +710,8 @@
     margin-top: 40px;
   }
 
-  /* ── CHARITY ── */
-  .charity-section {
+  /* ── SPONSORS ── */
+  .sponsors-section {
     background: var(--off-white);
     padding: 90px 40px;
     text-align: center;
@@ -719,47 +719,120 @@
     overflow: hidden;
   }
 
-  .charity-inner {
-    max-width: 760px;
+  .sponsors-inner {
+    max-width: 900px;
     margin: 0 auto;
     position: relative;
   }
 
-  .charity-inner .section-label { color: var(--navy); }
+  .sponsors-inner .section-label { color: var(--green-dark); }
 
-  .charity-inner h2 {
+  .sponsors-inner h2 {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 3rem;
-    color: var(--navy-dark);
+    color: var(--green-dark);
     letter-spacing: 3px;
-    margin: 10px 0 24px;
+    margin: 10px 0 16px;
   }
 
-  .charity-inner p {
+  .sponsors-inner > p {
     color: var(--text-muted);
     line-height: 1.8;
     font-weight: 300;
     font-size: 1rem;
-    margin-bottom: 16px;
+    margin-bottom: 48px;
+    max-width: 580px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
-  .charity-partner-badge {
-    display: inline-block;
-    margin-top: 30px;
-    background: linear-gradient(135deg, #006233, #78BE20);
-    color: var(--white);
+  .sponsor-tier {
+    margin-bottom: 48px;
+  }
+
+  .sponsor-tier:last-child { margin-bottom: 0; }
+
+  .sponsor-tier-label {
     font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
     font-weight: 700;
-    letter-spacing: 2px;
-    font-size: 0.9rem;
+    letter-spacing: 3px;
     text-transform: uppercase;
-    padding: 14px 36px;
-    text-decoration: none;
-    border: none;
-    transition: filter 0.2s, transform 0.15s;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
   }
 
-  .charity-partner-badge:hover { filter: brightness(0.85); transform: translateY(-2px); }
+  .sponsor-tier-label::before,
+  .sponsor-tier-label::after {
+    content: '';
+    height: 1px;
+    width: 60px;
+    background: rgba(0,0,0,0.1);
+  }
+
+  .tier-gold .sponsor-tier-label { color: #B8860B; }
+  .tier-silver .sponsor-tier-label { color: #6B7280; }
+  .tier-bronze .sponsor-tier-label { color: #A0522D; }
+
+  .sponsor-logos {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .sponsor-logo-placeholder {
+    background: var(--white);
+    border: 2px dashed rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(0,0,0,0.2);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: border-color 0.2s;
+  }
+
+  .sponsor-logo-placeholder:hover { border-color: rgba(0,0,0,0.25); }
+
+  .tier-gold .sponsor-logo-placeholder {
+    width: 220px;
+    height: 110px;
+    border-color: rgba(184,134,11,0.25);
+  }
+
+  .tier-silver .sponsor-logo-placeholder {
+    width: 170px;
+    height: 85px;
+    border-color: rgba(107,114,128,0.25);
+  }
+
+  .tier-bronze .sponsor-logo-placeholder {
+    width: 130px;
+    height: 65px;
+    border-color: rgba(160,82,45,0.25);
+  }
+
+  .sponsors-cta {
+    margin-top: 48px;
+    color: var(--text-muted);
+    font-weight: 300;
+    font-size: 0.95rem;
+  }
+
+  .sponsors-cta a {
+    color: var(--green-dark);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    font-weight: 500;
+  }
 
   /* ── STATS ── */
   .stats-band {
@@ -1069,7 +1142,7 @@
       </ul>
     </li>
     <li><a href="#gallery">Gallery</a></li>
-    <li><a href="#charity">Charity</a></li>
+    <li><a href="#sponsors">Sponsors</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="https://eventmaster.ie/event/Y9O2HrOFjv" target="_blank" class="nav-cta">Register</a></li>
   </ul>
@@ -1222,14 +1295,44 @@
   </div>
 </section>
 
-<!-- CHARITY -->
-<section class="charity-section" id="charity">
-  <div class="charity-inner">
-    <div class="section-label">Why We Ride</div>
-    <h2>Every Pedal Stroke Makes a Difference</h2>
-    <p>Irish Guide Dogs has been transforming lives in Ireland for over 50 years. From guide dogs that give independence to people with vision impairment, to assistance dogs that bring calm and connection to families of children with autism — the impact is life-changing.</p>
-    <p>All funds raised through Bark & Ride go directly to support the training, placement and aftercare of guide and assistance dogs across Ireland. Your entry fee, your fundraising, your effort — it all adds up to something truly meaningful.</p>
-    <a href="https://www.guidedogs.ie" class="charity-partner-badge">Visit Irish Guide Dogs</a>
+<!-- SPONSORS -->
+<section class="sponsors-section" id="sponsors">
+  <div class="sponsors-inner">
+    <div class="section-label">Our Partners</div>
+    <h2>Sponsors</h2>
+    <p>Bark &amp; Ride wouldn't be possible without the generous support of our sponsors. Interested in partnering with us? Get in touch.</p>
+
+    <!-- Gold Tier -->
+    <div class="sponsor-tier tier-gold">
+      <div class="sponsor-tier-label">Gold Sponsors</div>
+      <div class="sponsor-logos">
+        <div class="sponsor-logo-placeholder">Logo</div>
+        <div class="sponsor-logo-placeholder">Logo</div>
+      </div>
+    </div>
+
+    <!-- Silver Tier -->
+    <div class="sponsor-tier tier-silver">
+      <div class="sponsor-tier-label">Silver Sponsors</div>
+      <div class="sponsor-logos">
+        <div class="sponsor-logo-placeholder">Logo</div>
+        <div class="sponsor-logo-placeholder">Logo</div>
+        <div class="sponsor-logo-placeholder">Logo</div>
+      </div>
+    </div>
+
+    <!-- Bronze Tier -->
+    <div class="sponsor-tier tier-bronze">
+      <div class="sponsor-tier-label">Bronze Sponsors</div>
+      <div class="sponsor-logos">
+        <div class="sponsor-logo-placeholder">Logo</div>
+        <div class="sponsor-logo-placeholder">Logo</div>
+        <div class="sponsor-logo-placeholder">Logo</div>
+        <div class="sponsor-logo-placeholder">Logo</div>
+      </div>
+    </div>
+
+    <p class="sponsors-cta">Want to sponsor Bark &amp; Ride 2026? <a href="#contact">Contact us</a></p>
   </div>
 </section>
 
@@ -1252,7 +1355,7 @@
       <p>A charity cycling event in aid of Irish Guide Dogs — transforming lives across Ireland since 1976.</p>
       <div class="social-links">
         <a class="social-link" href="#" title="Facebook">f</a>
-        <a class="social-link" href="#" title="Twitter">𝕏</a>
+        <a class="social-link" href="https://www.instagram.com/galwaybranchirishguidedogs/" target="_blank" title="Instagram">◎</a>
       </div>
     </div>
     <div class="footer-col">
