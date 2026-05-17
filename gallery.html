@@ -90,6 +90,24 @@
     color: var(--white);
   }
 
+  /* FLICKR LINK */
+  .flickr-link-bar {
+    text-align: center;
+    padding: 16px 24px 0;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: var(--text-muted);
+  }
+  .flickr-link-bar a {
+    color: var(--green-dark);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+  .flickr-link-bar a:hover { color: var(--green-mid); }
+
   /* PHOTO GRID */
   .gallery-container {
     max-width: 1100px;
@@ -218,10 +236,7 @@
     max-width: 500px;
   }
 
-  /* Touch swipe area */
-  .lightbox-img-wrap {
-    touch-action: pan-y;
-  }
+  .lightbox-img-wrap { touch-action: pan-y; }
 
   /* FOOTER */
   footer { background: var(--text-dark); padding: 40px 40px 24px; color: rgba(255,255,255,0.6); }
@@ -304,6 +319,9 @@
   <button class="album-tab" data-album="scenery">Scenery</button>
   <button class="album-tab" data-album="community">Community</button>
 </div>
+
+<!-- FLICKR LINK -->
+<p class="flickr-link-bar">To see full gallery, visit our <a href="https://www.flickr.com/people/204588686@N03/" target="_blank">Flickr page</a>.</p>
 
 <!-- PHOTO GRID -->
 <div class="gallery-container">
@@ -434,7 +452,6 @@
     showPhoto();
   }
 
-  // Click handlers
   items.forEach(item => {
     item.addEventListener('click', () => {
       const visible = getVisiblePhotos();
@@ -447,7 +464,6 @@
   document.querySelector('.lightbox-prev').addEventListener('click', prevPhoto);
   document.querySelector('.lightbox-next').addEventListener('click', nextPhoto);
 
-  // Keyboard navigation
   document.addEventListener('keydown', (e) => {
     if (!lightbox.classList.contains('open')) return;
     if (e.key === 'Escape') closeLightbox();
@@ -455,7 +471,6 @@
     if (e.key === 'ArrowLeft') prevPhoto();
   });
 
-  // Click backdrop to close
   document.getElementById('lightboxSwipe').addEventListener('click', (e) => {
     if (e.target === e.currentTarget) closeLightbox();
   });
@@ -473,15 +488,12 @@
   swipeArea.addEventListener('touchend', (e) => {
     const dx = e.changedTouches[0].screenX - touchStartX;
     const dy = e.changedTouches[0].screenY - touchStartY;
-
-    // Only register horizontal swipes (ignore vertical scrolling)
     if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
       if (dx < 0) nextPhoto();
       else prevPhoto();
     }
   }, { passive: true });
 
-  // Nav scroll shadow
   window.addEventListener('scroll', () => {
     const nav = document.querySelector('nav');
     nav.style.boxShadow = window.scrollY > 80 ? '0 4px 24px rgba(0,0,0,0.35)' : 'none';
