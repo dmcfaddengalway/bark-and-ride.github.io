@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>60km An Boireann Béag — Bark &amp; Ride 2026</title>
+<title>60km Dunguaire Castle — Bark &amp; Ride 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -37,11 +37,7 @@
   .nav-dropdown:hover .nav-dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
   .nav-dropdown-menu li a { display: block; padding: 10px 20px; font-size: 0.8rem; letter-spacing: 1.5px; white-space: nowrap; }
   .nav-dropdown-menu li a:hover { background: rgba(255,255,255,0.08); }
-  .nav-cta { background: linear-gradient(135deg, #78BE20, #9DD629) !important; color: var(--green-dark) !important; padding: 0 28px !important;
-    height: 68px;
-    display: flex !important;
-    align-items: center;
-    margin-right: -40px; font-weight: 700 !important; transition: opacity 0.2s !important; }
+  .nav-cta { background: linear-gradient(135deg, #78BE20, #9DD629) !important; color: var(--green-dark) !important; padding: 0 28px !important; height: 68px; display: flex !important; align-items: center; margin-right: -40px; font-weight: 700 !important; transition: opacity 0.2s !important; }
   .nav-cta:hover { opacity: 0.88 !important; }
 
   /* ROUTE HERO */
@@ -53,234 +49,51 @@
     align-items: flex-end;
   }
   .route-hero-content { max-width: 600px; }
-  .route-hero-tag {
-    display: inline-block;
-    background: linear-gradient(135deg, #006233, #78BE20);
-    color: var(--white);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 5px 14px;
-    margin-bottom: 16px;
-  }
-  .route-hero h1 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(3rem, 7vw, 5rem);
-    color: var(--white);
-    letter-spacing: 4px;
-    line-height: 1;
-  }
-  .route-hero h1 small {
-    font-size: 0.45em;
-    color: var(--green-lime);
-    letter-spacing: 2px;
-    display: block;
-    margin-top: 6px;
-  }
-  .route-hero-sub {
-    margin-top: 16px;
-    color: rgba(255,255,255,0.75);
-    font-weight: 300;
-    font-size: 1rem;
-    line-height: 1.6;
-    max-width: 480px;
-  }
+  .route-hero-tag { display: inline-block; background: linear-gradient(135deg, #006233, #78BE20); color: var(--white); font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 14px; margin-bottom: 16px; }
+  .route-hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 7vw, 5rem); color: var(--white); letter-spacing: 4px; line-height: 1; }
+  .route-hero h1 small { font-size: 0.45em; color: var(--green-lime); letter-spacing: 2px; display: block; margin-top: 6px; }
+  .route-hero-sub { margin-top: 16px; color: rgba(255,255,255,0.75); font-weight: 300; font-size: 1rem; line-height: 1.6; max-width: 480px; }
 
   /* STATS ROW */
-  .route-stats {
-    background: var(--off-white);
-    padding: 0 40px;
-  }
-  .route-stats-inner {
-    max-width: 800px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-around;
-    padding: 30px 0;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
+  .route-stats { background: var(--off-white); padding: 0 40px; }
+  .route-stats-inner { max-width: 800px; margin: 0 auto; display: flex; justify-content: space-around; padding: 30px 0; gap: 20px; flex-wrap: wrap; }
   .route-stat { text-align: center; }
-  .route-stat-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2.4rem;
-    color: var(--green-dark);
-    line-height: 1;
-    display: block;
-  }
-  .route-stat-label {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-top: 4px;
-  }
+  .route-stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.4rem; color: var(--green-dark); line-height: 1; display: block; }
+  .route-stat-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-top: 4px; }
 
   /* CONTENT */
-  .route-content {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 70px 24px;
-  }
-  .route-content h2 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2rem;
-    color: var(--green-dark);
-    letter-spacing: 2px;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid var(--light-grey);
-  }
-  .route-content > p {
-    color: var(--text-muted);
-    font-weight: 300;
-    font-size: 1rem;
-    line-height: 1.8;
-    margin-bottom: 48px;
-  }
+  .route-content { max-width: 800px; margin: 0 auto; padding: 70px 24px; }
+  .route-content h2 { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--green-dark); letter-spacing: 2px; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid var(--light-grey); }
+  .route-content > p { color: var(--text-muted); font-weight: 300; font-size: 1rem; line-height: 1.8; margin-bottom: 48px; }
 
   /* HIGHLIGHTS */
-  .route-highlights {
-    display: grid;
-    gap: 24px;
-    margin-bottom: 48px;
-  }
-  .route-highlight {
-    padding: 24px 28px;
-    background: var(--off-white);
-    border-left: 4px solid var(--green-light);
-  }
-  .route-highlight h3 {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1.05rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--green-dark);
-    margin-bottom: 8px;
-  }
-  .route-highlight p {
-    color: var(--text-muted);
-    font-weight: 300;
-    font-size: 0.95rem;
-    line-height: 1.7;
-  }
+  .route-highlights { display: grid; gap: 24px; margin-bottom: 48px; }
+  .route-highlight { padding: 24px 28px; background: var(--off-white); border-left: 4px solid var(--green-light); }
+  .route-highlight h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.05rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--green-dark); margin-bottom: 8px; }
+  .route-highlight p { color: var(--text-muted); font-weight: 300; font-size: 0.95rem; line-height: 1.7; }
 
-  /* ELEVATION PROFILE */
-  .elevation-section {
-    margin-bottom: 48px;
-  }
-  .elevation-desc {
-    color: var(--text-muted);
-    font-weight: 300;
-    font-size: 0.95rem;
-    line-height: 1.75;
-  }
+  /* ELEVATION */
+  .elevation-section { margin-bottom: 48px; }
+  .elevation-desc { color: var(--text-muted); font-weight: 300; font-size: 0.95rem; line-height: 1.75; }
 
   /* TIPS */
-  .tips-section {
-    background: var(--green-dark);
-    padding: 50px 40px;
-    margin-bottom: 0;
-  }
-  .tips-inner {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  .tips-inner h2 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2rem;
-    color: var(--white);
-    letter-spacing: 2px;
-    margin-bottom: 28px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid rgba(255,255,255,0.15);
-  }
-  .tip-item {
-    display: flex;
-    gap: 16px;
-    align-items: flex-start;
-    margin-bottom: 20px;
-  }
-  .tip-icon {
-    flex-shrink: 0;
-    width: 24px;
-    height: 24px;
-    background: var(--green-light);
-    color: var(--green-dark);
-    font-weight: 700;
-    font-size: 0.8rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 2px;
-  }
-  .tip-item p {
-    color: rgba(255,255,255,0.8);
-    font-weight: 300;
-    font-size: 0.95rem;
-    line-height: 1.7;
-  }
+  .tips-section { background: var(--green-dark); padding: 50px 40px; margin-bottom: 0; }
+  .tips-inner { max-width: 800px; margin: 0 auto; }
+  .tips-inner h2 { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--white); letter-spacing: 2px; margin-bottom: 28px; padding-bottom: 10px; border-bottom: 2px solid rgba(255,255,255,0.15); }
+  .tip-item { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 20px; }
+  .tip-icon { flex-shrink: 0; width: 24px; height: 24px; background: var(--green-light); color: var(--green-dark); font-weight: 700; font-size: 0.8rem; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+  .tip-item p { color: rgba(255,255,255,0.8); font-weight: 300; font-size: 0.95rem; line-height: 1.7; }
 
   /* CTA */
-  .cta-band {
-    background: linear-gradient(135deg, #006233 0%, #008542 50%, #78BE20 100%);
-    padding: 60px 40px;
-    text-align: center;
-  }
-  .cta-band h2 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2.5rem;
-    color: var(--white);
-    letter-spacing: 3px;
-    margin-bottom: 10px;
-  }
-  .cta-band p {
-    color: rgba(255,255,255,0.8);
-    font-weight: 300;
-    margin-bottom: 24px;
-  }
-  .btn-white {
-    display: inline-block;
-    background: var(--white);
-    color: var(--green-dark);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 14px 36px;
-    text-decoration: none;
-    transition: background 0.2s;
-  }
+  .cta-band { background: linear-gradient(135deg, #006233 0%, #008542 50%, #78BE20 100%); padding: 60px 40px; text-align: center; }
+  .cta-band h2 { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: var(--white); letter-spacing: 3px; margin-bottom: 10px; }
+  .cta-band p { color: rgba(255,255,255,0.8); font-weight: 300; margin-bottom: 24px; }
+  .btn-white { display: inline-block; background: var(--white); color: var(--green-dark); font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: 2px; text-transform: uppercase; padding: 14px 36px; text-decoration: none; transition: background 0.2s; }
   .btn-white:hover { background: rgba(255,255,255,0.88); }
 
   /* FOOTER */
-  footer {
-    background: var(--text-dark);
-    padding: 40px 40px 24px;
-    color: rgba(255,255,255,0.6);
-  }
-  .footer-inner {
-    max-width: 800px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-  .footer-inner .logo-text {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.4rem;
-    color: var(--white);
-    letter-spacing: 3px;
-  }
-  .footer-inner .logo-text span { color: #78BE20; }
+  footer { background: var(--text-dark); padding: 40px 40px 24px; color: rgba(255,255,255,0.6); }
+  .footer-inner { max-width: 800px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
   .footer-inner p { font-size: 0.8rem; color: rgba(255,255,255,0.35); }
   .footer-inner p span { color: #78BE20; }
 
@@ -311,13 +124,13 @@
 </head>
 <body>
 
-<nav>  <a href="index.html" class="nav-logo">    <img src="https://www.guidedogs.ie/img/f/291065883890237/596x176/b169668a73/guidedogs-logo-50th-horizontal.png/m/596x0/smart/filters:format(webp):quality(65)" alt="Irish Guide Dogs" style="height:36px; width:auto; filter: brightness(0) invert(1);">  </a>  <ul class="nav-links">    <li class="nav-dropdown">      <a href="#">About</a>      <ul class="nav-dropdown-menu">        <li><a href="about.html">About Us</a></li>        <li><a href="faq.html">FAQ</a></li>      </ul>    </li>    <li class="nav-dropdown">      <a href="index.html#routes">Routes</a>      <ul class="nav-dropdown-menu">        <li><a href="route-60km.html">60km — An Boireann Béag</a></li>        <li><a href="route-90km.html">90km — An Karst</a></li>        <li><a href="route-125km.html">125km — An Boireann Mór</a></li>      </ul>    </li>    <li><a href="gallery.html">Gallery</a></li>    <li><a href="index.html#charity">Charity</a></li>    <li><a href="index.html#contact">Contact</a></li>    <li><a href="https://eventmaster.ie/event/Y9O2HrOFjv" target="_blank" class="nav-cta">Register</a></li>  </ul></nav>
+<nav>  <a href="index.html" class="nav-logo">    <img src="https://www.guidedogs.ie/img/f/291065883890237/596x176/b169668a73/guidedogs-logo-50th-horizontal.png/m/596x0/smart/filters:format(webp):quality(65)" alt="Irish Guide Dogs" style="height:36px; width:auto; filter: brightness(0) invert(1);">  </a>  <ul class="nav-links">    <li class="nav-dropdown">      <a href="#">About</a>      <ul class="nav-dropdown-menu">        <li><a href="about.html">About Us</a></li>        <li><a href="faq.html">FAQ</a></li>      </ul>    </li>    <li class="nav-dropdown">      <a href="index.html#routes">Routes</a>      <ul class="nav-dropdown-menu">        <li><a href="route-60km.html">60km — Dunguaire Castle</a></li>        <li><a href="route-90km.html">90km — Kilmacduagh Round Tower</a></li>        <li><a href="route-125km.html">125km — Poulnabrone Dolmen</a></li>      </ul>    </li>    <li><a href="gallery.html">Gallery</a></li>    <li><a href="index.html#charity">Charity</a></li>    <li><a href="index.html#contact">Contact</a></li>    <li><a href="https://eventmaster.ie/event/Y9O2HrOFjv" target="_blank" class="nav-cta">Register</a></li>  </ul></nav>
 
 <section class="route-hero">
   <div class="route-hero-content">
     <span class="route-hero-tag">Beginner</span>
-    <h1>60km<small>An Boireann Béag</small></h1>
-    <p class="route-hero-sub">The perfect introduction to Bark & Ride. This scenic 60km loop takes in the gentle rolling terrain south of the Burren, ...</p>
+    <h1>60km<small>Dunguaire Castle</small></h1>
+    <p class="route-hero-sub">Taking in the iconic Dunguaire Castle and the scenic rolling terrain south of the Burren, this is the perfect introduction to Bark &amp; Ride.</p>
   </div>
 </section>
 
@@ -332,13 +145,17 @@
 
 <div class="route-content">
   <h2>Route Overview</h2>
-  <p>The perfect introduction to Bark & Ride. This scenic 60km loop takes in the gentle rolling terrain south of the Burren, passing through quiet country roads, picturesque villages, and lush green farmland. Ideal for first-time sportive riders or anyone looking for a fun, achievable challenge.</p>
+  <p>The perfect introduction to Bark &amp; Ride. Passing the iconic Dunguaire Castle on the shores of Kinvara Bay, this scenic 60km loop takes in the gentle rolling terrain south of the Burren, quiet country roads, picturesque villages, and lush green farmland. Ideal for first-time sportive riders or anyone looking for a fun, achievable challenge.</p>
 
   <h2>Route Highlights</h2>
   <div class="route-highlights">
     <div class="route-highlight">
+      <h3>Dunguaire Castle</h3>
+      <p>A 16th-century tower house standing on the shores of Kinvara Bay — one of the most photographed castles in Ireland and a stunning landmark as you pass through Kinvara village.</p>
+    </div>
+    <div class="route-highlight">
       <h3>Dromore Wood Nature Reserve</h3>
-      <p>Your first major landmark — a stunning oak woodland and lake system just minutes from the start.</p>
+      <p>A stunning oak woodland and lake system just minutes from the start — a beautiful early stretch to ease you into the ride.</p>
     </div>
     <div class="route-highlight">
       <h3>Corofin Village</h3>
@@ -360,28 +177,27 @@
 <section class="tips-section">
   <div class="tips-inner">
     <h2>Rider Tips</h2>
-      <div class="tip-item">
-        <span class="tip-icon">✓</span>
-        <p>This is a great route if you're new to sportives — the pace is relaxed and the support is excellent.</p>
-    <p style="margin-top:16px"><a href="https://www.strava.com/routes/3404957892583381030" target="_blank" style="color:var(--green-dark); text-decoration:underline; text-underline-offset:3px; font-weight:500;">View full route on Strava →</a></p>
-      </div>
-      <div class="tip-item">
-        <span class="tip-icon">✓</span>
-        <p>Start hydrated. Even on a shorter route, Clare's exposed roads can be deceptively windy.</p>
-      </div>
-      <div class="tip-item">
-        <span class="tip-icon">✓</span>
-        <p>Bring a light rain jacket — weather can change quickly in the Burren region.</p>
-      </div>
-      <div class="tip-item">
-        <span class="tip-icon">✓</span>
-        <p>Enjoy it! Don't race — soak in the scenery and the atmosphere.</p>
-      </div>
+    <div class="tip-item">
+      <span class="tip-icon">✓</span>
+      <p>This is a great route if you're new to sportives — the pace is relaxed and the support is excellent.</p>
+    </div>
+    <div class="tip-item">
+      <span class="tip-icon">✓</span>
+      <p>Start hydrated. Even on a shorter route, Clare's exposed roads can be deceptively windy.</p>
+    </div>
+    <div class="tip-item">
+      <span class="tip-icon">✓</span>
+      <p>Bring a light rain jacket — weather can change quickly in the Burren region.</p>
+    </div>
+    <div class="tip-item">
+      <span class="tip-icon">✓</span>
+      <p>Enjoy it! Don't race — soak in the scenery and the atmosphere.</p>
+    </div>
   </div>
 </section>
 
 <section class="cta-band">
-  <h2>Ready for the An Boireann Béag?</h2>
+  <h2>Ready for Dunguaire Castle?</h2>
   <p>Secure your place on the 60km route — every pedal stroke supports Irish Guide Dogs.</p>
   <a href="https://eventmaster.ie/event/Y9O2HrOFjv" target="_blank" class="btn-white">Register Now</a>
 </section>
