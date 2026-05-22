@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rider Zone – Bark &amp; Ride 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-dark: #006233;
+    --green-mid: #008542;
+    --green-light: #78BE20;
+    --green-lime: #9DD629;
+    --white: #ffffff;
+    --off-white: #f3f8f0;
+    --light-grey: #e8f3e0;
+    --text-dark: #032b16;
+    --text-muted: #2d5c3a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Barlow', sans-serif; background: var(--white); color: var(--text-dark); overflow-x: hidden; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(0, 98, 51, 0.97); backdrop-filter: blur(8px); border-bottom: 3px solid transparent; border-image: linear-gradient(to right, #006233, #78BE20) 1; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 68px; }
+  .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--white); letter-spacing: 3px; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+  .nav-logo-divider { display: inline-block; width: 1px; height: 28px; background: rgba(255,255,255,0.25); margin: 0 12px; }
+  .nav-logo span { color: var(--green-lime); }
+  .nav-links { display: flex; gap: 8px; list-style: none; align-items: center; }
+  .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; padding: 6px 10px; transition: color 0.2s; }
+  .nav-links a:hover { color: #78BE20; }
+  .nav-dropdown { position: relative; }
+  .nav-dropdown > a { cursor: default; }
+  .nav-dropdown > a::after { content: ' ▾'; font-size: 0.7rem; opacity: 0.6; }
+  .nav-dropdown-menu { position: absolute; top: calc(100% + 10px); left: 0; background: rgba(0, 70, 38, 0.97); backdrop-filter: blur(8px); min-width: 160px; padding: 8px 0; list-style: none; opacity: 0; visibility: hidden; transform: translateY(6px); transition: opacity 0.2s, transform 0.2s, visibility 0.2s; border-top: 2px solid #78BE20; box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+  .nav-dropdown:hover .nav-dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+  .nav-dropdown-menu li a { display: block; padding: 10px 20px; font-size: 0.8rem; letter-spacing: 1.5px; white-space: nowrap; }
+  .nav-dropdown-menu li a:hover { background: rgba(255,255,255,0.08); }
+  .nav-cta { background: linear-gradient(135deg, #78BE20, #9DD629) !important; color: var(--green-dark) !important; padding: 0 28px !important;
+    height: 68px;
+    display: flex !important;
+    align-items: center;
+    margin-right: -40px; font-weight: 700 !important; transition: opacity 0.2s !important; }
+  .nav-cta:hover { opacity: 0.88 !important; }
+
+  /* PAGE HEADER */
+  .page-header {
+    padding: 140px 40px 70px;
+    background: linear-gradient(135deg, #006233 0%, #008542 50%, #78BE20 100%);
+    text-align: center;
+  }
+  .page-header-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 12px;
+  }
+  .page-header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 8vw, 5rem);
+    color: var(--white);
+    letter-spacing: 4px;
+    line-height: 1;
+  }
+  .page-header p {
+    margin-top: 16px;
+    color: rgba(255,255,255,0.8);
+    font-weight: 300;
+    font-size: 1.05rem;
+    max-width: 580px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+
+  /* CONTENT SECTIONS */
+  .rider-zone-section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 60px 40px;
+  }
+  .rider-zone-section h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem;
+    color: var(--green-dark);
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+  }
+  .rider-zone-section > p, .rider-zone-section > ul {
+    color: var(--text-muted);
+    font-weight: 300;
+    line-height: 1.8;
+    font-size: 1rem;
+    margin-bottom: 14px;
+  }
+  .rider-zone-section ul {
+    margin-left: 24px;
+  }
+  .rider-zone-section li {
+    margin-bottom: 12px;
+  }
+
+  /* ACCORDION */
+  .accordion-item {
+    border: 2px solid var(--light-grey);
+    border-radius: 4px;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  .accordion-header {
+    background: var(--off-white);
+    padding: 16px 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    color: var(--green-dark);
+    transition: background 0.2s;
+  }
+  .accordion-header:hover {
+    background: var(--light-grey);
+  }
+  .accordion-toggle {
+    font-size: 1.2rem;
+    transition: transform 0.2s;
+  }
+  .accordion-item.open .accordion-toggle {
+    transform: rotate(180deg);
+  }
+  .accordion-content {
+    display: none;
+    padding: 16px 20px;
+    background: var(--white);
+    color: var(--text-muted);
+    line-height: 1.8;
+  }
+  .accordion-item.open .accordion-content {
+    display: block;
+  }
+
+  /* TABLES */
+  .info-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background: var(--off-white);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .info-table th {
+    background: linear-gradient(to right, #006233, #008542);
+    color: var(--white);
+    padding: 14px;
+    text-align: left;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  .info-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--light-grey);
+    color: var(--text-muted);
+  }
+  .info-table tr:last-child td {
+    border-bottom: none;
+  }
+  .info-table tr:nth-child(even) {
+    background: var(--white);
+  }
+
+  /* START TIMES GRID */
+  .start-times-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin: 30px 0;
+  }
+  .start-time-card {
+    background: linear-gradient(135deg, #78BE20, #9DD629);
+    padding: 24px;
+    border-radius: 4px;
+    color: var(--green-dark);
+    text-align: center;
+  }
+  .start-time-card .route-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.8;
+    margin-bottom: 8px;
+  }
+  .start-time-card .time {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  /* DIVIDER */
+  .section-divider {
+    height: 2px;
+    background: linear-gradient(to right, transparent, #78BE20, transparent);
+    margin: 40px 0;
+  }
+
+  /* HIGHLIGHT BOX */
+  .highlight-box {
+    background: var(--light-grey);
+    border-left: 4px solid var(--green-dark);
+    padding: 16px;
+    margin: 16px 0;
+    border-radius: 4px;
+  }
+
+  /* CTA BAND */
+  .cta-band {
+    background: linear-gradient(135deg, #006233 0%, #008542 50%, #78BE20 100%);
+    padding: 60px 40px;
+    text-align: center;
+  }
+  .cta-band h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.4rem;
+    color: var(--white);
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+  }
+  .cta-band p {
+    color: rgba(255,255,255,0.85);
+    font-weight: 300;
+    font-size: 1.05rem;
+    max-width: 620px;
+    margin: 0 auto 24px;
+  }
+  .btn-primary {
+    display: inline-block;
+    background: linear-gradient(135deg, #78BE20, #9DD629);
+    color: var(--green-dark);
+    padding: 12px 32px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 700;
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: filter 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { filter: brightness(0.85); transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer { background: var(--text-dark); padding: 40px 40px 24px; color: rgba(255,255,255,0.6); }
+  .footer-inner { max-width: 800px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .footer-inner .logo-text { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--white); letter-spacing: 3px; }
+  .footer-inner .logo-text span { color: #78BE20; }
+  .footer-inner p { font-size: 0.8rem; color: rgba(255,255,255,0.35); }
+  .footer-inner p span { color: #78BE20; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 0 16px; }
+    .nav-links { display: none; }
+    .page-header { padding: 120px 24px 50px; }
+    .rider-zone-section { padding: 40px 24px; }
+    .cta-band { padding: 50px 24px; }
+    .cta-band h2 { font-size: 1.8rem; }
+  }
+  @media (max-width: 600px) {
+    .page-header h1 { font-size: 2.8rem; }
+    .rider-zone-section h2 { font-size: 1.6rem; }
+    .rider-zone-section { padding: 40px 20px; }
+    .start-times-grid { grid-template-columns: 1fr; }
+    .info-table { font-size: 0.9rem; }
+    .info-table th, .info-table td { padding: 10px; }
+    .cta-band { padding: 40px 20px; }
+    .cta-band h2 { font-size: 2rem; }
+    footer { padding: 30px 20px 20px; }
+    .footer-inner { flex-direction: column; text-align: center; }
+  }
+  @media (max-width: 380px) {
+    .nav-logo { font-size: 1.4rem; }
+    .page-header h1 { font-size: 2.2rem; }
+    .start-time-card .time { font-size: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>  <a href="index.html" class="nav-logo">    <img src="https://www.guidedogs.ie/img/f/291065883890237/596x176/b169668a73/guidedogs-logo-50th-horizontal.png/m/596x0/smart/filters:format(webp):quality(65)" alt="Irish Guide Dogs" style="height:36px; width:auto; filter: brightness(0) invert(1);">  </a>  <ul class="nav-links">    <li class="nav-dropdown">      <a href="#">About</a>      <ul class="nav-dropdown-menu">        <li><a href="about.html">About Us</a></li>        <li><a href="faq.html">FAQ</a></li>      </ul>    </li>    <li class="nav-dropdown">      <a href="index.html#routes">Routes</a>      <ul class="nav-dropdown-menu">        <li><a href="route-60km.html">60km — Dunguaire Castle</a></li>        <li><a href="route-90km.html">90km — Kilmacduagh Round Tower</a></li>        <li><a href="route-125km.html">125km — Poulnabrone Dolmen</a></li>      </ul>    </li>    <li><a href="gallery.html">Gallery</a></li>    <li><a href="rider-zone.html">Rider Zone</a></li>    <li><a href="index.html#sponsors">Sponsors</a></li>    <li><a href="index.html#contact">Contact</a></li>    <li><a href="https://eventmaster.ie/event/Y9O2HrOFjv" target="_blank" class="nav-cta">Register</a></li>  </ul></nav>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+  <div class="page-header-label">Bark &amp; Ride 2026</div>
+  <h1>Rider Zone</h1>
+  <p>Everything you need to know before you clip in and roll out on Bark &amp; Ride 2026.</p>
+</section>
+
+<!-- INTRO -->
+<section class="rider-zone-section">
+  <h2>Essential Information for Every Rider</h2>
+  <p>Welcome to the Rider Zone. Whether you're a seasoned sportive veteran or taking your first leap into organised cycling, you'll find all the need-to-know information here. From starting times to route rules, safety standards to training tips — we've got you covered. <em>Be sure to familiarise yourself with these details before the event.</em></p>
+  <p>If you're registering someone else for Bark &amp; Ride, please share these details with them so everyone is properly informed and prepared.</p>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ACCOMMODATION -->
+<section class="rider-zone-section">
+  <h2>Where to Stay</h2>
+  <p><strong>Bark &amp; Ride 2026 takes place on Saturday, 26th September 2026.</strong> If you're travelling from outside the region, we recommend planning your accommodation early. Here are your options:</p>
+
+  <div class="accordion-item">
+    <div class="accordion-header">
+      <span>Accommodation in Galway</span>
+      <span class="accordion-toggle">▼</span>
+    </div>
+    <div class="accordion-content">
+      <p>Galway city is just minutes from The Connacht Hotel (our start/finish point) and offers everything from budget hostels to luxury hotels. With a vibrant dining and entertainment scene, it's the perfect base for your Bark &amp; Ride weekend. Visit <strong>galwaytourism.ie</strong> for a full list of accommodation options.</p>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <div class="accordion-header">
+      <span>Camping &amp; Glamping</span>
+      <span class="accordion-toggle">▼</span>
+    </div>
+    <div class="accordion-content">
+      <p>If you prefer the great outdoors, the Galway region has excellent camping and glamping options. Many are within easy reach of the start point, so you can get a good night's sleep and roll straight into the ride. Search for local campsites and glamping sites in Galway and surrounding areas.</p>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <div class="accordion-header">
+      <span>Nearby Towns</span>
+      <span class="accordion-toggle">▼</span>
+    </div>
+    <div class="accordion-content">
+      <p>Ballinasloe, Tuam, and other towns in the region also offer accommodation. These quieter options are great if you want a more relaxed pre-event atmosphere whilst still being close enough to the start point.</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- REGISTRATION -->
+<section class="rider-zone-section">
+  <h2>Event Registration</h2>
+  <p><strong>Pre-event registration is mandatory.</strong> All riders must sign in before they can participate in Bark &amp; Ride 2026.</p>
+
+  <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--green-dark); margin-top: 24px; margin-bottom: 12px;">Registration Details</h3>
+
+  <table class="info-table">
+    <tr>
+      <th>When</th>
+      <td>Saturday, 26th September 2026 — 8:00am to 9:00am</td>
+    </tr>
+    <tr>
+      <th>Where</th>
+      <td>The Connacht Hotel, Dublin Road, Galway</td>
+    </tr>
+    <tr>
+      <th>What to Bring</th>
+      <td>Your photo ID and your bike (obviously!)</td>
+    </tr>
+  </table>
+
+  <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--green-dark); margin-top: 24px; margin-bottom: 12px;">The Wristband System</h3>
+  <p>Upon registration, you'll receive an <strong>event wristband.</strong> This wristband is essential and must be worn throughout the day. Here's why:</p>
+  <ul>
+    <li><strong>Access Points:</strong> Your wristband grants you entry to all food and refreshment stops along the route.</li>
+    <li><strong>Post-Ride Celebration:</strong> Access to the finish-line festivities, ice cream, and BBQ deals.</li>
+    <li><strong>Safety ID:</strong> Your wristband has a unique number and SOS contact — if you need help, this makes identification quick and easy.</li>
+    <li><strong>Souvenir:</strong> Your Bark &amp; Ride 2026 commemorative medal — a reminder of your incredible day.</li>
+  </ul>
+  <div class="highlight-box" style="font-style: italic;"><strong>Important:</strong> Keep your wristband visible and secure throughout the event. If you need assistance during the ride, the identification number on your wristband enables our team to provide rapid support.</div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- START TIMES -->
+<section class="rider-zone-section">
+  <h2>When the Event Starts</h2>
+  <p>All riders should assemble at the start line by the times below. We recommend arriving at least 15 minutes early to find your start group.</p>
+
+  <div class="start-times-grid">
+    <div class="start-time-card">
+      <div class="route-name">125km</div>
+      <div class="time">9:20</div>
+    </div>
+    <div class="start-time-card">
+      <div class="route-name">90km</div>
+      <div class="time">9:20</div>
+    </div>
+    <div class="start-time-card">
+      <div class="route-name">60km</div>
+      <div class="time">9:25</div>
+    </div>
+  </div>
+
+  <p style="margin-top: 20px;"><strong>Important:</strong> Marshals will be supporting riders until 5:00pm. If you choose to depart early or continue riding after official support ends, you do so at your own risk.</p>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- USEFUL INFORMATION -->
+<section class="rider-zone-section">
+  <h2>Useful Information</h2>
+  <p>Here's what you need to know to make the most of your Bark &amp; Ride experience:</p>
+
+  <table class="info-table">
+    <tr>
+      <th style="width: 25%;">Topic</th>
+      <th>What You Need to Know</th>
+    </tr>
+    <tr>
+      <td><strong>Weather Conditions</strong></td>
+      <td>Ireland in late September can be changeable. Come prepared for showers — rain gear and extra layers are your friends. Check the forecast the week before and plan accordingly.</td>
+    </tr>
+    <tr>
+      <td><strong>Route Markers</strong></td>
+      <td>All routes are clearly marked with yellow &amp; black directional signage. Stay alert and follow the signs — they're your guide! Don't rely solely on GPS.</td>
+    </tr>
+    <tr>
+      <td><strong>Refreshment Stops</strong></td>
+      <td>Well-stocked stops are positioned along each route with water, energy foods, and friendly faces. <em>Show your wristband to claim your complimentary refreshments.</em></td>
+    </tr>
+    <tr>
+      <td><strong>Mechanical Support</strong></td>
+      <td>We have roaming mechanical support vehicles available on the route. However, it is your responsibility to ensure your bike is in good working condition. Check your bike before the event and carry spare tubes, a pump, and a multi-tool.</td>
+    </tr>
+    <tr>
+      <td><strong>Road Closures</strong></td>
+      <td>There are no full road closures, but expect congestion on approach roads to Galway. Leave extra time for travel and stay patient.</td>
+    </tr>
+    <tr>
+      <td><strong>Traffic Awareness</strong></td>
+      <td>Late September is still peak tourist season in Ireland. Stay alert for unfamiliar drivers, tour buses, and holiday traffic — especially on the Burren roads.</td>
+    </tr>
+    <tr>
+      <td><strong>Challenging Sections</strong></td>
+      <td>Be aware of narrow country roads, particularly in the first 40km, sections with grass-centered roadways, and steep descents in the Burren. Maintain single-file formation in narrow sections and exercise extra caution on all descents.</td>
+    </tr>
+    <tr>
+      <td><strong>Emergency Support</strong></td>
+      <td>The SOS number is printed on your wristband. If you feel unwell or need assistance, stop immediately and call. Never continue if you're struggling — your safety is paramount.</td>
+    </tr>
+    <tr>
+      <td><strong>Environmental Respect</strong></td>
+      <td>Please take all litter with you. We're proud of County Galway and the Burren — let's keep them beautiful for everyone. Follow LEAVE NO TRACE principles.</td>
+    </tr>
+  </table>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- RULES -->
+<section class="rider-zone-section">
+  <h2>Rules and Guidelines</h2>
+  <p>Bark &amp; Ride is committed to ensuring the event runs smoothly and safely. All participants are expected to adhere to the following principles:</p>
+
+  <ul>
+    <li><strong>Prepare Your Bike:</strong> Ensure your bike is in good working condition before the event. Carry spare tubes and essential tools.</li>
+    <li><strong>Helmets Mandatory:</strong> All participants must wear a helmet at all times. No exceptions.</li>
+    <li><strong>Arrive Early:</strong> Allow sufficient time to register, prepare, and join your designated start group.</li>
+    <li><strong>Respect the Road Rules:</strong> Follow all traffic laws, stay on designated routes, and be aware of other road users at all times.</li>
+    <li><strong>Respect Others:</strong> Treat fellow cyclists, marshals, and volunteers with courtesy and respect. We are all here for a shared purpose.</li>
+    <li><strong>This is a Leisure Event:</strong> Bark &amp; Ride is a recreational sportive, not a race. The focus is on enjoying the ride and supporting Irish Guide Dogs.</li>
+    <li><strong>Follow Marshal Instructions:</strong> Our volunteers are present to ensure your safety. Please adhere to their guidance at all times.</li>
+    <li><strong>Accept Responsibility:</strong> We do not provide breakdown cover. If your bike experiences mechanical failure, you are responsible for resolving the issue or requesting support.</li>
+    <li><strong>Event Support Hours:</strong> Official event support concludes at 5:00pm. Any cycling after this time is undertaken at your own risk.</li>
+    <li><strong>Environmental Responsibility:</strong> Please remove all litter. We are committed to preserving the natural beauty of Galway and the Burren.</li>
+    <li><strong>Purpose and Commitment:</strong> Remember that every kilometre you cycle directly supports Irish Guide Dogs in their vital mission to provide independence and confidence to people with vision impairment and families of children with autism.</li>
+  </ul>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- SAFETY & STANDARDS -->
+<section class="rider-zone-section">
+  <h2>Standards &amp; Safety</h2>
+  <p>Bark &amp; Ride is committed to running a world-class event with the highest safety standards. Our team works extensively to:</p>
+  <ul>
+    <li>Deploy route marshals and roaming mechanical support teams</li>
+    <li>Provide clear directional signage and multiple refreshment stops</li>
+    <li>Coordinate with local authorities and emergency services</li>
+    <li>Ensure all riders have access to help via the SOS wristband system</li>
+    <li>Follow Cycling Ireland safety guidelines</li>
+  </ul>
+  <p style="margin-top: 14px;"><strong>Your Responsibilities:</strong> Wear your helmet, follow the designated route, respect other road users, and contact marshals or use the SOS number if you require assistance. Your safety is our primary concern.</p>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- TRAINING TIPS -->
+<section class="rider-zone-section">
+  <h2>Training and Preparation</h2>
+  <p>Whether you're new to sportive cycling or an experienced participant, proper preparation is essential. Here are key considerations:</p>
+
+  <div class="accordion-item">
+    <div class="accordion-header">
+      <span>Position &amp; Comfort</span>
+      <span class="accordion-toggle">▼</span>
+    </div>
+    <div class="accordion-content">
+      <p>Establishing a comfortable and efficient riding position is important. Avoid positions that are too cramped or overly extended. A qualified bike fitter or experienced cyclist can assist you in achieving proper positioning. Comfort is essential during extended rides.</p>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <div class="accordion-header">
+      <span>Gear &amp; Gearing</span>
+      <span class="accordion-toggle">▼</span>
+    </div>
+    <div class="accordion-content">
+      <p>Quality padded cycling shorts are a worthwhile investment that significantly enhances comfort. Use gearing strategically — avoid excessive resistance, particularly on climbs. Select gears that allow for a steady, sustained pedalling rhythm. Focus on maintaining a consistent cadence rather than high power output.</p>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <div class="accordion-header">
+      <span>Tyre Pressure &amp; Bike Maintenance</span>
+      <span class="accordion-toggle">▼</span>
+    </div>
+    <div class="accordion-content">
+      <p>Proper tyre pressure is essential for performance and safety. Under-inflated tyres reduce efficiency and increase puncture risk. Inflate to the pressure specified on your tyre sidewall. In wet conditions, you may consider slightly reduced pressure for improved grip, but never compromise on safety by running excessively soft tyres.</p>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <div class="accordion-header">
+      <span>Nutrition &amp; Hydration</span>
+      <span class="accordion-toggle">▼</span>
+    </div>
+    <div class="accordion-content">
+      <p>Consume a light meal 1-2 hours before the event begins. During the ride, follow a consistent nutrition strategy with small amounts taken regularly — do not wait until fatigue sets in. Maintain regular hydration throughout the day with plain water, sports drinks, or electrolyte solutions. Avoid carbonated beverages, which provide minimal nutritional benefit.</p>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <div class="accordion-header">
+      <span>Braking &amp; Cornering</span>
+      <span class="accordion-toggle">▼</span>
+    </div>
+    <div class="accordion-content">
+      <p>Apply both brakes evenly and smoothly when approaching turns. Avoid the common error of braking during a turn, which compromises stability. Always complete braking before entering the turn. Maintain smooth lines through corners to ensure stability and control.</p>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <div class="accordion-header">
+      <span>Group Riding &amp; Drafting</span>
+      <span class="accordion-toggle">▼</span>
+    </div>
+    <div class="accordion-content">
+      <p>Cycling in a group is more efficient than riding alone, particularly against headwinds. Maintain close but safe spacing and take turns leading. Riding in another cyclist's slipstream significantly reduces aerodynamic resistance. Maintain situational awareness and communicate clearly with other riders about hazards and intentions.</p>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <div class="accordion-header">
+      <span>Helmet Safety &amp; Awareness</span>
+      <span class="accordion-toggle">▼</span>
+    </div>
+    <div class="accordion-content">
+      <p>Always wear a properly fitted helmet, without exception. Most cycling incidents result from rider-to-rider contact or environmental hazards. Maintain constant awareness of road conditions, including potholes and obstacles. Communicate hazards to other riders using clear signals and verbal warnings. Vigilance and awareness significantly reduce accident risk.</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- AFTER PARTY -->
+<section class="rider-zone-section">
+  <h2>The Finish Line Celebration</h2>
+  <p>After completing your ride, we invite you to join us for a celebration of your achievement:</p>
+
+  <div class="highlight-box">
+    <p><strong>When:</strong> 12:00pm<br/>
+    <strong>Where:</strong> The Connacht Hotel, Dublin Road, Galway</p>
+  </div>
+
+  <ul style="margin-top: 14px;">
+    <li><strong>Refreshments:</strong> Food and beverages to replenish your energy following the event</li>
+    <li><strong>Entertainment:</strong> Live music and entertainment</li>
+    <li><strong>Photo Opportunity:</strong> Professional photography service to commemorate your participation</li>
+    <li><strong>Commemorative Medal:</strong> Receive your official Bark &amp; Ride 2026 medal</li>
+    <li><strong>Social Time:</strong> An opportunity to connect with fellow riders and celebrate the shared mission of supporting Irish Guide Dogs</li>
+  </ul>
+
+  <p style="margin-top: 14px; font-style: italic;">We encourage you to bring family members, friends, and supporters to share in the celebration and to learn more about Irish Guide Dogs and the important work they do in the community.</p>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- CTA BAND -->
+<section class="cta-band">
+  <h2>Secure Your Place</h2>
+  <p>You now have comprehensive information about the event, the routes, and best practices for preparation. Register today to confirm your participation in Bark &amp; Ride 2026 and support Irish Guide Dogs.</p>
+  <a href="https://eventmaster.ie/event/Y9O2HrOFjv" target="_blank" class="btn-primary">Register Now</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <p>© 2026 Bark &amp; Ride. In aid of <span>Irish Guide Dogs</span></p>
+  </div>
+</footer>
+
+<script>
+  // Smooth scroll for nav
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    nav.style.boxShadow = window.scrollY > 80 ? '0 4px 24px rgba(0,0,0,0.35)' : 'none';
+  });
+
+  // Accordion functionality
+  const accordionHeaders = document.querySelectorAll('.accordion-header');
+  accordionHeaders.forEach(header => {
+    header.addEventListener('click', () => {
+      const item = header.parentElement;
+      item.classList.toggle('open');
+    });
+  });
+</script>
+</body>
+</html>
