@@ -293,6 +293,50 @@
   .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 4rem; color: var(--white); line-height: 1; display: block; }
   .stat-desc { font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.75); }
 
+  /* VIDEO */
+  .video-section { padding: 100px 40px; background: var(--text-dark); }
+  .video-section .section-header { text-align: center; margin-bottom: 50px; }
+  .video-section .section-label { color: var(--green-lime); }
+  .video-section h2 {
+    font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem;
+    color: var(--white); letter-spacing: 3px;
+  }
+  .video-section h2 span { color: var(--green-lime); }
+  .video-wrapper {
+    position: relative; max-width: 900px; margin: 0 auto;
+    aspect-ratio: 16/9; background: #1a2e1f;
+    border: 3px solid var(--green-mid); overflow: hidden;
+  }
+  .video-wrapper iframe {
+    position: absolute; inset: 0; width: 100%; height: 100%; border: none;
+  }
+  .video-placeholder {
+    position: absolute; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 20px;
+    background: linear-gradient(135deg, #0d1a0f, #1a3020);
+  }
+  .video-play-btn {
+    width: 80px; height: 80px; border-radius: 50%;
+    background: linear-gradient(135deg, #006233, #78BE20);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: transform 0.2s, opacity 0.2s;
+  }
+  .video-play-btn:hover { transform: scale(1.08); opacity: 0.9; }
+  .video-play-btn svg { width: 32px; height: 32px; fill: white; margin-left: 5px; }
+  .video-placeholder p {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem;
+    letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.4);
+  }
+  .video-caption {
+    text-align: center; margin-top: 24px;
+    font-family: 'Barlow', sans-serif; font-size: 0.95rem;
+    color: rgba(255,255,255,0.5); font-weight: 300; font-style: italic;
+  }
+  @media (max-width: 600px) {
+    .video-section { padding: 60px 20px; }
+    .video-section h2 { font-size: 2.5rem; }
+  }
+
   /* GALLERY */
   .gallery-section { padding: 100px 40px; background: var(--white); }
   .gallery-section .section-header { text-align: center; margin-bottom: 50px; }
@@ -478,6 +522,7 @@
       </ul>
     </li>
     <li><a href="#gallery">Gallery</a></li>
+    <li><a href="rider-zone.html">Rider Zone</a></li>
     <li><a href="#sponsors">Sponsors</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="https://eventmaster.ie/event/Y9O2HrOFjv" target="_blank" class="nav-cta">Register</a></li>
@@ -603,6 +648,28 @@
   <div class="stat-item"><span class="stat-num">100%</span><div class="stat-desc">For Charity</div></div>
   <div class="stat-item"><span class="stat-num">1</span><div class="stat-desc">Epic Day Out</div></div>
 </div>
+
+<!-- VIDEO -->
+<section class="video-section" id="video">
+  <div class="section-header">
+    <div class="section-label">See It In Action</div>
+    <h2>The <span>Ride</span> in Motion</h2>
+  </div>
+  <div class="video-wrapper">
+    <!-- TO ADD VIDEO: replace this placeholder div with:
+         <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" allowfullscreen></iframe>
+         or for Vimeo:
+         <iframe src="https://player.vimeo.com/video/YOUR_VIDEO_ID" allowfullscreen></iframe>
+    -->
+    <div class="video-placeholder">
+      <div class="video-play-btn">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+      <p>Video coming soon</p>
+    </div>
+  </div>
+  <p class="video-caption">Highlights from Bark &amp; Ride — 125km of stunning Galway &amp; Burren scenery</p>
+</section>
 
 <!-- GALLERY -->
 <section class="gallery-section" id="gallery">
