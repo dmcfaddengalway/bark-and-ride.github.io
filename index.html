@@ -132,6 +132,12 @@
     margin-top: 36px; display: flex; gap: 16px; flex-wrap: wrap;
     animation: fadeUp 1s 0.3s ease both;
   }
+  .hero-donate {
+    margin-top: 16px; font-size: 1rem; color: rgba(255,255,255,0.6);
+    animation: fadeUp 1s 0.4s ease both;
+  }
+  .hero-donate a { color: #9DD629; text-decoration: underline; text-decoration-color: rgba(157,214,41,0.4); }
+  .hero-donate a:hover { color: #78BE20; }
   .btn-primary {
     background: linear-gradient(135deg, #006233 0%, #78BE20 100%);
     color: var(--white); font-family: 'Barlow Condensed', sans-serif;
@@ -551,6 +557,10 @@
     .hamburger { display: flex; }
   }
 </style>
+  <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon/favicon-16x16.png">
+  <link rel="manifest" href="./assets/favicon/site.webmanifest">
 </head>
 <body>
 
@@ -619,6 +629,7 @@
       <a href="https://eventmaster.ie/event/Y9O2HrOFjv" target="_blank" class="btn-primary">Register Now</a>
       <a href="#routes" class="btn-outline">View Routes</a>
     </div>
+    <p class="hero-donate">Not Cycling? <a href="https://eventmaster.ie/fundraising/campaign/the-bark-and-ride-sportive-2026" target="_blank" rel="noopener">Donate</a></p>
   </div>
   <div class="hero-right">
     <img class="hero-logo-img" src="./assets/cycle-logo.png" alt="Bark and Ride 2026">
