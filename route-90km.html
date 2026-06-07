@@ -200,6 +200,9 @@
     .nav-links { display: none !important; }
     .hamburger { display: flex; }
   }
+  .btn-outline-white { display: inline-block; background: transparent; color: var(--white); font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 0.95rem; letter-spacing: 2px; text-transform: uppercase; padding: 13px 32px; text-decoration: none; border: 2px solid rgba(255,255,255,0.55); transition: border-color 0.2s, color 0.2s; margin-left: 14px; }
+  .btn-outline-white:hover { border-color: var(--white); color: var(--white); }
+  .cta-band .btn-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; align-items: center; }
 </style>
 </head>
 <body>
@@ -300,7 +303,9 @@
 <section class="cta-band">
   <h2>Ready for Kilmacduagh Round Tower?</h2>
   <p>Secure your place on the 90km route — every pedal stroke supports Irish Guide Dogs.</p>
-  <a href="https://eventmaster.ie/event/Y9O2HrOFjv" target="_blank" class="btn-white">Register Now</a>
+  <div class="btn-group"><a href="https://eventmaster.ie/event/Y9O2HrOFjv" target="_blank" class="btn-white">Register Now</a>
+  <a href="./assets/Training-Guide.pdf" download class="btn-outline-white">↓ Training Guide</a>
+</div>
 </section>
 
 <footer>
