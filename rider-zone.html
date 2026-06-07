@@ -148,33 +148,30 @@
     width: 100%;
     border-collapse: collapse;
     margin: 20px 0;
-    background: var(--off-white);
-    border-radius: 4px;
-    overflow: hidden;
+  }
+  .info-table thead tr {
+    background: linear-gradient(to right, #006233, #008542);
   }
   .info-table th {
-    background: transparent;
-    color: var(--green-dark);
-    padding: 10px 14px;
+    color: rgba(255,255,255,0.75);
+    padding: 12px 20px;
     text-align: left;
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 700;
-    font-size: 0.75rem;
-    letter-spacing: 3px;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
     text-transform: uppercase;
-    border-bottom: 2px solid var(--green-dark);
   }
   .info-table td {
-    padding: 12px 14px;
+    padding: 14px 20px;
     border-bottom: 1px solid var(--light-grey);
     color: var(--text-muted);
   }
-  .info-table tr:last-child td {
-    border-bottom: none;
-  }
-  .info-table tr:nth-child(even) {
-    background: var(--white);
-  }
+  .info-table tbody tr:last-child td { border-bottom: none; }
+  .info-table tbody tr { transition: background 0.15s; }
+  .info-table tbody tr:hover { background: var(--off-white); }
+  .info-table tbody tr:nth-child(even) { background: var(--off-white); }
+  .info-table tbody tr:nth-child(even):hover { background: var(--light-grey); }
 
   /* START TIMES */
   .start-times-table {
@@ -397,18 +394,20 @@
   <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--green-dark); margin-top: 24px; margin-bottom: 12px;">Registration Details</h3>
 
   <table class="info-table">
+    <tbody>
     <tr>
-      <th>When</th>
+      <td style="width:25%;font-weight:600;color:var(--green-dark);">When</td>
       <td>Saturday, 26th September 2026 — 8:00am to 9:00am</td>
     </tr>
     <tr>
-      <th>Where</th>
+      <td style="font-weight:600;color:var(--green-dark);">Where</td>
       <td>The Connacht Hotel, Dublin Road, Galway</td>
     </tr>
     <tr>
-      <th>What to Bring</th>
+      <td style="font-weight:600;color:var(--green-dark);">What to Bring</td>
       <td>Your photo ID and your bike (obviously!)</td>
     </tr>
+    </tbody>
   </table>
 
   <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--green-dark); margin-top: 24px; margin-bottom: 12px;">The Wristband System</h3>
@@ -476,10 +475,13 @@
   <p>Here's what you need to know to make the most of your Bark &amp; Ride experience:</p>
 
   <table class="info-table">
-    <tr>
-      <th style="width: 25%;">Topic</th>
-      <th>What You Need to Know</th>
-    </tr>
+    <thead>
+      <tr>
+        <th style="width: 25%;">Topic</th>
+        <th>What You Need to Know</th>
+      </tr>
+    </thead>
+    <tbody>
     <tr>
       <td><strong>Weather Conditions</strong></td>
       <td>Ireland in late September can be changeable. Come prepared for showers — rain gear and extra layers are your friends. Check the forecast the week before and plan accordingly.</td>
@@ -516,6 +518,7 @@
       <td><strong>Environmental Respect</strong></td>
       <td>Please take all litter with you. We're proud of County Galway and the Burren — let's keep them beautiful for everyone. Follow LEAVE NO TRACE principles.</td>
     </tr>
+    </tbody>
   </table>
 </section>
 
