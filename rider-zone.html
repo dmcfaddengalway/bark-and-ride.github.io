@@ -356,7 +356,7 @@
     display: none; position: fixed; top: 68px; left: 0; right: 0;
     background: rgba(0,70,38,0.98); backdrop-filter: blur(8px);
     z-index: 98; border-top: 2px solid #78BE20;
-    max-height: calc(100vh - 68px); overflow-y: auto;
+    height: calc(100vh - 68px); overflow-y: auto;
     padding-bottom: 20px;
   }
   .mobile-menu.open { display: block; }
@@ -762,11 +762,13 @@
   _hbg.addEventListener('click', () => {
     _hbg.classList.toggle('open');
     _mob.classList.toggle('open');
+    document.body.style.overflow = _mob.classList.contains('open') ? 'hidden' : '';
   });
   _mob.querySelectorAll('a').forEach(a => {
     a.addEventListener('click', () => {
       _hbg.classList.remove('open');
       _mob.classList.remove('open');
+      document.body.style.overflow = '';
     });
   });
 </script>
