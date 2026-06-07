@@ -106,41 +106,53 @@
 
   /* ACCORDION */
   .accordion-item {
-    border: 2px solid var(--light-grey);
-    border-radius: 4px;
-    margin-bottom: 16px;
-    overflow: hidden;
+    border-bottom: 1px solid var(--light-grey);
   }
-  .accordion-header {
-    background: var(--off-white);
-    padding: 16px 20px;
+  .accordion-trigger {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 20px 40px 20px 0;
+    text-align: left;
     cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: 600;
-    color: var(--green-dark);
-    transition: background 0.2s;
+    font-family: 'Barlow', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--text-dark);
+    line-height: 1.4;
+    position: relative;
+    transition: color 0.2s;
   }
-  .accordion-header:hover {
-    background: var(--light-grey);
+  .accordion-trigger:hover { color: var(--green-dark); }
+  .accordion-trigger::after {
+    content: '+';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--green-light);
+    transition: transform 0.3s;
   }
-  .accordion-toggle {
-    font-size: 1.2rem;
-    transition: transform 0.2s;
-  }
-  .accordion-item.open .accordion-toggle {
-    transform: rotate(180deg);
-  }
+  .accordion-item.open .accordion-trigger::after { content: '−'; }
+  .accordion-item.open .accordion-trigger { color: var(--green-dark); font-weight: 600; }
   .accordion-content {
-    display: none;
-    padding: 16px 20px;
-    background: var(--white);
-    color: var(--text-muted);
-    line-height: 1.8;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.35s ease;
+    padding: 0;
   }
   .accordion-item.open .accordion-content {
-    display: block;
+    max-height: 400px;
+    padding: 0 0 20px 0;
+  }
+  .accordion-content p {
+    color: var(--text-muted);
+    font-weight: 300;
+    font-size: 0.95rem;
+    line-height: 1.75;
   }
 
   /* TABLES */
@@ -354,30 +366,21 @@
   <p><strong>Bark &amp; Ride 2026 takes place on Saturday, 26th September 2026.</strong> If you're travelling from outside the region, we recommend planning your accommodation early. Here are your options:</p>
 
   <div class="accordion-item">
-    <div class="accordion-header">
-      <span>Accommodation in Galway</span>
-      <span class="accordion-toggle">▼</span>
-    </div>
+    <button class="accordion-trigger">Accommodation in Galway</button>
     <div class="accordion-content">
       <p>Galway city is just minutes from The Connacht Hotel (our start/finish point) and offers everything from budget hostels to luxury hotels. With a vibrant dining and entertainment scene, it's the perfect base for your Bark &amp; Ride weekend. Visit <strong>galwaytourism.ie</strong> for a full list of accommodation options.</p>
     </div>
   </div>
 
   <div class="accordion-item">
-    <div class="accordion-header">
-      <span>Camping &amp; Glamping</span>
-      <span class="accordion-toggle">▼</span>
-    </div>
+    <button class="accordion-trigger">Camping &amp; Glamping</button>
     <div class="accordion-content">
       <p>If you prefer the great outdoors, the Galway region has excellent camping and glamping options. Many are within easy reach of the start point, so you can get a good night's sleep and roll straight into the ride. Search for local campsites and glamping sites in Galway and surrounding areas.</p>
     </div>
   </div>
 
   <div class="accordion-item">
-    <div class="accordion-header">
-      <span>Nearby Towns</span>
-      <span class="accordion-toggle">▼</span>
-    </div>
+    <button class="accordion-trigger">Nearby Towns</button>
     <div class="accordion-content">
       <p>Ballinasloe, Tuam, and other towns in the region also offer accommodation. These quieter options are great if you want a more relaxed pre-event atmosphere whilst still being close enough to the start point.</p>
     </div>
@@ -394,17 +397,23 @@
   <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--green-dark); margin-top: 24px; margin-bottom: 12px;">Registration Details</h3>
 
   <table class="info-table">
+    <thead>
+      <tr>
+        <th style="width:25%;">Detail</th>
+        <th>Information</th>
+      </tr>
+    </thead>
     <tbody>
     <tr>
-      <td style="width:25%;font-weight:600;color:var(--green-dark);">When</td>
+      <td><strong>When</strong></td>
       <td>Saturday, 26th September 2026 — 8:00am to 9:00am</td>
     </tr>
     <tr>
-      <td style="font-weight:600;color:var(--green-dark);">Where</td>
+      <td><strong>Where</strong></td>
       <td>The Connacht Hotel, Dublin Road, Galway</td>
     </tr>
     <tr>
-      <td style="font-weight:600;color:var(--green-dark);">What to Bring</td>
+      <td><strong>What to Bring</strong></td>
       <td>Your photo ID and your bike (obviously!)</td>
     </tr>
     </tbody>
@@ -568,70 +577,49 @@
   <p>Whether you're new to sportive cycling or an experienced participant, proper preparation is essential. Here are key considerations:</p>
 
   <div class="accordion-item">
-    <div class="accordion-header">
-      <span>Position &amp; Comfort</span>
-      <span class="accordion-toggle">▼</span>
-    </div>
+    <button class="accordion-trigger">Position &amp; Comfort</button>
     <div class="accordion-content">
       <p>Establishing a comfortable and efficient riding position is important. Avoid positions that are too cramped or overly extended. A qualified bike fitter or experienced cyclist can assist you in achieving proper positioning. Comfort is essential during extended rides.</p>
     </div>
   </div>
 
   <div class="accordion-item">
-    <div class="accordion-header">
-      <span>Gear &amp; Gearing</span>
-      <span class="accordion-toggle">▼</span>
-    </div>
+    <button class="accordion-trigger">Gear &amp; Gearing</button>
     <div class="accordion-content">
       <p>Quality padded cycling shorts are a worthwhile investment that significantly enhances comfort. Use gearing strategically — avoid excessive resistance, particularly on climbs. Select gears that allow for a steady, sustained pedalling rhythm. Focus on maintaining a consistent cadence rather than high power output.</p>
     </div>
   </div>
 
   <div class="accordion-item">
-    <div class="accordion-header">
-      <span>Tyre Pressure &amp; Bike Maintenance</span>
-      <span class="accordion-toggle">▼</span>
-    </div>
+    <button class="accordion-trigger">Tyre Pressure &amp; Bike Maintenance</button>
     <div class="accordion-content">
       <p>Proper tyre pressure is essential for performance and safety. Under-inflated tyres reduce efficiency and increase puncture risk. Inflate to the pressure specified on your tyre sidewall. In wet conditions, you may consider slightly reduced pressure for improved grip, but never compromise on safety by running excessively soft tyres.</p>
     </div>
   </div>
 
   <div class="accordion-item">
-    <div class="accordion-header">
-      <span>Nutrition &amp; Hydration</span>
-      <span class="accordion-toggle">▼</span>
-    </div>
+    <button class="accordion-trigger">Nutrition &amp; Hydration</button>
     <div class="accordion-content">
       <p>Consume a light meal 1-2 hours before the event begins. During the ride, follow a consistent nutrition strategy with small amounts taken regularly — do not wait until fatigue sets in. Maintain regular hydration throughout the day with plain water, sports drinks, or electrolyte solutions. Avoid carbonated beverages, which provide minimal nutritional benefit.</p>
     </div>
   </div>
 
   <div class="accordion-item">
-    <div class="accordion-header">
-      <span>Braking &amp; Cornering</span>
-      <span class="accordion-toggle">▼</span>
-    </div>
+    <button class="accordion-trigger">Braking &amp; Cornering</button>
     <div class="accordion-content">
       <p>Apply both brakes evenly and smoothly when approaching turns. Avoid the common error of braking during a turn, which compromises stability. Always complete braking before entering the turn. Maintain smooth lines through corners to ensure stability and control.</p>
     </div>
   </div>
 
   <div class="accordion-item">
-    <div class="accordion-header">
-      <span>Group Riding &amp; Drafting</span>
-      <span class="accordion-toggle">▼</span>
-    </div>
+    <button class="accordion-trigger">Group Riding &amp; Drafting</button>
     <div class="accordion-content">
       <p>Cycling in a group is more efficient than riding alone, particularly against headwinds. Maintain close but safe spacing and take turns leading. Riding in another cyclist's slipstream significantly reduces aerodynamic resistance. Maintain situational awareness and communicate clearly with other riders about hazards and intentions.</p>
     </div>
   </div>
 
   <div class="accordion-item">
-    <div class="accordion-header">
-      <span>Helmet Safety &amp; Awareness</span>
-      <span class="accordion-toggle">▼</span>
-    </div>
+    <button class="accordion-trigger">Helmet Safety &amp; Awareness</button>
     <div class="accordion-content">
       <p>Always wear a properly fitted helmet, without exception. Most cycling incidents result from rider-to-rider contact or environmental hazards. Maintain constant awareness of road conditions, including potholes and obstacles. Communicate hazards to other riders using clear signals and verbal warnings. Vigilance and awareness significantly reduce accident risk.</p>
     </div>
@@ -683,11 +671,11 @@
   });
 
   // Accordion functionality
-  const accordionHeaders = document.querySelectorAll('.accordion-header');
-  accordionHeaders.forEach(header => {
-    header.addEventListener('click', () => {
-      const item = header.parentElement;
-      item.classList.toggle('open');
+  document.querySelectorAll('.accordion-trigger').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const item = trigger.parentElement;
+      const isOpen = item.classList.contains('open');
+      item.classList.toggle('open', !isOpen);
     });
   });
 </script>
