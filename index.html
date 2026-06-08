@@ -806,12 +806,12 @@
 <section class="newsletter-section" id="contact">
   <div class="section-label">Get In Touch</div>
   <h2>Contact Us</h2>
-  <p style="color:rgba(255,255,255,0.85); font-size:1.1rem; margin-top:12px;">
-    <span id="email-copy" onclick="copyEmail()" style="color:#9DD629; font-weight:600; cursor:pointer; position:relative; display:inline-flex; align-items:center; gap:8px;">
-      Galway@guidedogs.ie
-      <svg id="copy-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.6;flex-shrink:0;"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+  <p style="color:rgba(255,255,255,0.85); font-size:1.1rem; margin-top:12px; display:inline-flex; align-items:center; gap:10px;">
+    <a href="mailto:Galway@guidedogs.ie" style="color:#9DD629; font-weight:600; text-decoration:none;">Galway@guidedogs.ie</a>
+    <span id="copy-btn" onclick="copyEmail()" style="position:relative; display:inline-flex; align-items:center; cursor:pointer;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; transition:stroke 0.2s;" onmouseover="this.style.stroke='#9DD629'" onmouseout="this.style.stroke='rgba(255,255,255,0.6)'"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
       <span id="email-tooltip" style="
-        position:absolute; bottom:calc(100% + 8px); left:50%; transform:translateX(-50%);
+        position:absolute; top:50%; left:calc(100% + 8px); transform:translateY(-50%);
         background:rgba(3,43,22,0.95); color:#fff; font-family:'Barlow Condensed',sans-serif;
         font-size:0.75rem; font-weight:600; letter-spacing:1.5px; text-transform:uppercase;
         padding:6px 12px; white-space:nowrap; pointer-events:none;
@@ -820,10 +820,10 @@
     </span>
   </p>
   <script>
-    const emailEl = document.getElementById('email-copy');
+    const copyBtn = document.getElementById('copy-btn');
     const tooltip = document.getElementById('email-tooltip');
-    emailEl.addEventListener('mouseenter', () => { tooltip.style.opacity = '1'; });
-    emailEl.addEventListener('mouseleave', () => { if (tooltip.textContent.trim() === 'Click to copy') tooltip.style.opacity = '0'; });
+    copyBtn.addEventListener('mouseenter', () => { tooltip.style.opacity = '1'; });
+    copyBtn.addEventListener('mouseleave', () => { if (tooltip.textContent.trim() === 'Click to copy') tooltip.style.opacity = '0'; });
     function copyEmail() {
       navigator.clipboard.writeText('Galway@guidedogs.ie');
       tooltip.textContent = 'Copied!';
