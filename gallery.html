@@ -273,6 +273,54 @@
   @media (max-width: 380px) {
     .page-header h1 { font-size: 2.2rem; }
   }
+
+  /* HAMBURGER / MOBILE MENU */
+  .hamburger {
+    display: none; flex-direction: column; gap: 5px;
+    background: none; border: none; cursor: pointer; padding: 8px; z-index: 200;
+  }
+  .hamburger span { display: block; width: 24px; height: 2px; background: #fff; transition: transform 0.3s, opacity 0.3s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .mobile-menu {
+    display: none; position: fixed; top: 68px; left: 0; right: 0;
+    background: rgba(0,70,38,0.98); backdrop-filter: blur(8px);
+    z-index: 98; border-top: 2px solid #78BE20;
+    height: calc(100vh - 68px); overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 80px;
+  }
+  .mobile-menu.open { display: block; }
+  .mobile-menu a {
+    display: block; padding: 14px 28px;
+    color: rgba(255,255,255,0.85); text-decoration: none;
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 600;
+    font-size: 1rem; letter-spacing: 2px; text-transform: uppercase;
+    border-bottom: 1px solid rgba(255,255,255,0.08); transition: color 0.2s;
+  }
+  .mobile-menu a:hover { color: #78BE20; }
+  .mobile-submenu a {
+    padding-left: 44px !important; font-size: 0.85rem !important;
+    color: rgba(255,255,255,0.6) !important; letter-spacing: 1.5px !important;
+  }
+  .mobile-submenu a:hover { color: #78BE20 !important; }
+  .mobile-menu-section-label {
+    padding: 16px 28px 6px; font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase;
+    color: #78BE20; font-weight: 600;
+  }
+  .mobile-cta-wrap { padding: 20px 20px 4px; }
+  .mobile-cta {
+    display: block; background: linear-gradient(135deg, #78BE20, #9DD629);
+    color: #032b16 !important; text-align: center;
+    padding: 14px !important; font-weight: 700 !important;
+    border-bottom: none !important; letter-spacing: 2px;
+  }
+  @media (max-width: 600px) {
+    .nav-links { display: none !important; }
+    .hamburger { display: flex; }
+  }
 </style>
 </head>
 <body>
@@ -304,7 +352,29 @@
     <li><a href="index.html#contact">Contact</a></li>
     <li><a href="https://eventmaster.ie/event/Y9O2HrOFjv" target="_blank" class="nav-cta">Register</a></li>
   </ul>
+  <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
 </nav>
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-section-label">About</div>
+  <div class="mobile-submenu">
+    <a href="about.html">About Us</a>
+    <a href="faq.html">FAQ</a>
+  </div>
+  <div class="mobile-menu-section-label">Routes</div>
+  <div class="mobile-submenu">
+    <a href="route-60km.html">60km — Dunguaire Castle</a>
+    <a href="route-90km.html">90km — Kilmacduagh Round Tower</a>
+    <a href="route-125km.html">125km — Poulnabrone Dolmen</a>
+  </div>
+  <a href="gallery.html">Gallery</a>
+  <a href="rider-zone.html">Rider Zone</a>
+  <a href="index.html#sponsors">Sponsors</a>
+  <a href="index.html#contact">Contact</a>
+  <a href="./assets/Training-Guide.pdf" download>Training Guide</a>
+  <div class="mobile-cta-wrap">
+    <a href="https://eventmaster.ie/event/Y9O2HrOFjv" target="_blank" class="mobile-cta">Register Now</a>
+  </div>
+</div>
 
 <!-- PAGE HEADER -->
 <section class="page-header">
@@ -478,6 +548,21 @@
   window.addEventListener('scroll', () => {
     const nav = document.querySelector('nav');
     nav.style.boxShadow = window.scrollY > 80 ? '0 4px 24px rgba(0,0,0,0.35)' : 'none';
+  });
+
+  const _hbg = document.getElementById('hamburger');
+  const _mob = document.getElementById('mobileMenu');
+  _hbg.addEventListener('click', () => {
+    _hbg.classList.toggle('open');
+    _mob.classList.toggle('open');
+    document.body.style.overflow = _mob.classList.contains('open') ? 'hidden' : '';
+  });
+  _mob.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      _hbg.classList.remove('open');
+      _mob.classList.remove('open');
+      document.body.style.overflow = '';
+    });
   });
 </script>
 </body>
