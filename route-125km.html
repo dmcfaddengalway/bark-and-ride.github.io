@@ -3,8 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>125km Poulnabrone Dolmen — Bark &amp; Ride 2026</title>
+<title>125km — Poulnabrone Dolmen — Bark &amp; Ride 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
   :root {
     --green-dark: #006233;
@@ -12,39 +14,33 @@
     --green-light: #78BE20;
     --green-lime: #9DD629;
     --white: #ffffff;
-    --off-white: #f3f8f0;
+    --off-white: #f7faf4;
     --light-grey: #e8f3e0;
     --text-dark: #032b16;
     --text-muted: #2d5c3a;
+    --nav-h: 68px;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body { font-family: 'Barlow', sans-serif; background: var(--white); color: var(--text-dark); overflow-x: hidden; }
 
-  /* NAV */
-  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(0, 98, 51, 0.97); backdrop-filter: blur(8px); border-bottom: 3px solid transparent; border-image: linear-gradient(to right, #006233, #78BE20) 1; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 68px; }
+  /* ── NAV ── */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: rgba(0,98,51,0.97); backdrop-filter: blur(8px); border-bottom: 3px solid transparent; border-image: linear-gradient(to right,#006233,#78BE20) 1; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: var(--nav-h); }
   .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--white); letter-spacing: 3px; text-decoration: none; display: flex; align-items: center; gap: 10px; }
-  .nav-logo-divider { display: inline-block; width: 1px; height: 28px; background: rgba(255,255,255,0.25); margin: 0 12px; }
   .nav-logo span { color: var(--green-lime); }
   .nav-links { display: flex; gap: 8px; list-style: none; align-items: center; }
   .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; padding: 6px 10px; transition: color 0.2s; }
   .nav-links a:hover { color: #78BE20; }
   .nav-dropdown { position: relative; }
-  .nav-dropdown > a { cursor: default; }
   .nav-dropdown > a::after { content: ' ▾'; font-size: 0.7rem; opacity: 0.6; }
-  .nav-dropdown-menu { position: absolute; top: calc(100% + 10px); left: 0; background: rgba(0, 70, 38, 0.97); backdrop-filter: blur(8px); min-width: 160px; padding: 8px 0; list-style: none; opacity: 0; visibility: hidden; transform: translateY(6px); transition: opacity 0.2s, transform 0.2s, visibility 0.2s; border-top: 2px solid #78BE20; box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+  .nav-dropdown-menu { position: absolute; top: calc(100% + 10px); left: 0; background: rgba(0,70,38,0.97); backdrop-filter: blur(8px); min-width: 160px; padding: 8px 0; list-style: none; opacity: 0; visibility: hidden; transform: translateY(6px); transition: opacity 0.2s, transform 0.2s, visibility 0.2s; border-top: 2px solid #78BE20; box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
   .nav-dropdown:hover .nav-dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
   .nav-dropdown-menu li a { display: block; padding: 10px 20px; font-size: 0.8rem; letter-spacing: 1.5px; white-space: nowrap; }
-  .nav-dropdown-menu li a:hover { background: rgba(255,255,255,0.08); }
-  .nav-cta { background: linear-gradient(135deg, #78BE20, #9DD629) !important; color: var(--green-dark) !important; padding: 0 28px !important;
-    height: 68px;
-    display: flex !important;
-    align-items: center;
-    margin-right: -40px; font-weight: 700 !important; transition: opacity 0.2s !important; }
+  .nav-cta { background: linear-gradient(135deg,#78BE20,#9DD629) !important; color: var(--green-dark) !important; padding: 0 28px !important; height: var(--nav-h); display: flex !important; align-items: center; margin-right: -40px; font-weight: 700 !important; }
   .nav-cta:hover { filter: brightness(0.88) !important; }
 
-  /* ROUTE HERO */
+  /* ── HERO ── */
   .route-hero {
     min-height: 480px;
     padding: 140px 40px 60px;
@@ -53,316 +49,155 @@
     align-items: flex-end;
   }
   .route-hero-content { max-width: 600px; }
-  .route-hero-tag {
-    display: inline-block;
-    background: linear-gradient(135deg, #006233, #78BE20);
-    color: var(--white);
+  .route-hero-tag { display: inline-block; background: linear-gradient(135deg, #006233, #78BE20); color: var(--white); font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 14px; margin-bottom: 16px; }
+  .route-hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 7vw, 5rem); color: var(--white); letter-spacing: 4px; line-height: 1; }
+  .route-hero h1 small { font-size: 0.45em; color: var(--green-lime); letter-spacing: 2px; display: block; margin-top: 6px; }
+  .route-hero-sub { margin-top: 16px; color: rgba(255,255,255,0.75); font-weight: 300; font-size: 1rem; line-height: 1.6; max-width: 480px; }
+
+  /* ── TWO-COLUMN MAIN ── */
+  .route-body {
+    display: flex;
+    align-items: flex-start;
+    min-height: calc(100vh - var(--nav-h));
+  }
+
+  /* LEFT PANEL */
+  .route-panel {
+    flex: 0 0 420px;
+    padding: 48px 48px 64px;
+    background: var(--white);
+    border-right: 1px solid var(--light-grey);
+    overflow-y: auto;
+  }
+
+  /* Stats grid */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--light-grey);
+    border: 1px solid var(--light-grey);
+    margin-bottom: 40px;
+  }
+  .stat-cell {
+    background: var(--off-white);
+    padding: 20px 20px 16px;
+  }
+  .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--green-dark); line-height: 1; display: block; }
+  .stat-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--text-muted); margin-top: 3px; }
+
+  /* Section headings */
+  .panel-section { margin-bottom: 36px; }
+  .panel-heading {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--green-light);
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--light-grey);
+  }
+  .panel-section p { color: var(--text-muted); font-weight: 300; font-size: 0.95rem; line-height: 1.8; }
+
+  /* Highlights list */
+  .highlights-list { list-style: none; }
+  .highlights-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--light-grey);
+    color: var(--text-muted);
+    font-weight: 300;
+    font-size: 0.95rem;
+  }
+  .highlights-list li:last-child { border-bottom: none; }
+  .hl-icon {
+    flex-shrink: 0;
+    width: 6px; height: 6px;
+    background: var(--green-light);
+    border-radius: 50%;
+    margin-top: 7px;
+  }
+  .hl-name { font-weight: 500; color: var(--text-dark); font-size: 0.9rem; display: block; margin-bottom: 2px; }
+
+  /* Tips */
+  .tips-list { list-style: none; }
+  .tips-list li {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 8px 0;
+    color: var(--text-muted); font-weight: 300; font-size: 0.9rem; line-height: 1.65;
+    border-bottom: 1px solid var(--light-grey);
+  }
+  .tips-list li:last-child { border-bottom: none; }
+  .tip-dot { flex-shrink: 0; width: 18px; height: 18px; background: var(--green-light); color: var(--green-dark); font-size: 0.7rem; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+
+  /* Panel CTA */
+  .panel-cta { display: flex; flex-direction: column; gap: 10px; margin-top: 40px; }
+  .btn-primary { display: block; text-align: center; background: linear-gradient(135deg,#006233,#78BE20); color: var(--white); font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; padding: 15px 24px; text-decoration: none; transition: filter 0.2s; }
+  .btn-primary:hover { filter: brightness(0.9); }
+  .btn-secondary { display: block; text-align: center; background: transparent; color: var(--green-dark); font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; padding: 13px 24px; text-decoration: none; border: 1.5px solid var(--light-grey); transition: border-color 0.2s, color 0.2s; }
+  .btn-secondary:hover { border-color: var(--green-dark); color: var(--green-dark); }
+
+  /* RIGHT MAP PANEL */
+  .route-map-panel {
+    flex: 1;
+    position: sticky;
+    top: var(--nav-h);
+    height: calc(100vh - var(--nav-h));
+    display: flex;
+    flex-direction: column;
+  }
+  #map-125km {
+    flex: 1;
+    width: 100%;
+  }
+  .map-footer {
+    background: var(--off-white);
+    border-top: 1px solid var(--light-grey);
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 5px 14px;
-    margin-bottom: 16px;
-  }
-  .route-hero h1 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(3rem, 7vw, 5rem);
-    color: var(--white);
-    letter-spacing: 4px;
-    line-height: 1;
-  }
-  .route-hero h1 small {
-    font-size: 0.45em;
-    color: var(--green-lime);
-    letter-spacing: 2px;
-    display: block;
-    margin-top: 6px;
-  }
-  .route-hero-sub {
-    margin-top: 16px;
-    color: rgba(255,255,255,0.75);
-    font-weight: 300;
-    font-size: 1rem;
-    line-height: 1.6;
-    max-width: 480px;
-  }
-
-  /* STATS ROW */
-  .route-stats {
-    background: var(--off-white);
-    padding: 0 40px;
-  }
-  .route-stats-inner {
-    max-width: 800px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-around;
-    padding: 30px 0;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-  .route-stat { text-align: center; }
-  .route-stat-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2.4rem;
-    color: var(--green-dark);
-    line-height: 1;
-    display: block;
-  }
-  .route-stat-label {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
+    letter-spacing: 1.5px;
     color: var(--text-muted);
-    margin-top: 4px;
   }
-
-  /* CONTENT */
-  .route-content {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 70px 24px;
-  }
-  .route-content h2 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2rem;
-    color: var(--green-dark);
-    letter-spacing: 2px;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid var(--light-grey);
-  }
-  .route-content > p {
-    color: var(--text-muted);
-    font-weight: 300;
-    font-size: 1rem;
-    line-height: 1.8;
-    margin-bottom: 48px;
-  }
-
-  /* HIGHLIGHTS */
-  .route-highlights {
-    display: grid;
-    gap: 24px;
-    margin-bottom: 48px;
-  }
-  .route-highlight {
-    padding: 24px 28px;
-    background: var(--off-white);
-    border-left: 4px solid var(--green-light);
-  }
-  .route-highlight h3 {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1.05rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--green-dark);
-    margin-bottom: 8px;
-  }
-  .route-highlight p {
-    color: var(--text-muted);
-    font-weight: 300;
-    font-size: 0.95rem;
-    line-height: 1.7;
-  }
-
-  /* ELEVATION PROFILE */
-  .elevation-section {
-    margin-bottom: 48px;
-  }
-  .elevation-desc {
-    color: var(--text-muted);
-    font-weight: 300;
-    font-size: 0.95rem;
-    line-height: 1.75;
-  }
-
-  /* TIPS */
-  .tips-section {
-    background: var(--light-grey);
-    padding: 50px 40px;
-    margin-bottom: 0;
-  }
-  .tips-inner {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  .tips-inner h2 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2rem;
-    color: var(--green-dark);
-    letter-spacing: 2px;
-    margin-bottom: 28px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid rgba(0,98,51,0.2);
-  }
-  .tip-item {
-    display: flex;
-    gap: 16px;
-    align-items: flex-start;
-    margin-bottom: 20px;
-  }
-  .tip-icon {
-    flex-shrink: 0;
-    width: 24px;
-    height: 24px;
-    background: var(--green-light);
-    color: var(--green-dark);
-    font-weight: 700;
-    font-size: 0.8rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 2px;
-  }
-  .tip-item p {
-    color: var(--text-muted);
-    font-weight: 300;
-    font-size: 0.95rem;
-    line-height: 1.7;
-  }
-
-  /* CTA */
-  .cta-band {
-    background: linear-gradient(135deg, #006233 0%, #008542 50%, #78BE20 100%);
-    padding: 60px 40px;
-    text-align: center;
-  }
-  .cta-band h2 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2.5rem;
-    color: var(--white);
-    letter-spacing: 3px;
-    margin-bottom: 10px;
-  }
-  .cta-band p {
-    color: rgba(255,255,255,0.8);
-    font-weight: 300;
-    margin-bottom: 24px;
-  }
-  .btn-white {
-    display: inline-block;
-    background: var(--white);
-    color: var(--green-dark);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 14px 36px;
-    text-decoration: none;
-    transition: background 0.2s;
-  }
-  .btn-white:hover { background: rgba(255,255,255,0.88); }
+  .map-footer a { color: var(--green-dark); text-decoration: none; font-weight: 600; }
+  .map-footer a:hover { color: var(--green-mid); }
 
   /* FOOTER */
-  footer {
-    background: var(--text-dark);
-    padding: 40px 40px 24px;
-    color: rgba(255,255,255,0.6);
-  }
-  .footer-inner {
-    max-width: 800px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-  .footer-inner .logo-text {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.4rem;
-    color: var(--white);
-    letter-spacing: 3px;
-  }
-  .footer-inner .logo-text span { color: #78BE20; }
-  .footer-inner p { font-size: 0.8rem; color: rgba(255,255,255,0.35); }
-  .footer-inner p span { color: #78BE20; }
+  footer { background: var(--text-dark); padding: 28px 48px; color: rgba(255,255,255,0.35); font-size: 0.8rem; display: flex; justify-content: space-between; align-items: center; }
+  footer span { color: #78BE20; }
 
-  /* RESPONSIVE */
-  @media (max-width: 900px) {
-    nav { padding: 0 16px; }
-    .nav-links { display: none; }
-    .nav-logo img { height: 28px !important; }
-    .route-hero { min-height: 380px; padding: 120px 24px 40px; }
-    .route-content { padding: 50px 20px; }
-    .tips-section { padding: 40px 20px; }
-  }
-  @media (max-width: 600px) {
-    .route-hero h1 { font-size: 2.8rem; }
-    .route-stats-inner { flex-direction: column; align-items: center; gap: 16px; padding: 24px 0; }
-    .route-highlight { padding: 18px 20px; }
-    .cta-band h2 { font-size: 2rem; }
-    footer { padding: 30px 20px 20px; }
-    .footer-inner { flex-direction: column; text-align: center; }
-  }
-  @media (max-width: 380px) {
-    .nav-logo { font-size: 1.4rem; }
-    .nav-logo img { height: 22px !important; }
-    .nav-logo-divider { margin: 0 6px; }
-    .route-hero h1 { font-size: 2.2rem; }
-  }
-  /* Connacht Hotel map links */
-  a[href*="google.com/maps"] { color: var(--green-dark); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(0,98,51,0.4); font-weight: 500; transition: color 0.2s, text-decoration-color 0.2s; }
-  a[href*="google.com/maps"]:hover { color: var(--green-mid); text-decoration-color: var(--green-mid); }
-  .ticker-item a[href*="google.com/maps"] { color: inherit; text-decoration-color: rgba(255,255,255,0.5); font-weight: inherit; }
-  .ticker-item a[href*="google.com/maps"]:hover { color: inherit; text-decoration-color: rgba(255,255,255,0.9); }
-
-  /* HAMBURGER / MOBILE MENU */
-  .hamburger {
-    display: none; flex-direction: column; gap: 5px;
-    background: none; border: none; cursor: pointer; padding: 8px; z-index: 200;
-  }
+  /* ── HAMBURGER ── */
+  .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; z-index: 200; }
   .hamburger span { display: block; width: 24px; height: 2px; background: #fff; transition: transform 0.3s, opacity 0.3s; }
   .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   .hamburger.open span:nth-child(2) { opacity: 0; }
   .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-  .mobile-menu {
-    display: none; position: fixed; top: 68px; left: 0; right: 0;
-    background: rgba(0,70,38,0.98); backdrop-filter: blur(8px);
-    z-index: 98; border-top: 2px solid #78BE20;
-    height: calc(100vh - 68px); overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 80px;
-  }
+  .mobile-menu { display: none; position: fixed; top: var(--nav-h); left: 0; right: 0; background: rgba(0,70,38,0.98); backdrop-filter: blur(8px); z-index: 198; border-top: 2px solid #78BE20; height: calc(100vh - var(--nav-h)); overflow-y: scroll; -webkit-overflow-scrolling: touch; padding-bottom: 80px; }
   .mobile-menu.open { display: block; }
-  .mobile-menu a {
-    display: block; padding: 14px 28px;
-    color: rgba(255,255,255,0.85); text-decoration: none;
-    font-family: 'Barlow Condensed', sans-serif; font-weight: 600;
-    font-size: 1rem; letter-spacing: 2px; text-transform: uppercase;
-    border-bottom: 1px solid rgba(255,255,255,0.08); transition: color 0.2s;
-  }
+  .mobile-menu a { display: block; padding: 14px 28px; color: rgba(255,255,255,0.85); text-decoration: none; font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 1rem; letter-spacing: 2px; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.08); }
   .mobile-menu a:hover { color: #78BE20; }
-  .mobile-submenu a {
-    padding-left: 44px !important; font-size: 0.85rem !important;
-    color: rgba(255,255,255,0.6) !important; letter-spacing: 1.5px !important;
-  }
-  .mobile-submenu a:hover { color: #78BE20 !important; }
-  .mobile-menu-section-label {
-    padding: 16px 28px 6px; font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase;
-    color: #78BE20; font-weight: 600;
-  }
+  .mobile-submenu a { padding-left: 44px !important; font-size: 0.85rem !important; color: rgba(255,255,255,0.6) !important; }
+  .mobile-section-label { padding: 16px 28px 6px; font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; color: #78BE20; font-weight: 600; }
   .mobile-cta-wrap { padding: 20px 20px 4px; }
-  .mobile-cta {
-    display: block; background: linear-gradient(135deg, #78BE20, #9DD629);
-    color: #032b16 !important; text-align: center;
-    padding: 14px !important; font-weight: 700 !important;
-    border-bottom: none !important; letter-spacing: 2px;
+  .mobile-cta { display: block; background: linear-gradient(135deg,#78BE20,#9DD629); color: #032b16 !important; text-align: center; padding: 14px !important; font-weight: 700 !important; border-bottom: none !important; letter-spacing: 2px; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 0 16px; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .route-body { flex-direction: column; }
+    .route-panel { flex: none; width: 100%; padding: 32px 24px 40px; border-right: none; border-bottom: 1px solid var(--light-grey); }
+    .route-map-panel { position: relative; top: 0; height: 480px; width: 100%; }
+    footer { flex-direction: column; gap: 8px; text-align: center; padding: 24px 20px; }
   }
   @media (max-width: 600px) {
-    .nav-links { display: none !important; }
-    .hamburger { display: flex; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
   }
-  .btn-outline-white { display: inline-block; background: transparent; color: var(--white); font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 0.95rem; letter-spacing: 2px; text-transform: uppercase; padding: 13px 32px; text-decoration: none; border: 2px solid rgba(255,255,255,0.55); transition: border-color 0.2s, color 0.2s; margin-left: 14px; }
-  .btn-outline-white:hover { border-color: var(--white); color: var(--white); }
-  .cta-band .btn-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; align-items: center; }
 </style>
   <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon/favicon-32x32.png">
@@ -371,16 +206,41 @@
 </head>
 <body>
 
-<nav>  <a href="index.html" class="nav-logo">    <img src="https://www.guidedogs.ie/img/f/291065883890237/596x176/b169668a73/guidedogs-logo-50th-horizontal.png/m/596x0/smart/filters:format(webp):quality(65)" alt="Irish Guide Dogs" style="height:36px; width:auto; filter: brightness(0) invert(1);">  </a>  <ul class="nav-links">    <li class="nav-dropdown">      <a href="#">About</a>      <ul class="nav-dropdown-menu">        <li><a href="about.html">About Us</a></li>        <li><a href="faq.html">FAQ</a></li>      </ul>    </li>    <li class="nav-dropdown">      <a href="index.html#routes">Routes</a>      <ul class="nav-dropdown-menu">        <li><a href="route-60km.html">60km — Dunguaire Castle</a></li>        <li><a href="route-90km.html">90km — Kilmacduagh Round Tower</a></li>        <li><a href="route-125km.html">125km — Poulnabrone Dolmen</a></li>
-        <li><a href="./assets/Training-Guide.pdf" download>Training Guide ↓</a></li>      </ul>    </li>    <li><a href="gallery.html">Gallery</a></li>    <li><a href="rider-zone.html">Rider Zone</a></li>    <li><a href="index.html#sponsors">Sponsors</a></li>    <li><a href="index.html#contact">Contact</a></li>    <li><a href="https://eventmaster.ie/event/Y9O2HrOFjv" target="_blank" class="nav-cta">Register</a></li>  </ul><button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="https://www.guidedogs.ie/img/f/291065883890237/596x176/b169668a73/guidedogs-logo-50th-horizontal.png/m/596x0/smart/filters:format(webp):quality(65)" alt="Irish Guide Dogs" style="height:36px;width:auto;filter:brightness(0) invert(1);">
+  </a>
+  <ul class="nav-links">
+    <li class="nav-dropdown"><a href="#">About</a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+      </ul>
+    </li>
+    <li class="nav-dropdown"><a href="index.html#routes">Routes</a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="route-60km.html">60km — Dunguaire Castle</a></li>
+        <li><a href="route-90km.html">90km — Kilmacduagh Round Tower</a></li>
+        <li><a href="route-125km.html">125km — Poulnabrone Dolmen</a></li>
+        <li><a href="./assets/Training-Guide.pdf" download>Training Guide ↓</a></li>
+      </ul>
+    </li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="rider-zone.html">Rider Zone</a></li>
+    <li><a href="index.html#sponsors">Sponsors</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+    <li><a href="https://eventmaster.ie/event/Y9O2HrOFjv" target="_blank" class="nav-cta">Register</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
 </nav>
+
 <div class="mobile-menu" id="mobileMenu">
-  <div class="mobile-menu-section-label">About</div>
+  <div class="mobile-section-label">About</div>
   <div class="mobile-submenu">
     <a href="about.html">About Us</a>
     <a href="faq.html">FAQ</a>
   </div>
-  <div class="mobile-menu-section-label">Routes</div>
+  <div class="mobile-section-label">Routes</div>
   <div class="mobile-submenu">
     <a href="route-60km.html">60km — Dunguaire Castle</a>
     <a href="route-90km.html">90km — Kilmacduagh Round Tower</a>
@@ -400,98 +260,153 @@
   <div class="route-hero-content">
     <span class="route-hero-tag">Challenge</span>
     <h1>125km<small>Poulnabrone Dolmen</small></h1>
-    <p class="route-hero-sub">The ultimate test. Poulnabrone Dolmen — 125km epic that covers the full breadth of the Burren and the Wild Atlantic Way.</p>
+    <p class="route-hero-sub">The ultimate test. 125km covering the full breadth of the Burren, the Cliffs of Moher approach, and the Wild Atlantic Way.</p>
   </div>
 </section>
 
-<div class="route-stats">
-  <div class="route-stats-inner">
-    <div class="route-stat"><span class="route-stat-num">125km</span><div class="route-stat-label">Distance</div></div>
-    <div class="route-stat"><span class="route-stat-num">171m</span><div class="route-stat-label">Elevation</div></div>
-    <div class="route-stat"><span class="route-stat-num">4–6 hrs</span><div class="route-stat-label">Est. Duration</div></div>
-    <div class="route-stat"><span class="route-stat-num">4</span><div class="route-stat-label">Food Stops</div></div>
-  </div>
-</div>
+<!-- TWO-COLUMN BODY -->
+<div class="route-body">
 
-<div class="route-content">
-  <h2>Route Overview</h2>
-  <p>The ultimate test. The Poulnabrone Dolmen route is a 125km epic that covers the full breadth of the Burren and Wild Atlantic Way. From the start in <a href="https://www.google.com/maps/place/The+Connacht+Hotel/@53.2797623,-9.0241096,16z/data=!3m1!4b1!4m9!3m8!1s0x485b96cd98baddd7:0xe5529c731eeda844!5m2!4m1!1i2!8m2!3d53.2797623!4d-9.0215347!16s%2Fg%2F1hm61nnxf?entry=ttu&amp;g_ep=EgoyMDI2MDYwMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">The Connacht Hotel, Galway</a>, you'll ride north into the raw heart of the limestone plateau, west to the Cliffs of Moher, and along the full Atlantic coastline before the gruelling return inland. This is a ride that will stay with you forever.</p>
+  <!-- LEFT: INFO PANEL -->
+  <aside class="route-panel">
 
-  <h2>Route Highlights</h2>
-  <div class="route-highlights">
-    <div class="route-highlight">
-      <h3>The Cliffs of Moher Approach</h3>
-      <p>The route passes within sight of Ireland's most iconic landmark. The climb up from Doolin is relentless but the views are extraordinary.</p>
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-cell">
+        <span class="stat-num">125km</span>
+        <span class="stat-label">Distance</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-num">171m</span>
+        <span class="stat-label">Elevation Gain</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-num">4–6h</span>
+        <span class="stat-label">Est. Duration</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-num">4</span>
+        <span class="stat-label">Food Stops</span>
+      </div>
+      <a href="https://www.strava.com/routes/3404957000265953318" target="_blank" rel="noopener" class="stat-cell" style="grid-column:1/-1; display:flex; align-items:center; justify-content:center; background:#d4e9c2; font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.8rem; letter-spacing:2px; text-transform:uppercase; color:#032b16; text-decoration:none; cursor:pointer; transition:background 0.2s;" onmouseover="this.style.background='#c4de0f22'" onmouseout="this.style.background='#d4e9c2'">
+        View Route on Strava
+      </a>
     </div>
-    <div class="route-highlight">
-      <h3>Fanore to Black Head Coastal Road</h3>
-      <p>Perhaps the most beautiful stretch of road in Ireland — a narrow ribbon of tarmac between the Atlantic Ocean and the Burren's limestone terraces.</p>
+
+    <!-- About -->
+    <div class="panel-section">
+      <div class="panel-heading">About This Route</div>
+      <p>The ultimate test. From the start at The Connacht Hotel, you'll ride north into the raw heart of the limestone plateau, west to the Cliffs of Moher, and along the full Atlantic coastline before the gruelling return inland. This is a ride that will stay with you forever.</p>
     </div>
-    <div class="route-highlight">
-      <h3>The Burren Plateau Crossing</h3>
-      <p>The centrepiece of the route: 25km across the high, exposed limestone karst where nothing grows above knee height and the silence is total.</p>
+
+    <!-- Highlights -->
+    <div class="panel-section">
+      <div class="panel-heading">Route Highlights</div>
+      <ul class="highlights-list">
+        <li>
+          <span class="hl-icon"></span>
+          <div>
+            <span class="hl-name">Cliffs of Moher Approach</span>
+            The route passes within sight of Ireland's most iconic landmark. The climb up from Doolin is relentless but the views are extraordinary.
+          </div>
+        </li>
+        <li>
+          <span class="hl-icon"></span>
+          <div>
+            <span class="hl-name">Fanore to Black Head Coastal Road</span>
+            Perhaps the most beautiful stretch of road in Ireland — a narrow ribbon of tarmac between the Atlantic Ocean and the Burren's limestone terraces.
+          </div>
+        </li>
+        <li>
+          <span class="hl-icon"></span>
+          <div>
+            <span class="hl-name">The Burren Plateau Crossing</span>
+            25km across the high, exposed limestone karst where nothing grows above knee height and the silence is total.
+          </div>
+        </li>
+        <li>
+          <span class="hl-icon"></span>
+          <div>
+            <span class="hl-name">Corkscrew Hill (from the hard side)</span>
+            Category 2, 3.5km at 8%. Tackled from the steeper western approach — the final major obstacle before home.
+          </div>
+        </li>
+      </ul>
     </div>
-    <div class="route-highlight">
-      <h3>Corkscrew Hill (from the hard side)</h3>
-      <p>Unlike the 90km route, you'll tackle Corkscrew from the steeper western approach. Category 2, 3.5km at 8%. The final major obstacle before home.</p>
+
+    <!-- Elevation -->
+    <div class="panel-section">
+      <div class="panel-heading">Elevation</div>
+      <p>A serious endurance challenge with sustained climbing throughout. Four categorised climbs including the Cliffs approach (Cat 3), Corkscrew Hill west (Cat 2), and two long drags across the Burren plateau. Total elevation gain 171m.</p>
+    </div>
+
+    <!-- Rider Tips -->
+    <div class="panel-section">
+      <div class="panel-heading">Rider Tips</div>
+      <ul class="tips-list">
+        <li><span class="tip-dot">✓</span>Train specifically for this route. You need a solid base of 200+ weekly kilometres for at least 6 weeks beforehand.</li>
+        <li><span class="tip-dot">✓</span>Nutrition is everything on a 125km ride. Eat early and often — by the time you feel hungry, you're already behind.</li>
+        <li><span class="tip-dot">✓</span>The Burren plateau crossing (km 85–110) is the crux. It's exposed, often windy, and mentally demanding. Stay focused.</li>
+        <li><span class="tip-dot">✓</span>Carry two bottles and refill at every food stop. Dehydration on the plateau will end your day.</li>
+        <li><span class="tip-dot">✓</span>Start conservatively. The first 40km feel easy — that's the trap. The route doesn't truly begin until the Cliffs approach.</li>
+      </ul>
+    </div>
+
+    <!-- CTA -->
+    <div class="panel-cta">
+      <a href="https://eventmaster.ie/event/Y9O2HrOFjv" target="_blank" class="btn-primary">Register for This Route</a>
+      <a href="./assets/Training-Guide.pdf" download class="btn-secondary">↓ Download Training Guide</a>
+    </div>
+
+  </aside>
+
+  <!-- RIGHT: MAP -->
+  <div class="route-map-panel">
+    <div id="map-125km"></div>
+    <div class="map-footer">
+      <span>Interactive map — scroll to zoom · click to pan</span>
     </div>
   </div>
 
-  <div class="elevation-section" id="elevation-125">
-    <h2>Elevation Profile</h2>
-    <p class="elevation-desc">A serious endurance challenge with sustained climbing throughout. Four categorised climbs including the Cliffs approach (Cat 3), Corkscrew Hill west (Cat 2), and two long drags across the Burren plateau. Total elevation gain 171m. Flat sections are limited to the coastal road and the final 15km home.</p>
-    <p style="margin-top:16px"><a href="https://www.strava.com/routes/3404957000265953318" target="_blank" style="color:var(--green-dark); text-decoration:underline; text-underline-offset:3px; font-weight:500;">View full route on Strava →</a></p>
-  </div>
-</div>
-
-<section class="tips-section">
-  <div class="tips-inner">
-    <h2>Rider Tips</h2>
-      <div class="tip-item">
-        <span class="tip-icon">✓</span>
-        <p>Train specifically for this route. You need a solid base of 200+ weekly kilometres for at least 6 weeks beforehand.</p>
-      </div>
-      <div class="tip-item">
-        <span class="tip-icon">✓</span>
-        <p>Nutrition is everything on a 125km ride. Eat early and often — by the time you feel hungry, you're already behind.</p>
-      </div>
-      <div class="tip-item">
-        <span class="tip-icon">✓</span>
-        <p>The Burren plateau crossing (km 85–110) is the crux. It's exposed, often windy, and mentally demanding. Stay focused.</p>
-      </div>
-      <div class="tip-item">
-        <span class="tip-icon">✓</span>
-        <p>Carry two bottles and refill at every food stop. Dehydration on the plateau will end your day.</p>
-      </div>
-      <div class="tip-item">
-        <span class="tip-icon">✓</span>
-        <p>Start conservatively. The first 40km feel easy — that's the trap. The route doesn't truly begin until the Cliffs approach.</p>
-      </div>
-  </div>
-</section>
-
-<section class="cta-band">
-  <h2>Ready for the Poulnabrone Dolmen?</h2>
-  <p>Secure your place on the 125km route — every pedal stroke supports Irish Guide Dogs.</p>
-  <div class="btn-group"><a href="https://eventmaster.ie/event/Y9O2HrOFjv" target="_blank" class="btn-white">Register Now</a>
-  <a href="./assets/Training-Guide.pdf" download class="btn-outline-white">↓ Training Guide</a>
-</div>
-</section>
+</div><!-- /route-body -->
 
 <footer>
-  <div class="footer-inner">
-    <p>&copy; 2026 Bark &amp; Ride. In aid of <span>Irish Guide Dogs</span></p>
-  </div>
+  <p>&copy; 2026 Bark &amp; Ride. In aid of <span>Irish Guide Dogs</span>.</p>
 </footer>
 
 <script>
-  window.addEventListener('scroll', () => {
-    const nav = document.querySelector('nav');
-    nav.style.boxShadow = window.scrollY > 80 ? '0 4px 24px rgba(0,0,0,0.35)' : 'none';
+(function(){
+  var coords = [[53.27958,-9.02288],[53.27913,-9.02198],[53.27862,-9.01965],[53.27813,-9.01706],[53.27789,-9.01558],[53.27749,-9.01322],[53.27725,-9.01137],[53.27707,-9.00937],[53.27713,-9.0087],[53.2772,-9.00856],[53.27719,-9.00815],[53.27702,-9.00773],[53.27688,-9.0067],[53.27651,-9.00492],[53.27613,-9.00334],[53.2756,-9.00153],[53.27497,-8.9994],[53.27446,-8.99764],[53.27422,-8.99624],[53.27412,-8.99493],[53.27412,-8.99348],[53.27433,-8.99144],[53.27479,-8.98859],[53.27522,-8.98605],[53.27543,-8.98393],[53.27523,-8.98268],[53.27508,-8.98251],[53.27479,-8.98137],[53.27462,-8.98083],[53.27409,-8.97957],[53.27335,-8.97818],[53.27264,-8.9769],[53.27219,-8.97578],[53.27194,-8.97489],[53.27181,-8.97428],[53.27166,-8.97318],[53.2716,-8.97222],[53.27163,-8.97089],[53.27167,-8.97054],[53.27193,-8.96897],[53.27245,-8.9671],[53.27297,-8.96451],[53.27346,-8.96182],[53.27377,-8.95986],[53.27376,-8.9587],[53.27363,-8.95771],[53.27322,-8.95617],[53.27302,-8.95504],[53.273,-8.95361],[53.27321,-8.95166],[53.27354,-8.94874],[53.27363,-8.94666],[53.27372,-8.94398],[53.27376,-8.94157],[53.27353,-8.93961],[53.27345,-8.93694],[53.27335,-8.935],[53.27302,-8.93353],[53.27257,-8.93163],[53.27245,-8.93055],[53.27228,-8.92989],[53.27192,-8.92953],[53.2715,-8.92936],[53.27136,-8.92928],[53.27126,-8.92928],[53.27098,-8.92906],[53.27001,-8.92866],[53.26947,-8.92872],[53.26895,-8.92895],[53.2684,-8.92947],[53.26763,-8.92992],[53.26712,-8.93003],[53.26591,-8.92975],[53.26541,-8.92947],[53.26499,-8.92904],[53.26435,-8.92782],[53.26369,-8.92535],[53.26351,-8.9242],[53.26343,-8.92273],[53.26238,-8.92252],[53.26149,-8.9221],[53.26122,-8.92173],[53.26111,-8.92146],[53.26081,-8.92145],[53.26019,-8.92093],[53.25924,-8.9198],[53.25814,-8.91816],[53.25719,-8.91637],[53.25638,-8.91445],[53.25549,-8.9122],[53.2546,-8.90995],[53.2538,-8.90807],[53.2529,-8.90633],[53.25217,-8.90516],[53.2513,-8.90393],[53.24985,-8.90216],[53.24924,-8.90154],[53.24895,-8.90127],[53.24762,-8.90034],[53.24668,-8.89944],[53.2457,-8.89797],[53.24473,-8.89644],[53.24351,-8.89453],[53.24228,-8.89262],[53.24129,-8.89085],[53.24021,-8.88878],[53.23913,-8.88672],[53.23805,-8.88465],[53.23724,-8.8834],[53.23642,-8.88245],[53.23541,-8.88193],[53.23463,-8.88185],[53.234,-8.88189],[53.23359,-8.88175],[53.23277,-8.88116],[53.23187,-8.88067],[53.23139,-8.88053],[53.2305,-8.88058],[53.22922,-8.88071],[53.22803,-8.88057],[53.22774,-8.88034],[53.22717,-8.87943],[53.22661,-8.87854],[53.22615,-8.8781],[53.22494,-8.87729],[53.2236,-8.87643],[53.22218,-8.87551],[53.22068,-8.87452],[53.21919,-8.87353],[53.21769,-8.87254],[53.21648,-8.87194],[53.21509,-8.87161],[53.21389,-8.87139],[53.21273,-8.87101],[53.21177,-8.87052],[53.21089,-8.86998],[53.2096,-8.86895],[53.20845,-8.86802],[53.20716,-8.86697],[53.20559,-8.86572],[53.20409,-8.86448],[53.20266,-8.86313],[53.20121,-8.86171],[53.20073,-8.86124],[53.19937,-8.85991],[53.19801,-8.85858],[53.19681,-8.85748],[53.19552,-8.8567],[53.19453,-8.85634],[53.1936,-8.85598],[53.19295,-8.85537],[53.19224,-8.85438],[53.19119,-8.85289],[53.19014,-8.85139],[53.1891,-8.84989],[53.18807,-8.84843],[53.18745,-8.84782],[53.18652,-8.84742],[53.18574,-8.84712],[53.18496,-8.84632],[53.18419,-8.84506],[53.18314,-8.84421],[53.18217,-8.84366],[53.181,-8.84294],[53.18025,-8.84216],[53.17984,-8.84158],[53.17953,-8.84201],[53.17887,-8.84252],[53.17738,-8.84404],[53.17589,-8.84556],[53.17457,-8.8469],[53.1734,-8.84805],[53.1724,-8.84899],[53.17156,-8.84944],[53.17045,-8.85008],[53.16929,-8.85072],[53.16873,-8.85082],[53.16811,-8.85107],[53.16681,-8.85233],[53.1663,-8.85261],[53.16588,-8.85262],[53.1654,-8.85242],[53.16463,-8.85157],[53.16383,-8.85068],[53.1634,-8.85043],[53.16271,-8.8505],[53.16127,-8.85139],[53.16023,-8.85215],[53.15955,-8.85261],[53.15924,-8.85251],[53.15791,-8.85132],[53.15677,-8.85046],[53.15588,-8.8499],[53.15463,-8.84937],[53.15302,-8.84857],[53.1527,-8.84923],[53.15267,-8.85085],[53.15262,-8.852],[53.15225,-8.85412],[53.15196,-8.85533],[53.15158,-8.85482],[53.15151,-8.85387],[53.15135,-8.85275],[53.15095,-8.85195],[53.15008,-8.8507],[53.14939,-8.84947],[53.14868,-8.84782],[53.14779,-8.84542],[53.14696,-8.84388],[53.14618,-8.84243],[53.14533,-8.84144],[53.14443,-8.84079],[53.14379,-8.84056],[53.14251,-8.84026],[53.1415,-8.83996],[53.14038,-8.83947],[53.13957,-8.83923],[53.1387,-8.83899],[53.13815,-8.83887],[53.13724,-8.8384],[53.13599,-8.83769],[53.13481,-8.83674],[53.13349,-8.83573],[53.13251,-8.83506],[53.13099,-8.83438],[53.12946,-8.83371],[53.12788,-8.8331],[53.12659,-8.83277],[53.12541,-8.83247],[53.12439,-8.83228],[53.12395,-8.83201],[53.12283,-8.83093],[53.12202,-8.82987],[53.12115,-8.82877],[53.12046,-8.82838],[53.11957,-8.828],[53.11891,-8.83006],[53.11824,-8.83211],[53.11794,-8.83344],[53.1177,-8.83454],[53.11693,-8.83685],[53.1169,-8.83727],[53.11709,-8.83849],[53.11699,-8.83901],[53.11651,-8.83999],[53.11637,-8.84055],[53.11645,-8.84283],[53.11656,-8.84451],[53.11705,-8.84693],[53.11767,-8.84942],[53.11833,-8.85196],[53.1189,-8.85416],[53.11913,-8.85589],[53.11941,-8.85743],[53.11899,-8.85961],[53.11798,-8.86031],[53.11686,-8.86101],[53.11651,-8.86115],[53.11548,-8.86115],[53.11499,-8.86139],[53.11425,-8.86204],[53.11342,-8.86213],[53.11237,-8.86256],[53.11183,-8.86291],[53.11104,-8.86391],[53.11068,-8.86429],[53.10989,-8.86514],[53.10908,-8.86584],[53.10848,-8.86697],[53.10741,-8.8682],[53.10624,-8.86908],[53.10585,-8.86898],[53.10517,-8.86867],[53.10449,-8.86843],[53.10372,-8.86856],[53.10239,-8.86913],[53.10135,-8.86976],[53.10021,-8.87044],[53.09911,-8.87105],[53.09867,-8.87143],[53.0979,-8.87231],[53.09669,-8.87347],[53.09565,-8.87429],[53.0944,-8.87534],[53.09348,-8.87615],[53.09321,-8.87626],[53.09231,-8.8763],[53.09137,-8.87649],[53.08993,-8.87695],[53.08889,-8.87702],[53.08811,-8.87733],[53.08747,-8.87786],[53.08674,-8.87846],[53.08536,-8.87885],[53.08368,-8.87913],[53.0823,-8.87959],[53.08163,-8.87959],[53.08043,-8.8797],[53.07939,-8.87977],[53.07801,-8.8802],[53.07714,-8.88021],[53.07554,-8.88013],[53.07395,-8.88006],[53.07317,-8.87997],[53.0723,-8.87997],[53.07134,-8.88029],[53.07081,-8.8802],[53.07049,-8.88006],[53.06974,-8.88044],[53.06909,-8.88048],[53.06831,-8.88039],[53.06777,-8.88062],[53.06725,-8.88083],[53.0665,-8.88142],[53.06597,-8.88192],[53.06531,-8.88236],[53.0651,-8.88226],[53.06493,-8.88207],[53.06451,-8.88126],[53.06418,-8.88123],[53.06321,-8.88194],[53.06246,-8.88231],[53.0615,-8.88283],[53.06052,-8.88348],[53.0594,-8.88423],[53.05822,-8.88518],[53.05723,-8.88595],[53.05635,-8.88658],[53.05596,-8.88655],[53.05505,-8.88613],[53.0544,-8.88624],[53.05336,-8.88616],[53.05213,-8.88635],[53.05068,-8.88668],[53.04946,-8.88699],[53.04878,-8.8871],[53.04846,-8.88724],[53.0482,-8.88742],[53.04752,-8.88715],[53.04702,-8.88616],[53.04656,-8.8849],[53.04642,-8.88509],[53.04569,-8.88568],[53.04481,-8.88657],[53.04395,-8.88705],[53.04291,-8.88771],[53.04241,-8.88789],[53.04148,-8.8888],[53.04031,-8.88996],[53.03923,-8.89113],[53.03833,-8.89254],[53.03768,-8.89352],[53.03726,-8.89399],[53.03603,-8.89484],[53.03575,-8.89521],[53.03537,-8.89597],[53.03523,-8.89694],[53.0348,-8.89817],[53.03435,-8.89883],[53.03359,-8.90005],[53.03344,-8.90069],[53.0334,-8.90159],[53.03313,-8.90295],[53.03281,-8.90417],[53.03229,-8.90544],[53.03125,-8.90694],[53.03042,-8.90789],[53.02964,-8.90843],[53.0288,-8.90893],[53.02733,-8.90986],[53.02641,-8.91051],[53.02558,-8.91144],[53.02488,-8.91234],[53.02424,-8.91299],[53.0236,-8.91428],[53.02264,-8.91628],[53.02168,-8.91828],[53.02187,-8.91948],[53.02356,-8.92018],[53.02525,-8.92088],[53.02612,-8.92123],[53.02777,-8.9219],[53.02934,-8.92253],[53.0303,-8.92352],[53.03021,-8.92449],[53.03026,-8.92577],[53.03043,-8.92665],[53.03085,-8.92796],[53.03114,-8.9301],[53.03127,-8.93106],[53.03129,-8.93253],[53.03136,-8.9351],[53.03144,-8.93589],[53.03193,-8.93749],[53.03251,-8.93864],[53.03306,-8.93969],[53.03382,-8.94054],[53.03499,-8.94156],[53.03616,-8.94277],[53.03737,-8.94406],[53.03844,-8.94537],[53.03922,-8.94644],[53.04036,-8.94845],[53.04137,-8.95047],[53.04157,-8.95114],[53.04194,-8.95215],[53.04252,-8.95301],[53.04317,-8.95419],[53.04387,-8.95532],[53.04448,-8.95695],[53.04497,-8.95884],[53.04537,-8.95986],[53.04566,-8.9608],[53.04557,-8.96284],[53.04552,-8.96437],[53.04569,-8.96551],[53.04586,-8.96658],[53.04577,-8.96719],[53.04522,-8.96789],[53.04455,-8.96888],[53.0439,-8.9694],[53.04322,-8.97023],[53.04219,-8.97231],[53.04176,-8.97289],[53.04056,-8.97405],[53.03968,-8.97503],[53.03886,-8.97742],[53.03882,-8.97785],[53.03881,-8.9788],[53.03855,-8.98071],[53.03806,-8.98305],[53.03749,-8.98545],[53.03708,-8.98676],[53.03651,-8.98802],[53.03579,-8.9893],[53.03495,-8.99032],[53.03432,-8.99153],[53.03359,-8.99318],[53.03304,-8.99441],[53.03247,-8.99568],[53.03241,-8.9966],[53.03248,-8.99694],[53.03314,-8.99793],[53.03396,-8.99934],[53.03507,-9.00131],[53.03619,-9.00328],[53.03679,-9.00458],[53.03765,-9.00613],[53.03847,-9.00835],[53.0392,-9.0106],[53.03991,-9.01285],[53.04042,-9.01426],[53.04113,-9.01533],[53.0415,-9.01655],[53.04192,-9.01857],[53.04229,-9.0189],[53.04248,-9.01926],[53.04269,-9.02102],[53.0429,-9.02125],[53.04316,-9.02134],[53.04331,-9.02153],[53.04333,-9.02186],[53.04316,-9.02215],[53.04281,-9.02223],[53.0426,-9.0229],[53.04243,-9.02317],[53.04207,-9.0235],[53.04186,-9.02406],[53.04189,-9.02472],[53.04212,-9.02505],[53.04219,-9.02532],[53.04216,-9.02636],[53.04255,-9.02683],[53.04273,-9.0271],[53.04272,-9.02739],[53.04256,-9.02749],[53.04207,-9.02773],[53.04206,-9.02799],[53.04217,-9.0281],[53.04262,-9.02828],[53.04277,-9.02838],[53.04274,-9.02852],[53.04221,-9.02856],[53.04218,-9.0287],[53.04269,-9.02924],[53.04348,-9.02993],[53.0436,-9.0304],[53.04317,-9.03199],[53.04305,-9.03284],[53.04238,-9.03466],[53.04201,-9.03537],[53.04122,-9.03655],[53.04053,-9.03754],[53.03995,-9.03877],[53.03927,-9.04026],[53.03901,-9.04119],[53.03834,-9.04231],[53.03779,-9.04358],[53.03766,-9.04457],[53.03712,-9.04584],[53.03657,-9.04696],[53.03585,-9.04811],[53.03514,-9.04959],[53.03484,-9.05012],[53.03483,-9.05057],[53.03511,-9.05287],[53.03527,-9.05441],[53.03551,-9.05469],[53.03557,-9.05513],[53.03571,-9.0555],[53.03655,-9.05699],[53.03759,-9.05906],[53.0384,-9.05991],[53.03865,-9.06057],[53.0387,-9.0619],[53.03844,-9.06286],[53.03805,-9.06347],[53.03767,-9.06404],[53.0376,-9.06493],[53.03805,-9.06591],[53.03814,-9.06689],[53.03814,-9.06757],[53.03838,-9.06849],[53.03858,-9.06981],[53.0382,-9.07221],[53.03822,-9.07267],[53.03857,-9.0737],[53.03817,-9.07521],[53.03807,-9.07594],[53.03688,-9.0763],[53.03566,-9.07671],[53.03507,-9.07681],[53.03483,-9.07675],[53.03351,-9.0766],[53.03251,-9.07658],[53.03169,-9.07662],[53.03116,-9.07699],[53.03064,-9.07727],[53.02988,-9.07724],[53.02907,-9.07756],[53.02858,-9.07809],[53.02808,-9.07858],[53.02773,-9.07901],[53.02727,-9.07975],[53.02631,-9.08113],[53.02531,-9.0822],[53.0246,-9.08318],[53.02379,-9.08431],[53.02295,-9.08556],[53.0218,-9.08748],[53.02115,-9.08849],[53.02088,-9.08896],[53.02032,-9.08951],[53.01978,-9.09097],[53.01927,-9.09205],[53.0187,-9.0934],[53.01819,-9.0951],[53.01786,-9.09661],[53.01767,-9.09725],[53.01728,-9.09805],[53.0167,-9.09871],[53.01596,-9.09979],[53.01535,-9.10085],[53.01453,-9.10213],[53.01355,-9.10365],[53.01283,-9.1051],[53.01237,-9.10716],[53.01217,-9.10871],[53.01179,-9.11043],[53.01131,-9.11227],[53.01053,-9.11492],[53.00998,-9.11692],[53.00985,-9.11818],[53.00955,-9.11919],[53.0092,-9.12012],[53.00834,-9.12263],[53.00747,-9.12513],[53.00661,-9.12764],[53.00699,-9.12771],[53.00762,-9.12804],[53.0084,-9.12832],[53.00959,-9.12867],[53.0108,-9.12893],[53.01214,-9.12892],[53.01269,-9.12916],[53.01407,-9.13017],[53.01506,-9.13085],[53.01624,-9.1316],[53.01737,-9.13212],[53.01849,-9.13268],[53.01935,-9.1332],[53.02076,-9.13376],[53.02195,-9.13441],[53.02277,-9.13489],[53.02324,-9.13536],[53.0238,-9.13556],[53.02542,-9.13588],[53.02668,-9.13604],[53.02796,-9.13624],[53.0288,-9.13634],[53.02951,-9.13596],[53.03027,-9.13494],[53.03069,-9.1347],[53.03108,-9.13469],[53.03137,-9.13488],[53.03181,-9.13559],[53.03197,-9.13592],[53.0321,-9.13676],[53.03222,-9.137],[53.03237,-9.13705],[53.03279,-9.13663],[53.03348,-9.13625],[53.03402,-9.13573],[53.0343,-9.13555],[53.0349,-9.13602],[53.03532,-9.13625],[53.03597,-9.1362],[53.03674,-9.13565],[53.03731,-9.13536],[53.03842,-9.13532],[53.03944,-9.13572],[53.0405,-9.13627],[53.04175,-9.13706],[53.04309,-9.13799],[53.04463,-9.13903],[53.04556,-9.13958],[53.04588,-9.1399],[53.04662,-9.14076],[53.04743,-9.14129],[53.04806,-9.14191],[53.04899,-9.14291],[53.04957,-9.14316],[53.05029,-9.14336],[53.05061,-9.14413],[53.05076,-9.14431],[53.05113,-9.14442],[53.05158,-9.14497],[53.05172,-9.14545],[53.05159,-9.1462],[53.05171,-9.14662],[53.0522,-9.14663],[53.0526,-9.14671],[53.05299,-9.147],[53.05332,-9.147],[53.05374,-9.14681],[53.05391,-9.1469],[53.05434,-9.1477],[53.05449,-9.14784],[53.05468,-9.14784],[53.0551,-9.14737],[53.05565,-9.14696],[53.056,-9.14652],[53.05662,-9.14638],[53.05739,-9.14615],[53.05784,-9.14582],[53.05813,-9.14607],[53.05852,-9.14675],[53.05927,-9.147],[53.05942,-9.14728],[53.0597,-9.14817],[53.06012,-9.14869],[53.06049,-9.14897],[53.06101,-9.14906],[53.06265,-9.14949],[53.06429,-9.14992],[53.06567,-9.15037],[53.06619,-9.15045],[53.0666,-9.15076],[53.06699,-9.15188],[53.06763,-9.15267],[53.06825,-9.15328],[53.06901,-9.15365],[53.06967,-9.15403],[53.07004,-9.15483],[53.07013,-9.15498],[53.07069,-9.1553],[53.0714,-9.15567],[53.07189,-9.15549],[53.07219,-9.1555],[53.07348,-9.15612],[53.07459,-9.15657],[53.0752,-9.15676],[53.07592,-9.15752],[53.07617,-9.15773],[53.07693,-9.15794],[53.07759,-9.15887],[53.07762,-9.1592],[53.07747,-9.15957],[53.07683,-9.1599],[53.07631,-9.16014],[53.07621,-9.16041],[53.0763,-9.16065],[53.0767,-9.16112],[53.07709,-9.16247],[53.07737,-9.16276],[53.07773,-9.16304],[53.07797,-9.16356],[53.07843,-9.16406],[53.07918,-9.16435],[53.08038,-9.16496],[53.08124,-9.16534],[53.08265,-9.16534],[53.08362,-9.1645],[53.08385,-9.1637],[53.08402,-9.16268],[53.08452,-9.16296],[53.08577,-9.16411],[53.08594,-9.164],[53.08599,-9.16384],[53.08603,-9.16319],[53.08647,-9.1622],[53.0873,-9.16103],[53.08808,-9.16011],[53.08888,-9.15927],[53.09001,-9.15819],[53.09067,-9.15827],[53.09188,-9.1585],[53.09325,-9.15875],[53.09474,-9.15894],[53.09583,-9.1591],[53.09698,-9.15944],[53.09853,-9.15935],[53.09976,-9.15952],[53.10105,-9.15941],[53.10217,-9.15946],[53.1028,-9.15962],[53.10366,-9.16019],[53.10424,-9.15895],[53.10487,-9.15765],[53.10555,-9.15658],[53.10621,-9.1558],[53.10658,-9.15564],[53.10744,-9.15568],[53.1082,-9.1553],[53.10949,-9.1538],[53.11027,-9.153],[53.11076,-9.15211],[53.11122,-9.15128],[53.11226,-9.15095],[53.11321,-9.15097],[53.11402,-9.15076],[53.11448,-9.15043],[53.11488,-9.14971],[53.11533,-9.1494],[53.1156,-9.14942],[53.11598,-9.14795],[53.11588,-9.14671],[53.11589,-9.14581],[53.1162,-9.14482],[53.11688,-9.14324],[53.11731,-9.14277],[53.11779,-9.14221],[53.11813,-9.14187],[53.11935,-9.14061],[53.12019,-9.13926],[53.12068,-9.13799],[53.12115,-9.1361],[53.1214,-9.13459],[53.12151,-9.13276],[53.12162,-9.13049],[53.12175,-9.12872],[53.12205,-9.12799],[53.12297,-9.12612],[53.12389,-9.12424],[53.12445,-9.12383],[53.12591,-9.12343],[53.12736,-9.12303],[53.12761,-9.12288],[53.12831,-9.12203],[53.12957,-9.12072],[53.13043,-9.11939],[53.13133,-9.11798],[53.13217,-9.11646],[53.13299,-9.11446],[53.13393,-9.11217],[53.1348,-9.10985],[53.13567,-9.10754],[53.13641,-9.10561],[53.13668,-9.10458],[53.13681,-9.10308],[53.13701,-9.10171],[53.13686,-9.10087],[53.13654,-9.10022],[53.13605,-9.0996],[53.1353,-9.09902],[53.13405,-9.0982],[53.13303,-9.09745],[53.1315,-9.09661],[53.13015,-9.09545],[53.12904,-9.09407],[53.12811,-9.09252],[53.12735,-9.09159],[53.12673,-9.09023],[53.12612,-9.08874],[53.12575,-9.08759],[53.12585,-9.08594],[53.1262,-9.08445],[53.1263,-9.08346],[53.12605,-9.08168],[53.1258,-9.08122],[53.12544,-9.0808],[53.12499,-9.07948],[53.12408,-9.07745],[53.12341,-9.07584],[53.12264,-9.07399],[53.12197,-9.0726],[53.12171,-9.07179],[53.1218,-9.0712],[53.12296,-9.07057],[53.12443,-9.0699],[53.12589,-9.06922],[53.12736,-9.06855],[53.12871,-9.06774],[53.12982,-9.06728],[53.13107,-9.06723],[53.13247,-9.06699],[53.13416,-9.06672],[53.13549,-9.06665],[53.13625,-9.06696],[53.13716,-9.06776],[53.13831,-9.06913],[53.13943,-9.07072],[53.14054,-9.07231],[53.14113,-9.073],[53.14208,-9.07398],[53.14296,-9.07553],[53.14379,-9.07726],[53.14451,-9.07818],[53.14543,-9.0792],[53.14661,-9.08014],[53.1468,-9.08012],[53.14703,-9.07901],[53.14728,-9.07802],[53.14783,-9.07645],[53.14837,-9.07486],[53.14872,-9.07371],[53.14889,-9.07202],[53.14926,-9.06949],[53.14971,-9.06706],[53.15016,-9.06463],[53.15054,-9.06249],[53.15068,-9.06127],[53.15065,-9.06054],[53.15038,-9.0584],[53.15025,-9.05737],[53.14959,-9.05475],[53.14894,-9.05213],[53.1483,-9.04969],[53.14769,-9.04744],[53.14701,-9.04526],[53.14628,-9.04307],[53.14588,-9.04162],[53.1454,-9.03888],[53.14526,-9.0372],[53.14511,-9.03583],[53.14463,-9.03435],[53.14382,-9.0322],[53.14301,-9.02994],[53.14274,-9.02864],[53.1425,-9.02748],[53.14226,-9.02664],[53.14179,-9.02589],[53.14117,-9.025],[53.14064,-9.02369],[53.14021,-9.02279],[53.13976,-9.022],[53.13962,-9.02071],[53.13948,-9.01846],[53.13941,-9.0166],[53.13966,-9.015],[53.14002,-9.01337],[53.14042,-9.01153],[53.1406,-9.01019],[53.14073,-9.00905],[53.14097,-9.00844],[53.1411,-9.0072],[53.14139,-9.00604],[53.14161,-9.0044],[53.14178,-9.00286],[53.14217,-9.00065],[53.14242,-8.99901],[53.14239,-8.99737],[53.1425,-8.99551],[53.14271,-8.99273],[53.14268,-8.99202],[53.14254,-8.99136],[53.14261,-8.99046],[53.14294,-8.98924],[53.14345,-8.98798],[53.14406,-8.98615],[53.14416,-8.98564],[53.14431,-8.98334],[53.14424,-8.98249],[53.14404,-8.98098],[53.14356,-8.97859],[53.14319,-8.97649],[53.1427,-8.97455],[53.14217,-8.97329],[53.14183,-8.97282],[53.14146,-8.97134],[53.1412,-8.96972],[53.14116,-8.9679],[53.1409,-8.96592],[53.14049,-8.96442],[53.14032,-8.9632],[53.14007,-8.96058],[53.13982,-8.95795],[53.13957,-8.95533],[53.13931,-8.95276],[53.13889,-8.95117],[53.13853,-8.94991],[53.13838,-8.94852],[53.13854,-8.94659],[53.13884,-8.94406],[53.13909,-8.94165],[53.13913,-8.93969],[53.13882,-8.93791],[53.13892,-8.93636],[53.13942,-8.93547],[53.13989,-8.93416],[53.14002,-8.93318],[53.14029,-8.93233],[53.14035,-8.93162],[53.14026,-8.93055],[53.14028,-8.92932],[53.14056,-8.92746],[53.14075,-8.92703],[53.1411,-8.9266],[53.14138,-8.92593],[53.14111,-8.92491],[53.14113,-8.92366],[53.14142,-8.92204],[53.14168,-8.92116],[53.1418,-8.9205],[53.14205,-8.91863],[53.14238,-8.91735],[53.14267,-8.91553],[53.1428,-8.91445],[53.14267,-8.91333],[53.14243,-8.91168],[53.14228,-8.9106],[53.14233,-8.90986],[53.1425,-8.90934],[53.14315,-8.90824],[53.14375,-8.90708],[53.14389,-8.90653],[53.14388,-8.90583],[53.14369,-8.90501],[53.14373,-8.90438],[53.14434,-8.90279],[53.14529,-8.9005],[53.14624,-8.8982],[53.14684,-8.89653],[53.14729,-8.89574],[53.14813,-8.89466],[53.14892,-8.89371],[53.1498,-8.89239],[53.15032,-8.89103],[53.15034,-8.89047],[53.15022,-8.88888],[53.14993,-8.88617],[53.14975,-8.88413],[53.14996,-8.88292],[53.15011,-8.88198],[53.15019,-8.88053],[53.14998,-8.87897],[53.14958,-8.87763],[53.14946,-8.87682],[53.14954,-8.87573],[53.14982,-8.87396],[53.14987,-8.8725],[53.14982,-8.87049],[53.14973,-8.86945],[53.14967,-8.86725],[53.14987,-8.86598],[53.15032,-8.86398],[53.15083,-8.86203],[53.15131,-8.85998],[53.15175,-8.85755],[53.15208,-8.85567],[53.15225,-8.85412],[53.15262,-8.852],[53.15267,-8.85085],[53.1527,-8.84923],[53.15302,-8.84857],[53.15463,-8.84937],[53.15588,-8.8499],[53.15677,-8.85046],[53.15797,-8.85136],[53.15924,-8.85251],[53.15955,-8.85261],[53.16028,-8.85211],[53.16081,-8.85171],[53.16199,-8.85095],[53.16298,-8.85039],[53.1637,-8.85059],[53.16403,-8.85086],[53.16523,-8.85228],[53.16571,-8.8526],[53.16596,-8.85265],[53.16662,-8.85247],[53.16736,-8.85178],[53.16843,-8.85091],[53.16908,-8.85078],[53.16987,-8.8504],[53.17103,-8.84974],[53.17209,-8.84914],[53.17282,-8.84862],[53.17399,-8.84747],[53.17515,-8.84632],[53.17664,-8.8448],[53.17813,-8.84328],[53.17911,-8.84229],[53.17964,-8.84191],[53.18,-8.84182],[53.18065,-8.84261],[53.18154,-8.84332],[53.18314,-8.84421],[53.18419,-8.84506],[53.18496,-8.84632],[53.18574,-8.84712],[53.18652,-8.84742],[53.18745,-8.84782],[53.18807,-8.84843],[53.1891,-8.84989],[53.19014,-8.85139],[53.19119,-8.85289],[53.19224,-8.85438],[53.19295,-8.85537],[53.1936,-8.85598],[53.19453,-8.85634],[53.19552,-8.8567],[53.19681,-8.85748],[53.19801,-8.85858],[53.19937,-8.85991],[53.20073,-8.86124],[53.20121,-8.86171],[53.20266,-8.86313],[53.20409,-8.86448],[53.20559,-8.86572],[53.20716,-8.86697],[53.20845,-8.86802],[53.2096,-8.86895],[53.21089,-8.86998],[53.21177,-8.87052],[53.21273,-8.87101],[53.21389,-8.87139],[53.21509,-8.87161],[53.21648,-8.87194],[53.21769,-8.87254],[53.21919,-8.87353],[53.22068,-8.87452],[53.22218,-8.87551],[53.2236,-8.87643],[53.22494,-8.87729],[53.22615,-8.8781],[53.22661,-8.87854],[53.22717,-8.87943],[53.22774,-8.88034],[53.22803,-8.88057],[53.22922,-8.88071],[53.2305,-8.88058],[53.23139,-8.88053],[53.23187,-8.88067],[53.23277,-8.88116],[53.23359,-8.88175],[53.234,-8.88189],[53.23463,-8.88185],[53.23541,-8.88193],[53.23642,-8.88245],[53.23724,-8.8834],[53.23805,-8.88465],[53.23913,-8.88672],[53.24021,-8.88878],[53.24129,-8.89085],[53.24228,-8.89262],[53.24351,-8.89453],[53.24473,-8.89644],[53.2457,-8.89797],[53.24668,-8.89944],[53.24762,-8.90034],[53.24895,-8.90127],[53.24985,-8.90216],[53.2513,-8.90393],[53.25217,-8.90516],[53.2529,-8.90633],[53.2538,-8.90807],[53.2546,-8.90995],[53.25549,-8.9122],[53.25638,-8.91445],[53.25719,-8.91637],[53.25814,-8.91816],[53.25924,-8.9198],[53.26019,-8.92093],[53.26078,-8.92163],[53.26092,-8.92196],[53.2611,-8.92201],[53.26149,-8.9221],[53.26238,-8.92252],[53.26343,-8.92273],[53.26351,-8.9242],[53.26369,-8.92535],[53.26435,-8.92782],[53.26499,-8.92904],[53.26541,-8.92947],[53.26591,-8.92975],[53.26712,-8.93003],[53.2679,-8.92981],[53.26879,-8.92906],[53.26937,-8.92875],[53.26977,-8.92866],[53.27022,-8.92872],[53.27117,-8.92918],[53.27132,-8.92924],[53.2714,-8.92935],[53.27161,-8.92938],[53.27214,-8.92969],[53.27238,-8.93018],[53.27257,-8.93163],[53.27302,-8.93353],[53.27335,-8.935],[53.27345,-8.93694],[53.27353,-8.93961],[53.27376,-8.94157],[53.27372,-8.94398],[53.27363,-8.94666],[53.27354,-8.94874],[53.27321,-8.95166],[53.273,-8.95361],[53.27302,-8.95504],[53.27322,-8.95617],[53.27363,-8.95771],[53.27376,-8.9587],[53.27377,-8.95986],[53.27346,-8.96182],[53.27297,-8.96451],[53.27245,-8.9671],[53.27193,-8.96897],[53.27163,-8.97089],[53.2716,-8.97222],[53.27173,-8.97381],[53.27194,-8.97489],[53.27201,-8.97545],[53.27185,-8.97589],[53.27193,-8.97736],[53.27205,-8.97884],[53.27242,-8.98029],[53.27252,-8.98126],[53.27244,-8.98292],[53.27229,-8.98572],[53.27234,-8.98605],[53.27299,-8.98754],[53.27361,-8.98901],[53.27373,-8.9899],[53.27371,-8.99163],[53.27384,-8.99354],[53.27392,-8.99388],[53.27412,-8.99493],[53.27422,-8.99624],[53.27446,-8.99764],[53.27515,-9.00004],[53.27592,-9.0026],[53.27632,-9.00413],[53.27682,-9.00629],[53.27694,-9.00731],[53.2769,-9.00805],[53.27678,-9.00834],[53.27686,-9.00867],[53.27707,-9.00937],[53.27725,-9.01137],[53.27749,-9.01322],[53.27789,-9.01558],[53.27813,-9.01706],[53.27862,-9.01965],[53.27913,-9.02198],[53.27958,-9.02288]];
+
+  var map = L.map('map-125km', {scrollWheelZoom: false, zoomControl: true});
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>',
+    subdomains: 'abcd',
+    maxZoom: 19
+  }).addTo(map);
+
+  var line = L.polyline(coords, {color: '#ffffff', weight: 9, opacity: 0.5, lineJoin: 'round', lineCap: 'round'}).addTo(map);
+  L.polyline(coords, {color: '#78BE20', weight: 5, opacity: 1, lineJoin: 'round', lineCap: 'round'}).addTo(map);
+  line = L.polyline(coords, {color: '#78BE20', weight: 5, opacity: 1}).addTo(map);
+
+  map.fitBounds(line.getBounds(), {padding: [32, 32]});
+
+  var startIcon = L.divIcon({
+    className: '',
+    html: '<div style="width:12px;height:12px;background:#006233;border:2.5px solid #fff;border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,0.4);"></div>',
+    iconAnchor: [6, 6]
   });
+  L.marker(coords[0], {icon: startIcon})
+    .bindTooltip('Start / Finish', {permanent: false, direction: 'right'})
+    .addTo(map);
+})();
 </script>
 
 <script>
+  window.addEventListener('scroll', () => {
+    document.querySelector('nav').style.boxShadow = window.scrollY > 10 ? '0 4px 24px rgba(0,0,0,0.35)' : 'none';
+  });
   const _hbg = document.getElementById('hamburger');
   const _mob = document.getElementById('mobileMenu');
   _hbg.addEventListener('click', () => {

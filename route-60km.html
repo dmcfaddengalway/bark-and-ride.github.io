@@ -3,8 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>60km Dunguaire Castle — Bark &amp; Ride 2026</title>
+<title>60km — Dunguaire Castle — Bark &amp; Ride 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
   :root {
     --green-dark: #006233;
@@ -12,35 +14,33 @@
     --green-light: #78BE20;
     --green-lime: #9DD629;
     --white: #ffffff;
-    --off-white: #f3f8f0;
+    --off-white: #f7faf4;
     --light-grey: #e8f3e0;
     --text-dark: #032b16;
     --text-muted: #2d5c3a;
+    --nav-h: 68px;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body { font-family: 'Barlow', sans-serif; background: var(--white); color: var(--text-dark); overflow-x: hidden; }
 
-  /* NAV */
-  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(0, 98, 51, 0.97); backdrop-filter: blur(8px); border-bottom: 3px solid transparent; border-image: linear-gradient(to right, #006233, #78BE20) 1; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 68px; }
+  /* ── NAV ── */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: rgba(0,98,51,0.97); backdrop-filter: blur(8px); border-bottom: 3px solid transparent; border-image: linear-gradient(to right,#006233,#78BE20) 1; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: var(--nav-h); }
   .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--white); letter-spacing: 3px; text-decoration: none; display: flex; align-items: center; gap: 10px; }
-  .nav-logo-divider { display: inline-block; width: 1px; height: 28px; background: rgba(255,255,255,0.25); margin: 0 12px; }
   .nav-logo span { color: var(--green-lime); }
   .nav-links { display: flex; gap: 8px; list-style: none; align-items: center; }
   .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; padding: 6px 10px; transition: color 0.2s; }
   .nav-links a:hover { color: #78BE20; }
   .nav-dropdown { position: relative; }
-  .nav-dropdown > a { cursor: default; }
   .nav-dropdown > a::after { content: ' ▾'; font-size: 0.7rem; opacity: 0.6; }
-  .nav-dropdown-menu { position: absolute; top: calc(100% + 10px); left: 0; background: rgba(0, 70, 38, 0.97); backdrop-filter: blur(8px); min-width: 160px; padding: 8px 0; list-style: none; opacity: 0; visibility: hidden; transform: translateY(6px); transition: opacity 0.2s, transform 0.2s, visibility 0.2s; border-top: 2px solid #78BE20; box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+  .nav-dropdown-menu { position: absolute; top: calc(100% + 10px); left: 0; background: rgba(0,70,38,0.97); backdrop-filter: blur(8px); min-width: 160px; padding: 8px 0; list-style: none; opacity: 0; visibility: hidden; transform: translateY(6px); transition: opacity 0.2s, transform 0.2s, visibility 0.2s; border-top: 2px solid #78BE20; box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
   .nav-dropdown:hover .nav-dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
   .nav-dropdown-menu li a { display: block; padding: 10px 20px; font-size: 0.8rem; letter-spacing: 1.5px; white-space: nowrap; }
-  .nav-dropdown-menu li a:hover { background: rgba(255,255,255,0.08); }
-  .nav-cta { background: linear-gradient(135deg, #78BE20, #9DD629) !important; color: var(--green-dark) !important; padding: 0 28px !important; height: 68px; display: flex !important; align-items: center; margin-right: -40px; font-weight: 700 !important; transition: opacity 0.2s !important; }
+  .nav-cta { background: linear-gradient(135deg,#78BE20,#9DD629) !important; color: var(--green-dark) !important; padding: 0 28px !important; height: var(--nav-h); display: flex !important; align-items: center; margin-right: -40px; font-weight: 700 !important; }
   .nav-cta:hover { filter: brightness(0.88) !important; }
 
-  /* ROUTE HERO */
+  /* ── HERO (original style) ── */
   .route-hero {
     min-height: 480px;
     padding: 140px 40px 60px;
@@ -54,128 +54,155 @@
   .route-hero h1 small { font-size: 0.45em; color: var(--green-lime); letter-spacing: 2px; display: block; margin-top: 6px; }
   .route-hero-sub { margin-top: 16px; color: rgba(255,255,255,0.75); font-weight: 300; font-size: 1rem; line-height: 1.6; max-width: 480px; }
 
-  /* STATS ROW */
-  .route-stats { background: var(--off-white); padding: 0 40px; }
-  .route-stats-inner { max-width: 800px; margin: 0 auto; display: flex; justify-content: space-around; padding: 30px 0; gap: 20px; flex-wrap: wrap; }
-  .route-stat { text-align: center; }
-  .route-stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.4rem; color: var(--green-dark); line-height: 1; display: block; }
-  .route-stat-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-top: 4px; }
+  /* ── TWO-COLUMN MAIN ── */
+  .route-body {
+    display: flex;
+    align-items: flex-start;
+    min-height: calc(100vh - var(--nav-h));
+  }
 
-  /* CONTENT */
-  .route-content { max-width: 800px; margin: 0 auto; padding: 70px 24px; }
-  .route-content h2 { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--green-dark); letter-spacing: 2px; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid var(--light-grey); }
-  .route-content > p { color: var(--text-muted); font-weight: 300; font-size: 1rem; line-height: 1.8; margin-bottom: 48px; }
+  /* LEFT PANEL */
+  .route-panel {
+    flex: 0 0 420px;
+    padding: 48px 48px 64px;
+    background: var(--white);
+    border-right: 1px solid var(--light-grey);
+    overflow-y: auto;
+  }
 
-  /* HIGHLIGHTS */
-  .route-highlights { display: grid; gap: 24px; margin-bottom: 48px; }
-  .route-highlight { padding: 24px 28px; background: var(--off-white); border-left: 4px solid var(--green-light); }
-  .route-highlight h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.05rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--green-dark); margin-bottom: 8px; }
-  .route-highlight p { color: var(--text-muted); font-weight: 300; font-size: 0.95rem; line-height: 1.7; }
+  /* Stats grid */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--light-grey);
+    border: 1px solid var(--light-grey);
+    margin-bottom: 40px;
+  }
+  .stat-cell {
+    background: var(--off-white);
+    padding: 20px 20px 16px;
+  }
+  .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--green-dark); line-height: 1; display: block; }
+  .stat-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--text-muted); margin-top: 3px; }
 
-  /* ELEVATION */
-  .elevation-section { margin-bottom: 48px; }
-  .elevation-desc { color: var(--text-muted); font-weight: 300; font-size: 0.95rem; line-height: 1.75; }
+  /* Section headings */
+  .panel-section { margin-bottom: 36px; }
+  .panel-heading {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--green-light);
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--light-grey);
+  }
+  .panel-section p { color: var(--text-muted); font-weight: 300; font-size: 0.95rem; line-height: 1.8; }
 
-  /* TIPS */
-  .tips-section { background: var(--light-grey); padding: 50px 40px; margin-bottom: 0; }
-  .tips-inner { max-width: 800px; margin: 0 auto; }
-  .tips-inner h2 { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--green-dark); letter-spacing: 2px; margin-bottom: 28px; padding-bottom: 10px; border-bottom: 2px solid rgba(0,98,51,0.2); }
-  .tip-item { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 20px; }
-  .tip-icon { flex-shrink: 0; width: 24px; height: 24px; background: var(--green-light); color: var(--green-dark); font-weight: 700; font-size: 0.8rem; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
-  .tip-item p { color: var(--text-muted); font-weight: 300; font-size: 0.95rem; line-height: 1.7; }
+  /* Highlights list */
+  .highlights-list { list-style: none; }
+  .highlights-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--light-grey);
+    color: var(--text-muted);
+    font-weight: 300;
+    font-size: 0.95rem;
+  }
+  .highlights-list li:last-child { border-bottom: none; }
+  .hl-icon {
+    flex-shrink: 0;
+    width: 6px; height: 6px;
+    background: var(--green-light);
+    border-radius: 50%;
+    margin-top: 7px;
+  }
+  .hl-name { font-weight: 500; color: var(--text-dark); font-size: 0.9rem; display: block; margin-bottom: 2px; }
 
-  /* CTA */
-  .cta-band { background: linear-gradient(135deg, #006233 0%, #008542 50%, #78BE20 100%); padding: 60px 40px; text-align: center; }
-  .cta-band h2 { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: var(--white); letter-spacing: 3px; margin-bottom: 10px; }
-  .cta-band p { color: rgba(255,255,255,0.8); font-weight: 300; margin-bottom: 24px; }
-  .btn-white { display: inline-block; background: var(--white); color: var(--green-dark); font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: 2px; text-transform: uppercase; padding: 14px 36px; text-decoration: none; transition: background 0.2s; }
-  .btn-white:hover { background: rgba(255,255,255,0.88); }
+  /* Tips */
+  .tips-list { list-style: none; }
+  .tips-list li {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 8px 0;
+    color: var(--text-muted); font-weight: 300; font-size: 0.9rem; line-height: 1.65;
+    border-bottom: 1px solid var(--light-grey);
+  }
+  .tips-list li:last-child { border-bottom: none; }
+  .tip-dot { flex-shrink: 0; width: 18px; height: 18px; background: var(--green-light); color: var(--green-dark); font-size: 0.7rem; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+
+  /* Panel CTA */
+  .panel-cta { display: flex; flex-direction: column; gap: 10px; margin-top: 40px; }
+  .btn-primary { display: block; text-align: center; background: linear-gradient(135deg,#006233,#78BE20); color: var(--white); font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; padding: 15px 24px; text-decoration: none; transition: filter 0.2s; }
+  .btn-primary:hover { filter: brightness(0.9); }
+  .btn-secondary { display: block; text-align: center; background: transparent; color: var(--green-dark); font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; padding: 13px 24px; text-decoration: none; border: 1.5px solid var(--light-grey); transition: border-color 0.2s, color 0.2s; }
+  .btn-secondary:hover { border-color: var(--green-dark); color: var(--green-dark); }
+
+  /* RIGHT MAP PANEL */
+  .route-map-panel {
+    flex: 1;
+    position: sticky;
+    top: var(--nav-h);
+    height: calc(100vh - var(--nav-h));
+    display: flex;
+    flex-direction: column;
+  }
+  #map-60km {
+    flex: 1;
+    width: 100%;
+  }
+  .map-footer {
+    background: var(--off-white);
+    border-top: 1px solid var(--light-grey);
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+  }
+  .map-footer a { color: var(--green-dark); text-decoration: none; font-weight: 600; }
+  .map-footer a:hover { color: var(--green-mid); }
 
   /* FOOTER */
-  footer { background: var(--text-dark); padding: 40px 40px 24px; color: rgba(255,255,255,0.6); }
-  .footer-inner { max-width: 800px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
-  .footer-inner p { font-size: 0.8rem; color: rgba(255,255,255,0.35); }
-  .footer-inner p span { color: #78BE20; }
+  footer { background: var(--text-dark); padding: 28px 48px; color: rgba(255,255,255,0.35); font-size: 0.8rem; display: flex; justify-content: space-between; align-items: center; }
+  footer span { color: #78BE20; }
 
-  /* RESPONSIVE */
-  @media (max-width: 900px) {
-    nav { padding: 0 16px; }
-    .nav-links { display: none; }
-    .nav-logo img { height: 28px !important; }
-    .route-hero { min-height: 380px; padding: 120px 24px 40px; }
-    .route-content { padding: 50px 20px; }
-    .tips-section { padding: 40px 20px; }
-  }
-  @media (max-width: 600px) {
-    .route-hero h1 { font-size: 2.8rem; }
-    .route-stats-inner { flex-direction: column; align-items: center; gap: 16px; padding: 24px 0; }
-    .route-highlight { padding: 18px 20px; }
-    .cta-band h2 { font-size: 2rem; }
-    footer { padding: 30px 20px 20px; }
-    .footer-inner { flex-direction: column; text-align: center; }
-  }
-  @media (max-width: 380px) {
-    .nav-logo { font-size: 1.4rem; }
-    .nav-logo img { height: 22px !important; }
-    .nav-logo-divider { margin: 0 6px; }
-    .route-hero h1 { font-size: 2.2rem; }
-  }
-  /* Connacht Hotel map links */
-  a[href*="google.com/maps"] { color: var(--green-dark); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(0,98,51,0.4); font-weight: 500; transition: color 0.2s, text-decoration-color 0.2s; }
-  a[href*="google.com/maps"]:hover { color: var(--green-mid); text-decoration-color: var(--green-mid); }
-  .ticker-item a[href*="google.com/maps"] { color: inherit; text-decoration-color: rgba(255,255,255,0.5); font-weight: inherit; }
-  .ticker-item a[href*="google.com/maps"]:hover { color: inherit; text-decoration-color: rgba(255,255,255,0.9); }
-
-  /* HAMBURGER / MOBILE MENU */
-  .hamburger {
-    display: none; flex-direction: column; gap: 5px;
-    background: none; border: none; cursor: pointer; padding: 8px; z-index: 200;
-  }
+  /* ── HAMBURGER ── */
+  .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; z-index: 200; }
   .hamburger span { display: block; width: 24px; height: 2px; background: #fff; transition: transform 0.3s, opacity 0.3s; }
   .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   .hamburger.open span:nth-child(2) { opacity: 0; }
   .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-  .mobile-menu {
-    display: none; position: fixed; top: 68px; left: 0; right: 0;
-    background: rgba(0,70,38,0.98); backdrop-filter: blur(8px);
-    z-index: 98; border-top: 2px solid #78BE20;
-    height: calc(100vh - 68px); overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 80px;
-  }
+  .mobile-menu { display: none; position: fixed; top: var(--nav-h); left: 0; right: 0; background: rgba(0,70,38,0.98); backdrop-filter: blur(8px); z-index: 198; border-top: 2px solid #78BE20; height: calc(100vh - var(--nav-h)); overflow-y: scroll; -webkit-overflow-scrolling: touch; padding-bottom: 80px; }
   .mobile-menu.open { display: block; }
-  .mobile-menu a {
-    display: block; padding: 14px 28px;
-    color: rgba(255,255,255,0.85); text-decoration: none;
-    font-family: 'Barlow Condensed', sans-serif; font-weight: 600;
-    font-size: 1rem; letter-spacing: 2px; text-transform: uppercase;
-    border-bottom: 1px solid rgba(255,255,255,0.08); transition: color 0.2s;
-  }
+  .mobile-menu a { display: block; padding: 14px 28px; color: rgba(255,255,255,0.85); text-decoration: none; font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 1rem; letter-spacing: 2px; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.08); }
   .mobile-menu a:hover { color: #78BE20; }
-  .mobile-submenu a {
-    padding-left: 44px !important; font-size: 0.85rem !important;
-    color: rgba(255,255,255,0.6) !important; letter-spacing: 1.5px !important;
-  }
-  .mobile-submenu a:hover { color: #78BE20 !important; }
-  .mobile-menu-section-label {
-    padding: 16px 28px 6px; font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase;
-    color: #78BE20; font-weight: 600;
-  }
+  .mobile-submenu a { padding-left: 44px !important; font-size: 0.85rem !important; color: rgba(255,255,255,0.6) !important; }
+  .mobile-section-label { padding: 16px 28px 6px; font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; color: #78BE20; font-weight: 600; }
   .mobile-cta-wrap { padding: 20px 20px 4px; }
-  .mobile-cta {
-    display: block; background: linear-gradient(135deg, #78BE20, #9DD629);
-    color: #032b16 !important; text-align: center;
-    padding: 14px !important; font-weight: 700 !important;
-    border-bottom: none !important; letter-spacing: 2px;
+  .mobile-cta { display: block; background: linear-gradient(135deg,#78BE20,#9DD629); color: #032b16 !important; text-align: center; padding: 14px !important; font-weight: 700 !important; border-bottom: none !important; letter-spacing: 2px; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 0 16px; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .route-header { padding: 28px 24px; flex-wrap: wrap; gap: 20px; }
+    .route-header-divider { display: none; }
+    .route-body { flex-direction: column; }
+    .route-panel { flex: none; width: 100%; padding: 32px 24px 40px; border-right: none; border-bottom: 1px solid var(--light-grey); }
+    .route-map-panel { position: relative; top: 0; height: 480px; width: 100%; }
+    footer { flex-direction: column; gap: 8px; text-align: center; padding: 24px 20px; }
   }
   @media (max-width: 600px) {
-    .nav-links { display: none !important; }
-    .hamburger { display: flex; }
+    .route-header { padding: 24px 20px; }
+    .route-header-badge .dist { font-size: 2.4rem; }
+    .route-header-info h1 { font-size: 1.8rem; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
   }
-  .btn-outline-white { display: inline-block; background: transparent; color: var(--white); font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 0.95rem; letter-spacing: 2px; text-transform: uppercase; padding: 13px 32px; text-decoration: none; border: 2px solid rgba(255,255,255,0.55); transition: border-color 0.2s, color 0.2s; margin-left: 14px; }
-  .btn-outline-white:hover { border-color: var(--white); color: var(--white); }
-  .cta-band .btn-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; align-items: center; }
 </style>
   <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon/favicon-32x32.png">
@@ -184,16 +211,41 @@
 </head>
 <body>
 
-<nav>  <a href="index.html" class="nav-logo">    <img src="https://www.guidedogs.ie/img/f/291065883890237/596x176/b169668a73/guidedogs-logo-50th-horizontal.png/m/596x0/smart/filters:format(webp):quality(65)" alt="Irish Guide Dogs" style="height:36px; width:auto; filter: brightness(0) invert(1);">  </a>  <ul class="nav-links">    <li class="nav-dropdown">      <a href="#">About</a>      <ul class="nav-dropdown-menu">        <li><a href="about.html">About Us</a></li>        <li><a href="faq.html">FAQ</a></li>      </ul>    </li>    <li class="nav-dropdown">      <a href="index.html#routes">Routes</a>      <ul class="nav-dropdown-menu">        <li><a href="route-60km.html">60km — Dunguaire Castle</a></li>        <li><a href="route-90km.html">90km — Kilmacduagh Round Tower</a></li>        <li><a href="route-125km.html">125km — Poulnabrone Dolmen</a></li>
-        <li><a href="./assets/Training-Guide.pdf" download>Training Guide ↓</a></li>      </ul>    </li>    <li><a href="gallery.html">Gallery</a></li>    <li><a href="rider-zone.html">Rider Zone</a></li>    <li><a href="index.html#sponsors">Sponsors</a></li>    <li><a href="index.html#contact">Contact</a></li>    <li><a href="https://eventmaster.ie/event/Y9O2HrOFjv" target="_blank" class="nav-cta">Register</a></li>  </ul><button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="https://www.guidedogs.ie/img/f/291065883890237/596x176/b169668a73/guidedogs-logo-50th-horizontal.png/m/596x0/smart/filters:format(webp):quality(65)" alt="Irish Guide Dogs" style="height:36px;width:auto;filter:brightness(0) invert(1);">
+  </a>
+  <ul class="nav-links">
+    <li class="nav-dropdown"><a href="#">About</a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+      </ul>
+    </li>
+    <li class="nav-dropdown"><a href="index.html#routes">Routes</a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="route-60km.html">60km — Dunguaire Castle</a></li>
+        <li><a href="route-90km.html">90km — Kilmacduagh Round Tower</a></li>
+        <li><a href="route-125km.html">125km — Poulnabrone Dolmen</a></li>
+        <li><a href="./assets/Training-Guide.pdf" download>Training Guide ↓</a></li>
+      </ul>
+    </li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="rider-zone.html">Rider Zone</a></li>
+    <li><a href="index.html#sponsors">Sponsors</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+    <li><a href="https://eventmaster.ie/event/Y9O2HrOFjv" target="_blank" class="nav-cta">Register</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
 </nav>
+
 <div class="mobile-menu" id="mobileMenu">
-  <div class="mobile-menu-section-label">About</div>
+  <div class="mobile-section-label">About</div>
   <div class="mobile-submenu">
     <a href="about.html">About Us</a>
     <a href="faq.html">FAQ</a>
   </div>
-  <div class="mobile-menu-section-label">Routes</div>
+  <div class="mobile-section-label">Routes</div>
   <div class="mobile-submenu">
     <a href="route-60km.html">60km — Dunguaire Castle</a>
     <a href="route-90km.html">90km — Kilmacduagh Round Tower</a>
@@ -217,90 +269,165 @@
   </div>
 </section>
 
-<div class="route-stats">
-  <div class="route-stats-inner">
-    <div class="route-stat"><span class="route-stat-num">60km</span><div class="route-stat-label">Distance</div></div>
-    <div class="route-stat"><span class="route-stat-num">36m</span><div class="route-stat-label">Elevation</div></div>
-    <div class="route-stat"><span class="route-stat-num">2–3 hours</span><div class="route-stat-label">Est. Duration</div></div>
-    <div class="route-stat"><span class="route-stat-num">2</span><div class="route-stat-label">Food Stops</div></div>
+<!-- TWO-COLUMN BODY -->
+<div class="route-body">
+
+  <!-- LEFT: INFO PANEL -->
+  <aside class="route-panel">
+
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-cell">
+        <span class="stat-num">60km</span>
+        <span class="stat-label">Distance</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-num">36m</span>
+        <span class="stat-label">Elevation Gain</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-num">2–3h</span>
+        <span class="stat-label">Est. Duration</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-num">2</span>
+        <span class="stat-label">Food Stops</span>
+      </div>
+      <a href="https://www.strava.com/routes/3404957892583381030" target="_blank" rel="noopener" class="stat-cell" style="grid-column:1/-1; display:flex; align-items:center; justify-content:center; background:#d4e9c2; font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.8rem; letter-spacing:2px; text-transform:uppercase; color:#032b16; text-decoration:none; cursor:pointer; transition:background 0.2s;" onmouseover="this.style.background='#c4de0f22'" onmouseout="this.style.background='#d4e9c2'">
+        View Route on Strava
+      </a>
+    </div>
+
+    <!-- About -->
+    <div class="panel-section">
+      <div class="panel-heading">About This Route</div>
+      <p>The perfect introduction to Bark &amp; Ride. This scenic 60km loop takes in the gentle rolling terrain south of the Burren, quiet country roads, picturesque villages, and lush green farmland. Ideal for first-time sportive riders or anyone looking for a fun, achievable challenge.</p>
+    </div>
+
+    <!-- Highlights -->
+    <div class="panel-section">
+      <div class="panel-heading">Route Highlights</div>
+      <ul class="highlights-list">
+        <li>
+          <span class="hl-icon"></span>
+          <div>
+            <span class="hl-name">Dunguaire Castle</span>
+            A 16th-century tower house on the shores of Kinvara Bay — one of Ireland's most photographed castles.
+          </div>
+        </li>
+        <li>
+          <span class="hl-icon"></span>
+          <div>
+            <span class="hl-name">Dromore Wood Nature Reserve</span>
+            A beautiful oak woodland and lake system — a stunning early stretch to ease you into the ride.
+          </div>
+        </li>
+        <li>
+          <span class="hl-icon"></span>
+          <div>
+            <span class="hl-name">Corofin Village</span>
+            One of Clare's most beloved heritage villages, rich in traditional music culture.
+          </div>
+        </li>
+        <li>
+          <span class="hl-icon"></span>
+          <div>
+            <span class="hl-name">Inagh Valley Views</span>
+            Panoramic views across the valley floor before looping back to Galway.
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Elevation -->
+    <div class="panel-section">
+      <div class="panel-heading">Elevation</div>
+      <p>Mostly flat to gently rolling terrain. No major climbs — total elevation gain of just 36m. Very suitable for riders of all fitness levels.</p>
+    </div>
+
+    <!-- Rider Tips -->
+    <div class="panel-section">
+      <div class="panel-heading">Rider Tips</div>
+      <ul class="tips-list">
+        <li><span class="tip-dot">✓</span>Great for first-time sportive riders — pace is relaxed and support is excellent.</li>
+        <li><span class="tip-dot">✓</span>Start hydrated. Clare's exposed roads can be deceptively windy.</li>
+        <li><span class="tip-dot">✓</span>Pack a light rain jacket — weather changes quickly in the Burren.</li>
+        <li><span class="tip-dot">✓</span>Don't race — soak in the scenery and the atmosphere.</li>
+      </ul>
+    </div>
+
+    <!-- CTA -->
+    <div class="panel-cta">
+      <a href="https://eventmaster.ie/event/Y9O2HrOFjv" target="_blank" class="btn-primary">Register for This Route</a>
+      <a href="./assets/Training-Guide.pdf" download class="btn-secondary">↓ Download Training Guide</a>
+    </div>
+
+  </aside>
+
+  <!-- RIGHT: MAP -->
+  <div class="route-map-panel">
+    <div id="map-60km"></div>
+    <div class="map-footer">
+      <span>Interactive map — scroll to zoom · click to pan</span>
+    </div>
   </div>
-</div>
 
-<div class="route-content">
-  <h2>Route Overview</h2>
-  <p>The perfect introduction to Bark &amp; Ride. Passing the iconic Dunguaire Castle on the shores of Kinvara Bay, this scenic 60km loop takes in the gentle rolling terrain south of the Burren, quiet country roads, picturesque villages, and lush green farmland. Ideal for first-time sportive riders or anyone looking for a fun, achievable challenge.</p>
-
-  <h2>Route Highlights</h2>
-  <div class="route-highlights">
-    <div class="route-highlight">
-      <h3>Dunguaire Castle</h3>
-      <p>A 16th-century tower house standing on the shores of Kinvara Bay — one of the most photographed castles in Ireland and a stunning landmark as you pass through Kinvara village.</p>
-    </div>
-    <div class="route-highlight">
-      <h3>Dromore Wood Nature Reserve</h3>
-      <p>A stunning oak woodland and lake system just minutes from the start — a beautiful early stretch to ease you into the ride.</p>
-    </div>
-    <div class="route-highlight">
-      <h3>Corofin Village</h3>
-      <p>A charming stop through one of Clare's most beloved heritage villages, rich in traditional music culture.</p>
-    </div>
-    <div class="route-highlight">
-      <h3>Inagh Valley Views</h3>
-      <p>The route opens up with panoramic views across the valley floor before looping back toward <a href="https://www.google.com/maps/place/The+Connacht+Hotel/@53.2797623,-9.0241096,16z/data=!3m1!4b1!4m9!3m8!1s0x485b96cd98baddd7:0xe5529c731eeda844!5m2!4m1!1i2!8m2!3d53.2797623!4d-9.0215347!16s%2Fg%2F1hm61nnxf?entry=ttu&amp;g_ep=EgoyMDI2MDYwMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">The Connacht Hotel, Galway</a>.</p>
-    </div>
-  </div>
-
-  <div class="elevation-section" id="elevation-60">
-    <h2>Elevation Profile</h2>
-    <p class="elevation-desc">Mostly flat to gently rolling terrain. No major climbs — gently rolling terrain throughout with a total elevation gain of 36m. Very suitable for riders of all fitness levels.</p>
-    <p style="margin-top:16px"><a href="https://www.strava.com/routes/3404957892583381030" target="_blank" style="color:var(--green-dark); text-decoration:underline; text-underline-offset:3px; font-weight:500;">View full route on Strava →</a></p>
-  </div>
-</div>
-
-<section class="tips-section">
-  <div class="tips-inner">
-    <h2>Rider Tips</h2>
-    <div class="tip-item">
-      <span class="tip-icon">✓</span>
-      <p>This is a great route if you're new to sportives — the pace is relaxed and the support is excellent.</p>
-    </div>
-    <div class="tip-item">
-      <span class="tip-icon">✓</span>
-      <p>Start hydrated. Even on a shorter route, Clare's exposed roads can be deceptively windy.</p>
-    </div>
-    <div class="tip-item">
-      <span class="tip-icon">✓</span>
-      <p>Bring a light rain jacket — weather can change quickly in the Burren region.</p>
-    </div>
-    <div class="tip-item">
-      <span class="tip-icon">✓</span>
-      <p>Enjoy it! Don't race — soak in the scenery and the atmosphere.</p>
-    </div>
-  </div>
-</section>
-
-<section class="cta-band">
-  <h2>Ready for Dunguaire Castle?</h2>
-  <p>Secure your place on the 60km route — every pedal stroke supports Irish Guide Dogs.</p>
-  <div class="btn-group"><a href="https://eventmaster.ie/event/Y9O2HrOFjv" target="_blank" class="btn-white">Register Now</a>
-  <a href="./assets/Training-Guide.pdf" download class="btn-outline-white">↓ Training Guide</a>
-</div>
-</section>
+</div><!-- /route-body -->
 
 <footer>
-  <div class="footer-inner">
-    <p>&copy; 2026 Bark &amp; Ride. In aid of <span>Irish Guide Dogs</span></p>
-  </div>
+  <p>&copy; 2026 Bark &amp; Ride. In aid of <span>Irish Guide Dogs</span>.</p>
 </footer>
 
 <script>
-  window.addEventListener('scroll', () => {
-    const nav = document.querySelector('nav');
-    nav.style.boxShadow = window.scrollY > 80 ? '0 4px 24px rgba(0,0,0,0.35)' : 'none';
+(function(){
+  var coords = [[53.27958,-9.02288],[53.27913,-9.02198],[53.27862,-9.01965],[53.27813,-9.01706],[53.27789,-9.01558],[53.27749,-9.01322],[53.27725,-9.01137],[53.27707,-9.00937],[53.27713,-9.0087],[53.2772,-9.00856],[53.27719,-9.00815],[53.27702,-9.00773],[53.27688,-9.0067],[53.27651,-9.00492],[53.27613,-9.00334],[53.27553,-9.00132],[53.27476,-8.99876],[53.27434,-8.99708],[53.27416,-8.99564],[53.27411,-8.99391],[53.27433,-8.99144],[53.27479,-8.98859],[53.27522,-8.98605],[53.27542,-8.984],[53.27523,-8.98268],[53.27508,-8.98251],[53.27479,-8.98137],[53.27427,-8.97995],[53.27372,-8.97887],[53.273,-8.97754],[53.2724,-8.97635],[53.27194,-8.97489],[53.27173,-8.97381],[53.2716,-8.97222],[53.27164,-8.97078],[53.27174,-8.96995],[53.27219,-8.96804],[53.27273,-8.96585],[53.27322,-8.96317],[53.2737,-8.96048],[53.27379,-8.95932],[53.27371,-8.95818],[53.27343,-8.95694],[53.27313,-8.95579],[53.27297,-8.95433],[53.27304,-8.95312],[53.27337,-8.9502],[53.27359,-8.948],[53.27368,-8.94532],[53.27376,-8.94264],[53.27371,-8.94105],[53.27349,-8.93828],[53.27341,-8.93561],[53.27325,-8.93448],[53.2728,-8.93258],[53.27248,-8.93087],[53.27238,-8.93018],[53.27214,-8.92969],[53.27161,-8.92938],[53.2714,-8.92935],[53.27132,-8.92924],[53.27117,-8.92918],[53.27022,-8.92872],[53.26977,-8.92866],[53.26937,-8.92875],[53.26879,-8.92906],[53.2679,-8.92981],[53.26712,-8.93003],[53.26707,-8.93003],[53.26591,-8.92975],[53.26541,-8.92947],[53.26499,-8.92904],[53.26435,-8.92782],[53.26369,-8.92535],[53.26351,-8.9242],[53.26343,-8.92273],[53.26238,-8.92252],[53.26149,-8.9221],[53.26122,-8.92173],[53.26111,-8.92146],[53.26081,-8.92145],[53.26019,-8.92093],[53.25924,-8.9198],[53.25814,-8.91816],[53.25719,-8.91637],[53.25638,-8.91445],[53.25549,-8.9122],[53.2546,-8.90995],[53.2538,-8.90807],[53.2529,-8.90633],[53.25217,-8.90516],[53.2513,-8.90393],[53.24985,-8.90216],[53.24895,-8.90127],[53.24762,-8.90034],[53.24668,-8.89944],[53.2457,-8.89797],[53.24473,-8.89644],[53.24351,-8.89453],[53.24228,-8.89262],[53.24129,-8.89085],[53.24021,-8.88878],[53.23913,-8.88672],[53.23805,-8.88465],[53.23724,-8.8834],[53.23642,-8.88245],[53.23541,-8.88193],[53.23463,-8.88185],[53.234,-8.88189],[53.23359,-8.88175],[53.23277,-8.88116],[53.23187,-8.88067],[53.23139,-8.88053],[53.2305,-8.88058],[53.22922,-8.88071],[53.22803,-8.88057],[53.22774,-8.88034],[53.22717,-8.87943],[53.22661,-8.87854],[53.22615,-8.8781],[53.22494,-8.87729],[53.2236,-8.87643],[53.22218,-8.87551],[53.22068,-8.87452],[53.21919,-8.87353],[53.21769,-8.87254],[53.21648,-8.87194],[53.21509,-8.87161],[53.21389,-8.87139],[53.21273,-8.87101],[53.21177,-8.87052],[53.21089,-8.86998],[53.2096,-8.86895],[53.20845,-8.86802],[53.20716,-8.86697],[53.20559,-8.86572],[53.20409,-8.86448],[53.20266,-8.86313],[53.20121,-8.86171],[53.20073,-8.86124],[53.19937,-8.85991],[53.19801,-8.85858],[53.19681,-8.85748],[53.19552,-8.8567],[53.19453,-8.85634],[53.1936,-8.85598],[53.19295,-8.85537],[53.19224,-8.85438],[53.19119,-8.85289],[53.19014,-8.85139],[53.1891,-8.84989],[53.18807,-8.84843],[53.18745,-8.84782],[53.18652,-8.84742],[53.18574,-8.84712],[53.18496,-8.84632],[53.18419,-8.84506],[53.18314,-8.84421],[53.18154,-8.84332],[53.181,-8.84294],[53.18025,-8.84216],[53.17984,-8.84158],[53.17953,-8.84201],[53.17887,-8.84252],[53.17738,-8.84404],[53.17589,-8.84556],[53.17457,-8.8469],[53.1734,-8.84805],[53.1724,-8.84899],[53.17156,-8.84944],[53.17045,-8.85008],[53.16929,-8.85072],[53.16873,-8.85082],[53.16811,-8.85107],[53.16681,-8.85233],[53.1663,-8.85261],[53.16588,-8.85262],[53.1654,-8.85242],[53.16463,-8.85157],[53.16383,-8.85068],[53.1634,-8.85043],[53.16271,-8.8505],[53.16127,-8.85139],[53.16023,-8.85215],[53.15955,-8.85261],[53.15924,-8.85251],[53.15797,-8.85136],[53.15677,-8.85046],[53.15588,-8.8499],[53.15463,-8.84937],[53.15302,-8.84857],[53.1527,-8.84923],[53.15267,-8.85085],[53.15262,-8.852],[53.15225,-8.85412],[53.15208,-8.85567],[53.15175,-8.85755],[53.15131,-8.85998],[53.15083,-8.86203],[53.15032,-8.86398],[53.14987,-8.86598],[53.14967,-8.86725],[53.14973,-8.86945],[53.14982,-8.87049],[53.14987,-8.87251],[53.14982,-8.87396],[53.14954,-8.87573],[53.14946,-8.87682],[53.14958,-8.87763],[53.14998,-8.87897],[53.15019,-8.88053],[53.15011,-8.88198],[53.14996,-8.88292],[53.14975,-8.88369],[53.14984,-8.88515],[53.15004,-8.88729],[53.15022,-8.88888],[53.15034,-8.89047],[53.15032,-8.89103],[53.1498,-8.89239],[53.14892,-8.89371],[53.14813,-8.89466],[53.14729,-8.89574],[53.14684,-8.89653],[53.14624,-8.8982],[53.14529,-8.9005],[53.14434,-8.90279],[53.14373,-8.90438],[53.14369,-8.90501],[53.14388,-8.90583],[53.14389,-8.90653],[53.14375,-8.90708],[53.14315,-8.90824],[53.1425,-8.90934],[53.14233,-8.90986],[53.14228,-8.9106],[53.14243,-8.91168],[53.14267,-8.91333],[53.1428,-8.91445],[53.14267,-8.91553],[53.14238,-8.91735],[53.14205,-8.91863],[53.1418,-8.9205],[53.14168,-8.92116],[53.14142,-8.92204],[53.14113,-8.92366],[53.14111,-8.92491],[53.14138,-8.92593],[53.1411,-8.9266],[53.14075,-8.92703],[53.14056,-8.92746],[53.14028,-8.92932],[53.14026,-8.93055],[53.14035,-8.93162],[53.14029,-8.93233],[53.14002,-8.93318],[53.13977,-8.93379],[53.13963,-8.93384],[53.13968,-8.93382],[53.13996,-8.9338],[53.14007,-8.93298],[53.14033,-8.93213],[53.14031,-8.93105],[53.14024,-8.92999],[53.14034,-8.92867],[53.14067,-8.92716],[53.14095,-8.9268],[53.14131,-8.92605],[53.14122,-8.92538],[53.14109,-8.92416],[53.14128,-8.92285],[53.14152,-8.92164],[53.14175,-8.92083],[53.14193,-8.91914],[53.14228,-8.91783],[53.14254,-8.91637],[53.14279,-8.91469],[53.14278,-8.91422],[53.14255,-8.91244],[53.14231,-8.91093],[53.14229,-8.91023],[53.14239,-8.90962],[53.14277,-8.90882],[53.14352,-8.90765],[53.14385,-8.90676],[53.14391,-8.9061],[53.14372,-8.9052],[53.14368,-8.9047],[53.14386,-8.90394],[53.14481,-8.90164],[53.14576,-8.89935],[53.14671,-8.89705],[53.14693,-8.89629],[53.14765,-8.89512],[53.14834,-8.89441],[53.14942,-8.89302],[53.15028,-8.89119],[53.15035,-8.89084],[53.15028,-8.88967],[53.15008,-8.88752],[53.14984,-8.88515],[53.14976,-8.88361],[53.15003,-8.88259],[53.15016,-8.8814],[53.15018,-8.88021],[53.14972,-8.87818],[53.14949,-8.87715],[53.14947,-8.87654],[53.14968,-8.87485],[53.14986,-8.87353],[53.14988,-8.87148],[53.14975,-8.86984],[53.1497,-8.86835],[53.14968,-8.86701],[53.15006,-8.86495],[53.15057,-8.863],[53.15107,-8.86101],[53.15153,-8.85876],[53.15197,-8.85633],[53.15217,-8.8549],[53.15244,-8.85306],[53.15265,-8.85167],[53.15269,-8.85003],[53.15271,-8.84843],[53.15383,-8.84897],[53.15526,-8.84963],[53.15633,-8.85018],[53.15737,-8.85091],[53.15857,-8.85181],[53.1594,-8.85261],[53.15973,-8.85252],[53.16072,-8.85177],[53.16199,-8.85095],[53.16298,-8.85039],[53.16325,-8.85041],[53.1637,-8.85059],[53.16403,-8.85086],[53.16523,-8.85228],[53.16571,-8.8526],[53.16596,-8.85265],[53.16662,-8.85247],[53.16736,-8.85178],[53.16843,-8.85091],[53.16908,-8.85078],[53.16987,-8.8504],[53.17103,-8.84974],[53.17209,-8.84914],[53.17282,-8.84862],[53.17399,-8.84747],[53.17515,-8.84632],[53.17664,-8.8448],[53.17813,-8.84328],[53.17911,-8.84229],[53.17964,-8.84191],[53.18,-8.84182],[53.18065,-8.84261],[53.18154,-8.84332],[53.18314,-8.84421],[53.18419,-8.84506],[53.18496,-8.84632],[53.18574,-8.84712],[53.18652,-8.84742],[53.18745,-8.84782],[53.18807,-8.84843],[53.1891,-8.84989],[53.19014,-8.85139],[53.19119,-8.85289],[53.19224,-8.85438],[53.19295,-8.85537],[53.1936,-8.85598],[53.19453,-8.85634],[53.19552,-8.8567],[53.19681,-8.85748],[53.19801,-8.85858],[53.19937,-8.85991],[53.20073,-8.86124],[53.20121,-8.86171],[53.20266,-8.86313],[53.20409,-8.86448],[53.20559,-8.86572],[53.20716,-8.86697],[53.20845,-8.86802],[53.2096,-8.86895],[53.21089,-8.86998],[53.21177,-8.87052],[53.21273,-8.87101],[53.21389,-8.87139],[53.21509,-8.87161],[53.21648,-8.87194],[53.21769,-8.87254],[53.21919,-8.87353],[53.22068,-8.87452],[53.22218,-8.87551],[53.2236,-8.87643],[53.22494,-8.87729],[53.22615,-8.8781],[53.22661,-8.87854],[53.22717,-8.87943],[53.22774,-8.88034],[53.22803,-8.88057],[53.22922,-8.88071],[53.2305,-8.88058],[53.23139,-8.88053],[53.23187,-8.88067],[53.23277,-8.88116],[53.23359,-8.88175],[53.234,-8.88189],[53.23463,-8.88185],[53.23541,-8.88193],[53.23642,-8.88245],[53.23724,-8.8834],[53.23805,-8.88465],[53.23913,-8.88672],[53.24021,-8.88878],[53.24129,-8.89085],[53.24228,-8.89262],[53.24351,-8.89453],[53.24473,-8.89644],[53.2457,-8.89797],[53.24668,-8.89944],[53.24762,-8.90034],[53.24895,-8.90127],[53.24985,-8.90216],[53.2513,-8.90393],[53.25217,-8.90516],[53.2529,-8.90633],[53.2538,-8.90807],[53.2546,-8.90995],[53.25549,-8.9122],[53.25638,-8.91445],[53.25719,-8.91637],[53.25814,-8.91816],[53.25924,-8.9198],[53.26019,-8.92093],[53.26078,-8.92163],[53.26092,-8.92196],[53.2611,-8.92201],[53.26149,-8.9221],[53.26238,-8.92252],[53.26343,-8.92273],[53.26351,-8.9242],[53.26371,-8.92541],[53.26435,-8.92782],[53.26499,-8.92904],[53.26541,-8.92947],[53.26591,-8.92975],[53.26712,-8.93003],[53.2679,-8.92981],[53.26879,-8.92906],[53.26947,-8.92872],[53.27001,-8.92866],[53.27098,-8.92906],[53.27126,-8.92928],[53.27136,-8.92928],[53.2715,-8.92936],[53.27192,-8.92953],[53.27228,-8.92989],[53.27245,-8.93055],[53.2728,-8.93258],[53.27325,-8.93448],[53.27341,-8.93561],[53.27349,-8.93828],[53.27371,-8.94105],[53.27376,-8.94264],[53.27368,-8.94532],[53.27359,-8.948],[53.27337,-8.9502],[53.27304,-8.95312],[53.27297,-8.95433],[53.27313,-8.95579],[53.27343,-8.95694],[53.27371,-8.95818],[53.27379,-8.95932],[53.2737,-8.96048],[53.27322,-8.96317],[53.27273,-8.96585],[53.27219,-8.96804],[53.27174,-8.96995],[53.27159,-8.97159],[53.27162,-8.97272],[53.27173,-8.97381],[53.27194,-8.97489],[53.27201,-8.97545],[53.27185,-8.97589],[53.27197,-8.97822],[53.27236,-8.98],[53.27249,-8.98081],[53.27248,-8.98235],[53.27242,-8.98321],[53.27229,-8.98572],[53.27234,-8.98605],[53.27299,-8.98754],[53.27361,-8.98901],[53.27373,-8.9899],[53.27371,-8.99163],[53.27384,-8.99354],[53.27392,-8.99388],[53.27412,-8.99493],[53.27422,-8.99624],[53.27446,-8.99764],[53.27515,-9.00004],[53.27592,-9.0026],[53.27632,-9.00413],[53.27682,-9.00629],[53.27694,-9.00731],[53.2769,-9.00805],[53.27678,-9.00834],[53.27686,-9.00867],[53.27707,-9.00937],[53.27725,-9.01137],[53.27749,-9.01322],[53.27789,-9.01558],[53.27813,-9.01706],[53.27862,-9.01965],[53.27913,-9.02198],[53.27958,-9.02288]];
+
+  var map = L.map('map-60km', {scrollWheelZoom: false, zoomControl: true});
+
+  // CartoDB no-labels tiles — clean, no place names
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+    attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors © <a href="https://carto.com/">CARTO</a>',
+    subdomains: 'abcd',
+    maxZoom: 19
+  }).addTo(map);
+
+  // Route line
+  var line = L.polyline(coords, {
+    color: '#78BE20',
+    weight: 5,
+    opacity: 1,
+    lineJoin: 'round',
+    lineCap: 'round'
+  }).addTo(map);
+
+  // White outline under the line for contrast
+  L.polyline(coords, {
+    color: '#ffffff',
+    weight: 9,
+    opacity: 0.5,
+    lineJoin: 'round',
+    lineCap: 'round'
+  }).addTo(map);
+  line.addTo(map); // re-add on top
+
+  map.fitBounds(line.getBounds(), {padding: [32, 32]});
+
+  // Start/Finish marker
+  var startIcon = L.divIcon({
+    className: '',
+    html: '<div style="width:12px;height:12px;background:#006233;border:2.5px solid #fff;border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,0.4);"></div>',
+    iconAnchor: [6, 6]
   });
+  L.marker(coords[0], {icon: startIcon})
+    .bindTooltip('Start / Finish', {permanent: false, direction: 'right', className: ''})
+    .addTo(map);
+})();
 </script>
 
 <script>
+  window.addEventListener('scroll', () => {
+    document.querySelector('nav').style.boxShadow = window.scrollY > 10 ? '0 4px 24px rgba(0,0,0,0.35)' : 'none';
+  });
   const _hbg = document.getElementById('hamburger');
   const _mob = document.getElementById('mobileMenu');
   _hbg.addEventListener('click', () => {
