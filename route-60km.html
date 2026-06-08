@@ -391,24 +391,9 @@
     maxZoom: 19
   }).addTo(map);
 
-  // Route line
-  var line = L.polyline(coords, {
-    color: '#78BE20',
-    weight: 5,
-    opacity: 1,
-    lineJoin: 'round',
-    lineCap: 'round'
-  }).addTo(map);
-
-  // White outline under the line for contrast
-  L.polyline(coords, {
-    color: '#ffffff',
-    weight: 9,
-    opacity: 0.5,
-    lineJoin: 'round',
-    lineCap: 'round'
-  }).addTo(map);
-  line.addTo(map); // re-add on top
+  // White outline first, then green on top
+  L.polyline(coords, {color: '#ffffff', weight: 9, opacity: 0.5, lineJoin: 'round', lineCap: 'round'}).addTo(map);
+  var line = L.polyline(coords, {color: '#78BE20', weight: 5, opacity: 1, lineJoin: 'round', lineCap: 'round'}).addTo(map);
 
   map.fitBounds(line.getBounds(), {padding: [32, 32]});
 
