@@ -363,19 +363,6 @@
 
   .toc-progress strong { color: var(--green-dark); }
 
-  /* Mobile TOC (shown instead of sidebar under 900px) */
-  .toc-mobile {
-    display: none;
-    margin: 0 24px 10px;
-    padding: 18px;
-    background: var(--off-white);
-    border: 1px solid var(--light-grey);
-    border-top: 3px solid var(--green-light);
-  }
-  .toc-mobile .toc-list { flex-direction: row; flex-wrap: wrap; }
-  .toc-mobile .toc-list a { border: 1px solid var(--light-grey); }
-  .toc-mobile .toc-list a.active { border-color: var(--green-dark); }
-
   /* Content column */
   .faq-content { min-width: 0; }
 
@@ -448,28 +435,18 @@
   .accordion-trigger::after {
     content: '+';
     position: absolute;
-    right: 20px;
+    right: 22px;
     top: 50%;
     transform: translateY(-50%);
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background: var(--light-grey);
-    color: var(--green-dark);
-    display: flex;
-    align-items: center;
-    justify-content: center;
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1.3rem;
-    font-weight: 400;
-    transition: transform 0.3s, background 0.3s, color 0.3s;
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--green-light);
   }
 
   .accordion-item.open .accordion-trigger::after {
     content: '−';
-    background: linear-gradient(135deg, #78BE20, #9DD629);
-    color: var(--white);
-    transform: translateY(-50%) rotate(180deg);
+    color: var(--green-dark);
   }
 
   .accordion-item.open .accordion-trigger {
@@ -513,8 +490,7 @@
     .page-header { padding: 128px 24px 44px; }
     .faq-layout { grid-template-columns: 1fr; padding: 0 0 40px; }
     .toc-sidebar { display: none; }
-    .toc-mobile { display: block; }
-    .faq-content { padding: 30px 20px 0; }
+    .faq-content { padding: 40px 20px 0; }
   }
 
   @media (max-width: 600px) {
@@ -567,17 +543,6 @@
   <h1>Frequently<br>Asked <span>Questions</span></h1>
   <p>Everything you need to know before you clip in. Can't find what you're looking for? Drop us a message.</p>
 </section>
-
-<!-- MOBILE TOC -->
-<nav class="toc-mobile" aria-label="Table of contents">
-  <div class="toc-label">Jump to</div>
-  <ul class="toc-list">
-    <li><a href="#registration" data-toc>Registration &amp; Entry</a></li>
-    <li><a href="#on-the-day" data-toc>On the Day</a></li>
-    <li><a href="#bike-gear" data-toc>Bike &amp; Gear</a></li>
-    <li><a href="#fundraising" data-toc>Fundraising &amp; Charity</a></li>
-  </ul>
-</nav>
 
 <!-- FAQ LAYOUT -->
 <div class="faq-layout">

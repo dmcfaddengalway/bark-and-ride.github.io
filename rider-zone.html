@@ -104,19 +104,32 @@
     margin-bottom: 12px;
   }
 
-  /* ACCORDION */
+  /* ACCORDION (matches faq.html card style) */
   .accordion-item {
-    border-bottom: 1px solid var(--light-grey);
+    background: var(--white);
+    border: 1px solid var(--light-grey);
+    border-radius: 14px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    transition: box-shadow 0.25s, border-color 0.25s;
+  }
+  .accordion-item:hover {
+    box-shadow: 0 6px 20px rgba(0,98,51,0.08);
+    border-color: rgba(120,190,32,0.4);
+  }
+  .accordion-item.open {
+    box-shadow: 0 10px 30px rgba(0,98,51,0.12);
+    border-color: var(--green-light);
   }
   .accordion-trigger {
     width: 100%;
     background: none;
     border: none;
-    padding: 20px 40px 20px 0;
+    padding: 20px 54px 20px 22px;
     text-align: left;
     cursor: pointer;
     font-family: 'Barlow', sans-serif;
-    font-size: 1.05rem;
+    font-size: 1.02rem;
     font-weight: 500;
     color: var(--text-dark);
     line-height: 1.4;
@@ -127,32 +140,40 @@
   .accordion-trigger::after {
     content: '+';
     position: absolute;
-    right: 0;
+    right: 22px;
     top: 50%;
     transform: translateY(-50%);
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 1.5rem;
     font-weight: 300;
     color: var(--green-light);
-    transition: transform 0.3s;
   }
-  .accordion-item.open .accordion-trigger::after { content: '−'; }
-  .accordion-item.open .accordion-trigger { color: var(--green-dark); font-weight: 600; }
+  .accordion-item.open .accordion-trigger::after {
+    content: '−';
+    color: var(--green-dark);
+  }
+  .accordion-item.open .accordion-trigger { color: var(--green-dark); font-weight: 700; }
   .accordion-content {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.35s ease, padding 0.35s ease;
-    padding: 0;
+    padding: 0 22px;
   }
   .accordion-item.open .accordion-content {
-    max-height: 400px;
-    padding: 0 0 20px 0;
+    max-height: 900px;
+    padding: 0 22px 22px;
   }
   .accordion-content p {
     color: var(--text-muted);
     font-weight: 300;
     font-size: 0.95rem;
     line-height: 1.75;
+  }
+  .accordion-content p + p { margin-top: 10px; }
+  .accordion-content a {
+    color: var(--green-dark);
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
   /* TABLES */
