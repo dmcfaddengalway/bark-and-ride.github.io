@@ -382,7 +382,7 @@
     color: var(--text-muted); line-height: 1.8; font-weight: 300; font-size: 1rem;
     margin-bottom: 48px; max-width: 580px; margin-left: auto; margin-right: auto;
   }
-  .sponsor-tier { margin-bottom: 48px; }
+  .sponsor-tier { margin-bottom: 44px; }
   .sponsor-tier:last-child { margin-bottom: 0; }
   .sponsor-tier-label {
     font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem;
@@ -393,15 +393,35 @@
     content: ''; height: 1px; width: 60px; background: rgba(0,0,0,0.1);
   }
   .tier-gold .sponsor-tier-label { color: #B8860B; }
-  .sponsor-logos { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; align-items: center; }
+  .tier-silver .sponsor-tier-label { color: #77808A; }
+  .tier-bronze .sponsor-tier-label { color: #A0672F; }
+  .tier-partner .sponsor-tier-label { color: var(--green-dark); }
+  .sponsor-logos { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; align-items: stretch; }
   .sponsor-logo-box {
     display: flex; align-items: center; justify-content: center;
     padding: 20px 32px; min-width: 200px; min-height: 110px; transition: transform 0.2s;
+    border-radius: 4px; overflow: hidden; border: 1px solid transparent;
   }
   .sponsor-logo-box:hover { transform: translateY(-3px); }
   .sponsor-logo-box img { width: 180px; height: 80px; display: block; object-fit: contain; }
   .sponsor-logo-dark { background: #000; }
-  .sponsor-logo-light { background: #fff; border: 1px solid #e0e0e0; }
+  .sponsor-logo-light { background: #fff; border-color: #e0e0e0; }
+  /* Tier sizing - gold reads largest, bronze smallest */
+  .tier-silver .sponsor-logo-box, .tier-partner .sponsor-logo-box {
+    min-width: 168px; min-height: 96px; padding: 16px 24px;
+  }
+  .tier-silver .sponsor-logo-box img, .tier-partner .sponsor-logo-box img { width: 150px; height: 66px; }
+  .tier-bronze .sponsor-logo-box { min-width: 148px; min-height: 86px; padding: 14px 20px; }
+  .tier-bronze .sponsor-logo-box img { width: 130px; height: 58px; }
+  /* Keep the lower tiers to tidy three-up rows */
+  .tier-silver .sponsor-logos, .tier-bronze .sponsor-logos { max-width: 660px; margin: 0 auto; }
+  .tier-bronze .sponsor-logos { max-width: 604px; }
+  /* Extra-wide banner logos get a line of their own so they stay legible */
+  .tier-bronze .sponsor-logo-wide {
+    flex: 0 0 100%; min-width: 0; min-height: 0;
+    padding: 10px 0; background: none; border-color: transparent;
+  }
+  .tier-bronze .sponsor-logo-wide img { width: 400px; height: auto; max-width: 100%; }
   .sponsors-cta { margin-top: 24px; color: var(--text-muted); font-weight: 300; font-size: 0.95rem; }
   .sponsors-cta a { color: var(--green-dark); text-decoration: underline; text-underline-offset: 3px; font-weight: 500; }
 
@@ -488,6 +508,15 @@
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
     nav { padding: 0 16px; }
     .nav-links { display: none; }
+    .sponsors-section { padding: 52px 24px 36px; }
+    .sponsor-logos { gap: 16px; }
+    .tier-silver .sponsor-logo-box, .tier-partner .sponsor-logo-box { min-width: 150px; min-height: 88px; }
+    .tier-silver .sponsor-logo-box img, .tier-partner .sponsor-logo-box img { width: 132px; height: 58px; }
+    .tier-bronze .sponsor-logo-box { min-width: 130px; min-height: 78px; }
+    .tier-bronze .sponsor-logo-box img { width: 114px; height: 52px; }
+    .tier-silver .sponsor-logos { max-width: 604px; }
+    .tier-bronze .sponsor-logos { max-width: 532px; }
+    .tier-bronze .sponsor-logo-wide img { width: 340px; }
   }
   @media (max-width: 600px) {
     .hero-left { padding: 100px 20px 20px; }
@@ -500,7 +529,18 @@
     .footer-grid { grid-template-columns: 1fr; gap: 30px; }
     footer { padding: 40px 20px 24px; }
     .stats-band { gap: 24px; padding: 36px 16px; flex-direction: column; align-items: center; }
-    .sponsor-logo-box { min-width: 150px; padding: 16px 20px; }
+    .sponsors-section { padding: 48px 16px 32px; }
+    .sponsors-inner > p { margin-bottom: 32px; }
+    .sponsor-logos { gap: 12px; }
+    .sponsor-logo-box { min-width: 132px; min-height: 84px; padding: 12px 16px; }
+    .sponsor-logo-box img { width: 120px; height: 56px; }
+    .tier-silver .sponsor-logo-box, .tier-partner .sponsor-logo-box { min-width: 124px; min-height: 78px; padding: 12px 14px; }
+    .tier-silver .sponsor-logo-box img, .tier-partner .sponsor-logo-box img { width: 110px; height: 50px; }
+    .tier-bronze .sponsor-logo-box { min-width: 108px; min-height: 68px; padding: 10px 12px; }
+    .tier-bronze .sponsor-logo-box img { width: 96px; height: 44px; }
+    .tier-silver .sponsor-logos, .tier-bronze .sponsor-logos { max-width: 100%; }
+    .tier-bronze .sponsor-logo-wide img { width: 240px; }
+    .sponsor-tier-label::before, .sponsor-tier-label::after { width: 24px; }
     .countdown-section { padding: 40px 20px; }
     .countdown-section h2 { font-size: 1.6rem; margin-bottom: 24px; }
     .countdown-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 280px; margin: 0 auto; }
@@ -798,7 +838,82 @@
         </div>
       </div>
     </div>
-    <p class="sponsors-cta">Want to sponsor Bark &amp; Ride 2026? <a href="#contact">Contact us</a></p>
+    <div class="sponsor-tier tier-silver">
+      <div class="sponsor-tier-label">Silver Sponsors</div>
+      <div class="sponsor-logos">
+        <div class="sponsor-logo-box sponsor-logo-light">
+          <img src="./assets/sponsors/walshs.png" alt="Walsh's Heating &amp; Plumbing" loading="lazy">
+        </div>
+        <div class="sponsor-logo-box sponsor-logo-dark">
+          <img src="./assets/sponsors/barry-byrnes.jpg" alt="Barry &amp; Byrne Kitchens" loading="lazy">
+        </div>
+        <div class="sponsor-logo-box" style="background:#1f1f21;">
+          <img src="./assets/sponsors/bpc.jpg" alt="BPC - Blossom Property Care" loading="lazy">
+        </div>
+        <div class="sponsor-logo-box" style="background:#eb1c2e;">
+          <img src="./assets/sponsors/eurospar-kinvara.jpg" alt="EuroSpar Kinvara (Burke's)" loading="lazy">
+        </div>
+        <div class="sponsor-logo-box sponsor-logo-light">
+          <img src="./assets/sponsors/cleaning-machines.png" alt="Cleaning Machines" loading="lazy">
+        </div>
+        <div class="sponsor-logo-box sponsor-logo-light">
+          <img src="./assets/sponsors/jp-cunningham.jpg" alt="J.P. Cunningham Electrical" loading="lazy">
+        </div>
+        <div class="sponsor-logo-box" style="background:#005a74;">
+          <img src="./assets/sponsors/runda-coffee.jpg" alt="R&#250;nda Coffee" loading="lazy">
+        </div>
+        <div class="sponsor-logo-box sponsor-logo-light">
+          <img src="./assets/sponsors/galway-stone.png" alt="Galway Stone" loading="lazy">
+        </div>
+        <div class="sponsor-logo-box sponsor-logo-light">
+          <img src="./assets/sponsors/kinvara-pharmacy.png" alt="Kinvara Pharmacy (McCabes)" loading="lazy">
+        </div>
+      </div>
+    </div>
+    <div class="sponsor-tier tier-bronze">
+      <div class="sponsor-tier-label">Bronze Sponsors</div>
+      <div class="sponsor-logos">
+        <div class="sponsor-logo-box sponsor-logo-light sponsor-logo-wide">
+          <img src="./assets/sponsors/arrigan-geo.png" alt="Arrigan Geo Surveyors" loading="lazy">
+        </div>
+        <div class="sponsor-logo-box" style="background:#f5f2ec;">
+          <img src="./assets/sponsors/fahys-garage.jpg" alt="Fahy's Garage, Knockdoe" loading="lazy">
+        </div>
+        <div class="sponsor-logo-box sponsor-logo-light">
+          <img src="./assets/sponsors/corrib-oil.png" alt="Corrib Oil" loading="lazy">
+        </div>
+        <div class="sponsor-logo-box sponsor-logo-light">
+          <img src="./assets/sponsors/flynns-lackagh.jpg" alt="Flynns of Lackagh" loading="lazy">
+        </div>
+        <div class="sponsor-logo-box sponsor-logo-light">
+          <img src="./assets/sponsors/the-huntsman.png" alt="The Huntsman Gastropub &amp; Inn" loading="lazy">
+        </div>
+        <div class="sponsor-logo-box" style="background:#6d308d;">
+          <img src="./assets/sponsors/cps.jpg" alt="CPS - Conveyor &amp; Packaging Solutions" loading="lazy">
+        </div>
+        <div class="sponsor-logo-box sponsor-logo-light">
+          <img src="./assets/sponsors/optimum-nutrition.png" alt="Optimum Nutrition" loading="lazy">
+        </div>
+        <div class="sponsor-logo-box sponsor-logo-light">
+          <img src="./assets/sponsors/nuasan.png" alt="Nuasan" loading="lazy">
+        </div>
+        <div class="sponsor-logo-box" style="background:#21aca9;">
+          <img src="./assets/sponsors/kerrigans-kilcolgan.jpg" alt="Kerrigan's Centra, Kilcolgan" loading="lazy">
+        </div>
+        <div class="sponsor-logo-box" style="background:#16391b;">
+          <img src="./assets/sponsors/carpet-rug-centre.jpg" alt="Galway Carpet &amp; Rug Centre" loading="lazy">
+        </div>
+      </div>
+    </div>
+    <div class="sponsor-tier tier-partner">
+      <div class="sponsor-tier-label">Venue Partner</div>
+      <div class="sponsor-logos">
+        <div class="sponsor-logo-box sponsor-logo-light">
+          <img src="./assets/sponsors/connacht-hotel.jpg" alt="The Connacht Hotel, Galway" loading="lazy">
+        </div>
+      </div>
+    </div>
+    <p class="sponsors-cta">Want to sponsor Bark &amp; Ride 2026? <a href="#contact">Contact us</a> &mdash; we&rsquo;d be barking mad to say no.</p>
   </div>
 </section>
 
@@ -855,7 +970,7 @@
         <li><a href="faq.html">FAQ</a></li>
         <li><a href="gallery.html">Gallery</a></li>
         <li><a href="rider-zone.html">Rider Zone</a></li>
-        <li><a href="sponsors.html">Sponsors</a></li>
+        <li><a href="#sponsors">Sponsors</a></li>
       </ul>
     </div>
     <div class="footer-col">
