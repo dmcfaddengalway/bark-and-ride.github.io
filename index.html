@@ -180,36 +180,23 @@
     100% { transform: translateX(-50%); }
   }
 
-  /* COUNTDOWN */
-  .countdown-section {
+  /* THANK YOU */
+  .thanks-section {
     background: linear-gradient(135deg, #006233 0%, #008542 50%, #78BE20 100%);
-    padding: 40px 40px; text-align: center; position: relative;
+    padding: 48px 40px; text-align: center; position: relative;
   }
   .section-label {
     font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem;
     font-weight: 600; letter-spacing: 5px; text-transform: uppercase;
     color: var(--gold); margin-bottom: 12px;
   }
-  .countdown-section h2 {
+  .thanks-section h2 {
     font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem;
-    color: var(--white); letter-spacing: 4px; margin-bottom: 40px;
+    color: var(--white); letter-spacing: 4px; margin-bottom: 16px;
   }
-  .countdown-grid { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
-  .countdown-unit {
-    background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.3);
-    padding: 24px 32px; min-width: 120px; position: relative;
-  }
-  .countdown-unit::after {
-    content: ''; position: absolute; bottom: 0; left: 0; right: 0;
-    height: 3px; background: rgba(255,255,255,0.6);
-  }
-  .count-num {
-    font-family: 'Bebas Neue', sans-serif; font-size: 4rem;
-    color: var(--white); line-height: 1; display: block;
-  }
-  .count-label {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem;
-    letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-top: 6px;
+  .thanks-section p {
+    max-width: 640px; margin: 0 auto; color: rgba(255,255,255,0.9);
+    font-weight: 300; font-size: 1.05rem; line-height: 1.7;
   }
 
   /* INTRO */
@@ -541,10 +528,9 @@
     .tier-silver .sponsor-logos, .tier-bronze .sponsor-logos { max-width: 100%; }
     .tier-bronze .sponsor-logo-wide img { width: 240px; }
     .sponsor-tier-label::before, .sponsor-tier-label::after { width: 24px; }
-    .countdown-section { padding: 40px 20px; }
-    .countdown-section h2 { font-size: 1.6rem; margin-bottom: 24px; }
-    .countdown-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 280px; margin: 0 auto; }
-    .countdown-unit { padding: 16px 12px; min-width: unset; }
+    .thanks-section { padding: 40px 20px; }
+    .thanks-section h2 { font-size: 1.6rem; letter-spacing: 2px; }
+    .thanks-section p { font-size: 0.95rem; }
     .count-num { font-size: 2.8rem; }
   }
   /* Connacht Hotel map links */
@@ -600,50 +586,6 @@
     .hamburger { display: flex; }
   }
 
-  /* WELCOME PACK MODAL */
-  .welcome-modal {
-    position: fixed; inset: 0; z-index: 1000;
-    display: flex; align-items: center; justify-content: center;
-    padding: 16px; background: rgba(3, 43, 22, 0.72); backdrop-filter: blur(4px);
-    opacity: 0; visibility: hidden; transition: opacity 0.25s, visibility 0.25s;
-  }
-  .welcome-modal.open { opacity: 1; visibility: visible; }
-  .welcome-modal-box {
-    position: relative; background: var(--white); width: 100%; max-width: 480px;
-    max-height: calc(100vh - 32px); overflow-y: auto;
-    border-top: 5px solid; border-image: linear-gradient(to right, #006233, #78BE20) 1;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.35);
-    padding: 40px 36px 32px; text-align: center;
-    transform: translateY(16px); transition: transform 0.25s;
-  }
-  .welcome-modal.open .welcome-modal-box { transform: translateY(0); }
-  .welcome-modal-close {
-    position: absolute; top: 10px; right: 12px; width: 40px; height: 40px;
-    background: none; border: none; cursor: pointer;
-    font-size: 1.8rem; line-height: 1; color: var(--text-muted);
-  }
-  .welcome-modal-close:hover { color: var(--green-dark); }
-  .welcome-modal-eyebrow {
-    font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
-    font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase; color: var(--green-mid);
-  }
-  .welcome-modal-box h2 {
-    font-family: 'Bebas Neue', sans-serif; font-size: 2.6rem; letter-spacing: 1px;
-    color: var(--green-dark); line-height: 1; margin: 8px 0 14px;
-  }
-  .welcome-modal-box p { font-size: 1rem; line-height: 1.6; color: var(--text-muted); margin-bottom: 24px; }
-  .welcome-modal-actions { display: flex; flex-direction: column; gap: 12px; align-items: center; }
-  .welcome-modal-actions .btn-primary { display: inline-block; width: 100%; max-width: 320px; }
-  .welcome-modal-later {
-    background: none; border: none; cursor: pointer;
-    font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 0.9rem;
-    letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); padding: 8px;
-  }
-  .welcome-modal-later:hover { color: var(--green-mid); }
-  @media (max-width: 600px) {
-    .welcome-modal-box { padding: 36px 20px 24px; }
-    .welcome-modal-box h2 { font-size: 2.1rem; }
-  }
 </style>
   <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon/favicon-32x32.png">
@@ -711,7 +653,7 @@
     <h1>Pedal for<em>a Brighter World</em></h1>
     <div class="hero-divider"></div>
     <p class="hero-sub">
-      Starting from <a href="https://www.google.com/maps/place/The+Connacht+Hotel/@53.2797623,-9.0241096,16z/data=!3m1!4b1!4m9!3m8!1s0x485b96cd98baddd7:0xe5529c731eeda844!5m2!4m1!1i2!8m2!3d53.2797623!4d-9.0215347!16s%2Fg%2F1hm61nnxf?entry=ttu&amp;g_ep=EgoyMDI2MDYwMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">The Connacht Hotel, Galway</a> &nbsp;·&nbsp; <strong>Saturday, 26th September, 2026</strong>
+      Starting from <a href="https://www.google.com/maps/place/The+Connacht+Hotel/@53.2797623,-9.0241096,16z/data=!3m1!4b1!4m9!3m8!1s0x485b96cd98baddd7:0xe5529c731eeda844!5m2!4m1!1i2!8m2!3d53.2797623!4d-9.0215347!16s%2Fg%2F1hm61nnxf?entry=ttu&amp;g_ep=EgoyMDI2MDYwMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">The Connacht Hotel, Galway</a>
     </p>
     <div class="hero-actions">
       <a href="https://eventmaster.ie/event/Y9O2HrOFjv" target="_blank" class="btn-primary">Register Now</a>
@@ -730,35 +672,25 @@
     <span class="ticker-item">60km</span><span class="ticker-sep">✦</span>
     <span class="ticker-item">90km</span><span class="ticker-sep">✦</span>
     <span class="ticker-item">125km</span><span class="ticker-sep">✦</span>
-    <span class="ticker-item">26th September, 2026</span><span class="ticker-sep">✦</span>
     <span class="ticker-item">Connacht Hotel, Galway</span><span class="ticker-sep">✦</span>
     <span class="ticker-item">Irish Guide Dogs</span><span class="ticker-sep">✦</span>
     <span class="ticker-item">Register Now</span><span class="ticker-sep">✦</span>
     <span class="ticker-item">60km</span><span class="ticker-sep">✦</span>
     <span class="ticker-item">90km</span><span class="ticker-sep">✦</span>
     <span class="ticker-item">125km</span><span class="ticker-sep">✦</span>
-    <span class="ticker-item">26th September, 2026</span><span class="ticker-sep">✦</span>
     <span class="ticker-item">Connacht Hotel, Galway</span><span class="ticker-sep">✦</span>
     <span class="ticker-item">Irish Guide Dogs</span><span class="ticker-sep">✦</span>
     <span class="ticker-item">Register Now</span><span class="ticker-sep">✦</span>
   </div>
 </div>
 
-<!-- COUNTDOWN -->
-<section class="countdown-section">
-  <div class="section-label">Event Countdown</div>
-  <h2>The Ride Begins In</h2>
-  <div class="countdown-grid">
-    <div class="countdown-unit"><span class="count-num" id="days">--</span><div class="count-label">Days</div></div>
-    <div class="countdown-unit"><span class="count-num" id="hours">--</span><div class="count-label">Hours</div></div>
-    <div class="countdown-unit"><span class="count-num" id="minutes">--</span><div class="count-label">Minutes</div></div>
-    <div class="countdown-unit"><span class="count-num" id="seconds">--</span><div class="count-label">Seconds</div></div>
-  </div>
-  <div style="margin-top: 32px;">
-    <a href="bark-and-ride.ics" download="bark-and-ride.ics" class="btn-outline" style="display:inline-flex;align-items:center;gap:8px;">
-      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-      Add to Calendar
-    </a>
+<!-- THANK YOU -->
+<section class="thanks-section">
+  <div class="section-label">Thank You</div>
+  <h2>A Huge Thank You to Our Sponsors</h2>
+  <p>Bark &amp; Ride simply couldn&rsquo;t roll without the generous businesses who backed us. Your support keeps guide dogs in training and clients on the move.</p>
+  <div style="margin-top: 28px;">
+    <a href="#sponsors" class="btn-outline">Meet Our Sponsors</a>
   </div>
 </section>
 
@@ -770,7 +702,7 @@
       <h2>Cycle for a Cause That Changes Lives</h2>
       <p>Bark &amp; Ride is an annual charity cycling event in aid of <em>Irish Guide Dogs</em>, taking cyclists across County Galway and through the stunning landscapes of the Burren in County Clare.</p>
       <p>Whether you're a seasoned cyclist or a first-timer, our three route options offer a challenge for every level. Every kilometre you ride raises vital funds for guide dog training, autism assistance dogs, and family support services.</p>
-      <p>Join us on <strong>Saturday, 26th September, 2026</strong>, starting from <a href="https://www.google.com/maps/place/The+Connacht+Hotel/@53.2797623,-9.0241096,16z/data=!3m1!4b1!4m9!3m8!1s0x485b96cd98baddd7:0xe5529c731eeda844!5m2!4m1!1i2!8m2!3d53.2797623!4d-9.0215347!16s%2Fg%2F1hm61nnxf?entry=ttu&amp;g_ep=EgoyMDI2MDYwMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener"><strong>The Connacht Hotel, Galway</strong></a>.</p>
+      <p>Starting and finishing at <a href="https://www.google.com/maps/place/The+Connacht+Hotel/@53.2797623,-9.0241096,16z/data=!3m1!4b1!4m9!3m8!1s0x485b96cd98baddd7:0xe5529c731eeda844!5m2!4m1!1i2!8m2!3d53.2797623!4d-9.0215347!16s%2Fg%2F1hm61nnxf?entry=ttu&amp;g_ep=EgoyMDI2MDYwMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener"><strong>The Connacht Hotel, Galway</strong></a>.</p>
       <a href="about.html" class="btn-navy">Learn More</a>
     </div>
     <div class="intro-image">
@@ -868,7 +800,7 @@
   <div class="sponsors-inner">
     <div class="section-label">Our Partners</div>
     <h2>Sponsors</h2>
-    <p>Bark &amp; Ride wouldn't be possible without the generous support of our sponsors.</p>
+    <p>A heartfelt thank you to every one of our sponsors &mdash; Bark &amp; Ride wouldn't be possible without your generous support.</p>
     <div class="sponsor-tier tier-gold">
       <div class="sponsor-tier-label">Gold Sponsors</div>
       <div class="sponsor-logos">
@@ -1044,26 +976,6 @@
 </footer>
 
 <script>
-  function updateCountdown() {
-    const event = new Date('2026-09-26T09:20:00');
-    const now = new Date();
-    const diff = event - now;
-    if (diff <= 0) {
-      ['days','hours','minutes','seconds'].forEach(id => document.getElementById(id).textContent = '00');
-      return;
-    }
-    const days = Math.floor(diff / 86400000);
-    const hours = Math.floor((diff % 86400000) / 3600000);
-    const minutes = Math.floor((diff % 3600000) / 60000);
-    const seconds = Math.floor((diff % 60000) / 1000);
-    document.getElementById('days').textContent = String(days).padStart(2,'0');
-    document.getElementById('hours').textContent = String(hours).padStart(2,'0');
-    document.getElementById('minutes').textContent = String(minutes).padStart(2,'0');
-    document.getElementById('seconds').textContent = String(seconds).padStart(2,'0');
-  }
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
-
   // Gallery items navigate to gallery page
   document.querySelectorAll('.gallery-item').forEach(item => {
     item.addEventListener('click', () => {
@@ -1091,49 +1003,6 @@
 </script>
 
 
-<!-- WELCOME PACK MODAL -->
-<div class="welcome-modal" id="welcomeModal" role="dialog" aria-modal="true" aria-labelledby="welcomeModalTitle" aria-hidden="true">
-  <div class="welcome-modal-box">
-    <button class="welcome-modal-close" id="welcomeModalClose" aria-label="Close">&times;</button>
-    <div class="welcome-modal-eyebrow">Registered riders</div>
-    <h2 id="welcomeModalTitle">Your Welcome Pack Is Here!</h2>
-    <p>Everything you need for the big day — start times, parking, bib collection and more. Give it a read before you hit the road — it's pawsitively essential!</p>
-    <div class="welcome-modal-actions">
-      <a href="./assets/WelcomeEmail2026.pdf" class="btn-primary" id="welcomeModalDownload" download>Download Welcome Pack ↓</a>
-      <button class="welcome-modal-later" id="welcomeModalLater">Maybe later</button>
-    </div>
-  </div>
-</div>
-
-<script>
-  (function () {
-    const modal = document.getElementById('welcomeModal');
-    const KEY = 'bar-welcome-dismissed';
-    let lastFocus = null;
-    function seen() { try { return sessionStorage.getItem(KEY) === '1'; } catch (e) { return false; } }
-    function markSeen() { try { sessionStorage.setItem(KEY, '1'); } catch (e) {} }
-    function open() {
-      lastFocus = document.activeElement;
-      modal.classList.add('open');
-      modal.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-      document.getElementById('welcomeModalDownload').focus();
-    }
-    function close() {
-      modal.classList.remove('open');
-      modal.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-      markSeen();
-      if (lastFocus) lastFocus.focus();
-    }
-    document.getElementById('welcomeModalClose').addEventListener('click', close);
-    document.getElementById('welcomeModalLater').addEventListener('click', close);
-    document.getElementById('welcomeModalDownload').addEventListener('click', () => setTimeout(close, 300));
-    modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('open')) close(); });
-    if (!seen()) setTimeout(open, 800);
-  })();
-</script>
 
 </body>
 </html>
